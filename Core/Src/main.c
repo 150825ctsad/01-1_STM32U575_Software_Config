@@ -18,14 +18,18 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "icache.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 #include "bsp_esp8266.h"
-/* USER CODE BEGIN Icludes */
-
+#include "bsp_sht20.h"
+#include "bsp_ili9341_4line.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,6 +40,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+//JSON格式
+#define JSON_State "{LED1:%d\\Temp\\:%f\\Hum\\:%f}"
+#define JSON_Test "{LED1:%d\\Temp\\:%f\\Hum\\:%f}"
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,6 +55,7 @@
 /* USER CODE BEGIN PV */
 volatile uint8_t gRX_BufF[1];
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
+extern volatile SHT20_TemRH_Val gTemRH_Val;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,31 +126,72 @@ int main(void)
   MX_ICACHE_Init();
   MX_UART5_Init();
   MX_USART1_UART_Init();
+  MX_I2C1_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  ILI9341_Init();
+  ILI9341_Clear(BLACK);
+  
 	ESP8266_Init(&huart5,(uint8_t*)gRX_BufF,115200);
   ESP8266_STA_MQTTClient();
+  HAL_Delay(1000);
+  ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);	//订阅Get_State主题(等下修改)
   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+while (1)
+{  
+    // 格式化并显示温度
+    char temp_str[20];
+    sprintf(temp_str, "温度: %.1f°C", gTemRH_Val.Tem);
+    ILI9341_DrawString(30, 60, temp_str, GREEN, BLACK, 2);
+    
+    // 格式化并显示湿度
+    char hum_str[20];
+    sprintf(hum_str, "湿度: %.1f%%", gTemRH_Val.Hum);
+    ILI9341_DrawString(30, 90, hum_str, BLUE, BLACK, 2);
+    
+    HAL_Delay(500);
+
+    char str[100];
+    BSP_SHT20_GetData();    //获取温湿度数据
+    sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);
+    ILI9341_SetCursor(0, 0); //设置光标位置
+
+    //sprintf(str,JSON_Test, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);    //测试JSON格式
+    //ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);(需添加发布主题的条件，避免重复发布)
+    HAL_Delay(1000);
+    
     if (ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag)
     {
-        // 解析JSON数据并控制LED
-        ESP8266_Json_Parse(ESP8266_Fram_Record_Struct.Data_RX_BUF);
+        // 增加缓冲区长度检查
+        if (ESP8266_Fram_Record_Struct.InfBit.FramLength >= RX_BUF_MAX_LEN) {
+            HAL_UART_Transmit(&huart1, (uint8_t*)"接收缓冲区溢出\r\n", 16, 100);
+        } else {
+            if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV") != NULL)
+            {
+                ESP8266_Json_Parse(ESP8266_Fram_Record_Struct.Data_RX_BUF);
+            }
+            else
+            {
+                char debug_msg[128];
+                snprintf(debug_msg, sizeof(debug_msg), "帧头不匹配: %s\r\n", ESP8266_Fram_Record_Struct.Data_RX_BUF);
+                HAL_UART_Transmit(&huart1, (uint8_t*)debug_msg, strlen(debug_msg), 100);
+            }
+        }
         
         // 重置接收缓冲区
         ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 0;
         ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
         memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
     }
-  HAL_Delay(1000);
+    HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+}
   /* USER CODE END 3 */
 }
 

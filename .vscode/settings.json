@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "bsp_esp8266.h": "c"
+        "bsp_esp8266.h": "c",
+        "bsp_sht20.h": "c",
+        "string.h": "c",
+        "bsp_ili9341_4line.h": "c",
+        "main.h": "c"
     }
 }

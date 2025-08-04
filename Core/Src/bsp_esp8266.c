@@ -15,9 +15,6 @@
 
 #include "cJSON.h"
 
-//JSON格式解析
-char json_str[] =
- "{ \"LED1\":%d}",led1_val;
 struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct = { 0 };  //定义了一个数据帧结构体
 //初始化波特率
 void ESP8266_Init(UART_HandleTypeDef *huart, uint8_t *DataBuf,uint32_t bound)
@@ -234,33 +231,13 @@ void USART_printf(UART_HandleTypeDef * USARTx, char * Data, ... )
     }
 }
 
-//
-/*
-*ESP8266MQTT功能指令
-*MQTT配置用户属性
-*LinkID 连接ID,目前只支持0
-*scheme 连接方式，这里选择MQTT over TCP,这里设置为1
-*client_id MQTTclientID 用于标志client身份
-*username 用于登录 MQTT 服务器 的 username
-*password 用于登录 MQTT 服务器 的 password
-*cert_key_ID 证书 ID, 目前支持一套 cert 证书, 参数为 0
-*CA_ID 目前支持一套 CA 证书, 参数为 0
-*path 资源路径，这里设置为""
-*设置成功返回true 反之false
-*/
 bool ESP8266_MQTTUSERCFG( char * pClient_Id, char * pUserName,char * PassWord)
 {
     char cCmd [120];
     sprintf ( cCmd, "AT+MQTTUSERCFG=0,1,\"%s\",\"%s\",\"%s\",0,0,\"\"", pClient_Id,pUserName,PassWord );
     return ESP8266_Send_AT_Cmd( cCmd, "OK", NULL, 500 );
 }
-/*
-*连接指定的MQTT服务器
-*LinkID 连接ID,目前只支持0
-*IP：MQTT服务器上对应的IP地址
-*ComNum MQTT服务器上对应的端口号，一般为1883
-*设置成功返回true 反之false
-*/
+
 bool ESP8266_MQTTCONN( char * Ip, int  Num)
 {
     char cCmd [120];
@@ -268,39 +245,38 @@ bool ESP8266_MQTTCONN( char * Ip, int  Num)
     return ESP8266_Send_AT_Cmd( cCmd, "OK", NULL, 1000 );
 }
 
-/*
-*订阅指定连接的 MQTT 主题, 可重复多次订阅不同 topic
-*LinkID 连接ID,目前只支持0
-*Topic 订阅的主题名字，这里设置为Topic
-*Qos值：一般为0，这里设置为1
-*设置成功返回true 反之false
-*/
+
 bool ESP8266_MQTTSUB(char * Topic)
 {
     char cCmd [120];
     sprintf ( cCmd, "AT+MQTTSUB=0,\"%s\",1",Topic );
     return ESP8266_Send_AT_Cmd( cCmd, "OK", NULL, 500 );
 }
-/*
-*在LinkID上通过 topic 发布数据 data, 其中 data 为字符串消息
-*LinkID 连接ID,目前只支持0
-*Topic 订阅的主题名字，这里设置为Topic
-*data：字符串信息
-*设置成功返回true 反之false
-*/
+
 bool ESP8266_MQTTPUB( char * Topic,char *temp)
 {
     char cCmd [120];
-    sprintf (cCmd, "AT+MQTTPUB=0,\"%s\",\"%s\",1,0", Topic ,temp);
-    return ESP8266_Send_AT_Cmd( cCmd, "OK", NULL, 1000 );
+    /*   
+     // 临时缓冲区用于存储去除双引号后的数据
+    char processed_temp[120] = {0};
+    int i = 0, j = 0;
+    
+    // 遍历原始数据，过滤双引号
+    while (temp[i] != '\0' && i < sizeof(processed_temp) - 1)
+    {
+        if (temp[i] != '"')  // 跳过双引号
+        {
+            processed_temp[j++] = temp[i];
+        }
+        i++;
+    }
+    processed_temp[j] = '\0';  // 手动添加字符串结束符
+    */
+    // 使用处理后的数据构造AT指令
+    sprintf(cCmd, "AT+MQTTPUB=0,\"%s\",\"%s\",1,0", Topic, temp);
+    return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 1000);
 }
-/*
-*关闭 MQTT Client 为 LinkID 的连接, 并释放内部占用的资源
-*LinkID 连接ID,目前只支持0
-*Topic 订阅的主题名字，这里设置为Topic
-*data：字符串信息
-*设置成功返回true 反之false
-*/
+
 bool ESP8266_MQTTCLEAN(void)
 {
     char cCmd [120];
@@ -322,22 +298,17 @@ bool MQTT_SendString(char * pTopic,char *temp2)
 void ESP8266_STA_MQTTClient(void)
 {
 		printf("***************恢复出厂默认模式***************\r\n");
-    ESP8266_AT_Test();	//恢复出厂默认模式
+    //ESP8266_AT_Test();	//恢复出厂默认模式
 		printf("***************正在配置MQTT模式***************\r\n");
     HAL_Delay(1000);
     ESP8266_Net_Mode_Choose(STA);
     HAL_Delay(1000);
-    while(!ESP8266_JoinAP(User_ESP8266_SSID, User_ESP8266_PWD));
+    ESP8266_JoinAP(User_ESP8266_SSID, User_ESP8266_PWD);
     HAL_Delay(1000);
 	  ESP8266_MQTTUSERCFG(User_ESP8266_client_id,User_ESP8266_username,User_ESP8266_password);
 	  HAL_Delay(1000);
     ESP8266_MQTTCONN( User_ESP8266_MQTTServer_IP, User_ESP8266_MQTTServer_PORT);
 		printf("***************MQTT模式配置完成***************\r\n");
-    HAL_Delay(1000);
-    ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
-    HAL_Delay(1000);
-    sprintf(json_str,json_str, 1);
-    ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, json_str);
 }
 
 //Json格式解析
@@ -352,34 +323,51 @@ void ESP8266_Json_Parse(char *pData)
         return;
     }
     
-    // 解析JSON字符串
-    cJSON *root = cJSON_Parse(json_start);
-    if (root == NULL) {
-        // 获取解析错误信息
-        const char *error_ptr = cJSON_GetErrorPtr();
-        if (error_ptr != NULL) {
-            char error_msg[64];
-            sprintf(error_msg, "JSON解析错误: %s\r\n", error_ptr);
-            HAL_UART_Transmit(&huart1, (uint8_t*)error_msg, strlen(error_msg), 100);
-        }
+    // 查找JSON结束符
+    char *json_end = strrchr(json_start, '}');
+    if (json_end == NULL) {
+        HAL_UART_Transmit(&huart1, (uint8_t*)"JSON格式不完整\r\n", 16, 100);
         return;
     }
     
-    // 解析LED状态（使用cJSON_GetNumberValue确保数值类型正确）
-    cJSON *led1 = cJSON_GetObjectItem(root, "LED1");
+    // 创建临时缓冲区存储完整JSON
+    char json_buf[128];
+    size_t json_len = json_end - json_start + 1;
+    if (json_len > sizeof(json_buf) - 1) {
+        HAL_UART_Transmit(&huart1, (uint8_t*)"JSON数据过长\r\n", 14, 100);
+        return;
+    }
+    memcpy(json_buf, json_start, json_len);
+    json_buf[json_len] = '\0'; // 添加字符串结束符
     
-    // 检查解析结果
-    if (led1  && cJSON_IsNumber(led1))
+    // 解析JSON字符串
+    cJSON *root = cJSON_Parse(json_buf);
+    if (root == NULL) {
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL) {
+            char error_msg[64];
+            snprintf(error_msg, sizeof(error_msg), "JSON解析错误: %s\r\n", error_ptr);
+            HAL_UART_Transmit(&huart1, (uint8_t*)error_msg, strlen(error_msg), 100);
+        }
+        // 必须确保root为NULL时不执行后续操作
+        return; // 增加return防止空指针访问
+    }
+    
+    // 解析LED状态
+    cJSON *led1 = cJSON_GetObjectItem(root, "LED1");
+    if (led1 && cJSON_IsNumber(led1))
     {
-        // 提取LED状态值
-        uint8_t  led1_val = led1->valueint;
-        
-        // 控制LED（根据实际硬件引脚修改）
+        uint8_t led1_val = led1->valueint;
+        // 添加LED值范围检查
+        if (led1_val > 1) {
+            HAL_UART_Transmit(&huart1, (uint8_t*)"LED值超出范围\r\n", 16, 100);
+            cJSON_Delete(root); // 提前释放内存
+            return;
+        }
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, led1_val ? GPIO_PIN_RESET : GPIO_PIN_SET);
-       
-        // 发送解析成功消息
+        
         char output[64];
-        sprintf(output, "解析成功: LED1=%s\r\n",led1_val?"ON":"OFF");
+        snprintf(output, sizeof(output), "解析成功: LED1=%s\r\n", led1_val?"ON":"OFF");
         HAL_UART_Transmit(&huart1, (uint8_t*)output, strlen(output), 100);
     }
     else
@@ -387,6 +375,7 @@ void ESP8266_Json_Parse(char *pData)
         HAL_UART_Transmit(&huart1, (uint8_t*)"JSON字段缺失或类型错误\r\n", 22, 100);
     }
     
-    // 释放cJSON内存（防止内存泄漏）
+    // 释放cJSON内存
     cJSON_Delete(root);
+    root = NULL; // 避免悬空指针
 }
