@@ -53,7 +53,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void Update_Backlight(uint8_t pDutyRatio);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -67,6 +67,9 @@ void Error_Handler(void);
 #define TP_RST_GPIO_Port GPIOA
 #define RUN_BEE_Pin GPIO_PIN_15
 #define RUN_BEE_GPIO_Port GPIOA
+#define TP_INT_Pin GPIO_PIN_5
+#define TP_INT_GPIO_Port GPIOB
+#define TP_INT_EXTI_IRQn EXTI5_IRQn
 
 /* USER CODE BEGIN Private defines */
 #define LCD_RST_Pin GPIO_PIN_8

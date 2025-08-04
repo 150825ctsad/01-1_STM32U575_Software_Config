@@ -23,9 +23,6 @@ void clock_count(int *hour, int *min, int *sec);
 #endif
 
 
-void screen_datetext_1_event_handler(lv_event_t *e);
-void screen_datetext_1_calendar_event_handler(lv_event_t *e);
-void screen_datetext_1_init_calendar(lv_obj_t *obj, char * s);
 
 #ifdef __cplusplus
 }

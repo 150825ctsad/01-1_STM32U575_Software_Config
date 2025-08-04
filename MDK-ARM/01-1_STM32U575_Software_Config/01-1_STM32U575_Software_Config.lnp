@@ -6,6 +6,7 @@
 "01-1_stm32u575_software_config\bsp_sht20.o"
 "01-1_stm32u575_software_config\bsp_ili9341_4line.o"
 "01-1_stm32u575_software_config\bsp_ft6336.o"
+"01-1_stm32u575_software_config\bsp_ospi_w25q128.o"
 "01-1_stm32u575_software_config\main.o"
 "01-1_stm32u575_software_config\gpio.o"
 "01-1_stm32u575_software_config\gpdma.o"
@@ -13,6 +14,7 @@
 "01-1_stm32u575_software_config\icache.o"
 "01-1_stm32u575_software_config\octospi.o"
 "01-1_stm32u575_software_config\spi.o"
+"01-1_stm32u575_software_config\tim.o"
 "01-1_stm32u575_software_config\usart.o"
 "01-1_stm32u575_software_config\stm32u5xx_it.o"
 "01-1_stm32u575_software_config\stm32u5xx_hal_msp.o"
@@ -207,9 +209,6 @@
 "01-1_stm32u575_software_config\gui_guider.o"
 "01-1_stm32u575_software_config\setup_scr_screen.o"
 "01-1_stm32u575_software_config\widgets_init.o"
-"01-1_stm32u575_software_config\lv_font_montserratmedium_12.o"
-"01-1_stm32u575_software_config\lv_font_montserratmedium_15.o"
-"01-1_stm32u575_software_config\lv_font_montserratmedium_16.o"
 --strict --scatter "01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -23,6 +23,7 @@
 #include "icache.h"
 #include "octospi.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -31,6 +32,8 @@
 #include "bsp_esp8266.h"
 #include "bsp_sht20.h"
 #include "bsp_ili9341_4line.h"
+#include "bsp_ft6336.h"
+#include "bsp_ospi_w25q128.h"
 #include <string.h>
 
 #include "lvgl.h"
@@ -100,6 +103,35 @@ __ASM (".global __use_no_semihosting");	//AC6������
 		HAL_UART_Transmit(&huart1, temp, 1, 2);
 		return ch;
 	}
+
+  void OSPI_W25Qxx_mmap(void)		//Flash读写测试
+{
+	int32_t OSPI_Status ; 		 //检测标志位
+	//
+	OSPI_Status = OSPI_W25Qxx_MemoryMappedMode(); //配置OSPI为内存映射模式
+	if( OSPI_Status == OSPI_W25Qxx_OK )
+	{
+		printf ("\r\n内存映射模式设置成功>>>>\r\n");		
+	}
+	else
+	{
+		printf ("\r\n内存映射模式设置失败>>>>\r\n");
+		Error_Handler();
+	}	
+}
+void Update_Backlight(uint8_t pDutyRatio)
+{		
+	//参数检查
+	if((pDutyRatio < 5) || (pDutyRatio > 100)) return;
+	//停止PWM信号
+ 	HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_3);
+	//设置占空比值
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3,  pDutyRatio*10);
+	//设置当前计数值
+	__HAL_TIM_SET_COUNTER(&htim2, 0);
+	//启动PWM信号
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+}
 /* USER CODE END 0 */
 
 /**
@@ -139,59 +171,60 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
+  MX_TIM16_Init();
+  MX_TIM2_Init();
+  MX_TIM17_Init();
   MX_OCTOSPI1_Init();
   /* USER CODE BEGIN 2 */
+  OSPI_W25Qxx_Init();	//初始化W25Q128
+  OSPI_W25Qxx_mmap();
+
   lv_init(); /* lvgl 系统初始化 */
 	lv_port_disp_init();
 	lv_port_indev_init();
 	
 	setup_ui(&guider_ui);
 	events_init(&guider_ui);
-  
+
 	ESP8266_Init(&huart5,(uint8_t*)gRX_BufF,115200);
   ESP8266_STA_MQTTClient();
   HAL_Delay(1000);
   ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);	//订阅Get_State主题(等下修改)
   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
+
+  Update_Backlight(80); //设置背光亮度
+  HAL_TIM_Base_Start_IT(&htim16);//开启定时器16开启,系统任务调度开始
+  HAL_TIM_Base_Start_IT(&htim17);//开启定时器17开启,设备控制任务开始 
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 while (1)
 {  
-    char str[100];
-    BSP_SHT20_GetData();    //获取温湿度数据
-    sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);
-    ILI9341_SetCursor(0, 0); //设置光标位置
+  lv_task_handler();
+  HAL_Delay(5);
 
-    //sprintf(str,JSON_Test, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);    //测试JSON格式
-    //ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);(需添加发布主题的条件，避免重复发布)
-    HAL_Delay(1000);
-    
-    if (ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag)
+    //char str[100];
+    //BSP_SHT20_GetData();    //获取温湿度数据
+    //sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);
+    //ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);
+/*
+  if (ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag)
     {
         // 增加缓冲区长度检查
         if (ESP8266_Fram_Record_Struct.InfBit.FramLength >= RX_BUF_MAX_LEN) {
             HAL_UART_Transmit(&huart1, (uint8_t*)"接收缓冲区溢出\r\n", 16, 100);
-        } else {
-            if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV") != NULL)
-            {
-                ESP8266_Json_Parse(ESP8266_Fram_Record_Struct.Data_RX_BUF);
-            }
-            else
-            {
-                char debug_msg[128];
-                snprintf(debug_msg, sizeof(debug_msg), "帧头不匹配: %s\r\n", ESP8266_Fram_Record_Struct.Data_RX_BUF);
-                HAL_UART_Transmit(&huart1, (uint8_t*)debug_msg, strlen(debug_msg), 100);
-            }
+        } else if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV") != NULL)
+        {
+            ESP8266_Json_Parse(ESP8266_Fram_Record_Struct.Data_RX_BUF);
+            // 重置接收缓冲区
+            ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 0;
+            ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
+            memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
         }
-        
-        // 重置接收缓冲区
-        ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 0;
-        ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
-        memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
     }
-    HAL_Delay(1000);
+*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -269,6 +302,40 @@ static void SystemPower_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+//定时器16
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	static uint8_t p_Time16Cnt = 0,p_Time17Cnt = 0;
+	/***************************************************************************************/
+	//定时器16进行1ms任务中断
+	if (htim->Instance == htim16.Instance) 
+	{
+		p_Time16Cnt++;
+		//lvgl的 1ms 心跳函数
+		lv_tick_inc(1); 
+		//1000ms运行一次
+		if(!(p_Time16Cnt % 1000))  
+		{
+			p_Time16Cnt = 0; 
+		}
+	}
+	/***************************************************************************************/
+	//定时器17进行100ms任务中断
+	if (htim->Instance == htim17.Instance) 
+	{
+		p_Time17Cnt++;
+		if(!(p_Time17Cnt % 100))  //10s进行一次下列代码 
+		{
+			p_Time17Cnt = 0; 
+		}
+	}
+	/***************************************************************************************/
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(htim);
+}
+
+//UART5接收中断回调函数
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == UART5) 
@@ -290,6 +357,33 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
 	} 	
 }
 
+/**
+  * @brief  EXTI line rising detection callback.
+  * @param  GPIO_Pin: Specifies the port pin connected to corresponding EXTI line.
+  * @retval None
+  */
+uint8_t TouchPress = 0; //触摸按下标志
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+{
+  /* Prevent unused argument(s) compilation warning */
+	UNUSED(GPIO_Pin);
+	//触摸按下事件
+	if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
+	{
+		TouchPress = 1;
+	}
+}
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+{
+  /* Prevent unused argument(s) compilation warning */
+	UNUSED(GPIO_Pin);
+	//触摸释放事件
+	if(HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin) && TouchPress)
+	{
+		FT6336_irq_fuc();	//触摸中断产生
+		TouchPress = 0;	//清除触摸标志
+	}
+}
 /* USER CODE END 4 */
 
 /**

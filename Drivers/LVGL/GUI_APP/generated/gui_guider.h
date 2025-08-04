@@ -20,13 +20,8 @@ typedef struct
   
 	lv_obj_t *screen;
 	bool screen_del;
-	lv_obj_t *screen_tabview_1;
-	lv_obj_t *screen_tabview_1_tab_1;
-	lv_obj_t *screen_tabview_1_tab_2;
-	lv_obj_t *screen_tabview_1_tab_3;
-	lv_obj_t *screen_datetext_1;
-	lv_obj_t *screen_label_1;
-	lv_obj_t *screen_label_2;
+	lv_obj_t *screen_cont_1;
+	lv_obj_t *screen_sw_1;
 }lv_ui;
 
 typedef void (*ui_setup_scr_t)(lv_ui * ui);
@@ -52,8 +47,6 @@ extern lv_ui guider_ui;
 
 void setup_scr_screen(lv_ui *ui);
 
-LV_FONT_DECLARE(lv_font_montserratMedium_16)
-LV_FONT_DECLARE(lv_font_montserratMedium_12)
 
 
 #ifdef __cplusplus

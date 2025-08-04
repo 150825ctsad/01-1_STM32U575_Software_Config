@@ -319,22 +319,22 @@ void ESP8266_Json_Parse(char *pData)
     // 提取JSON数据部分（跳过MQTT响应头）
     char *json_start = strchr(pData, '{');
     if (json_start == NULL) {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"未找到JSON数据\r\n", 16, 100);
+        printf("未找到JSON数据\r\n");
         return;
     }
     
     // 查找JSON结束符
     char *json_end = strrchr(json_start, '}');
     if (json_end == NULL) {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"JSON格式不完整\r\n", 16, 100);
+        printf("JSON格式不完整\r\n");
         return;
     }
     
     // 创建临时缓冲区存储完整JSON
-    char json_buf[128];
+    char json_buf[1024];
     size_t json_len = json_end - json_start + 1;
     if (json_len > sizeof(json_buf) - 1) {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"JSON数据过长\r\n", 14, 100);
+        printf("JSON数据过长\r\n");
         return;
     }
     memcpy(json_buf, json_start, json_len);
@@ -345,9 +345,7 @@ void ESP8266_Json_Parse(char *pData)
     if (root == NULL) {
         const char *error_ptr = cJSON_GetErrorPtr();
         if (error_ptr != NULL) {
-            char error_msg[64];
-            snprintf(error_msg, sizeof(error_msg), "JSON解析错误: %s\r\n", error_ptr);
-            HAL_UART_Transmit(&huart1, (uint8_t*)error_msg, strlen(error_msg), 100);
+            printf("JSON解析错误: %s\r\n", error_ptr);
         }
         // 必须确保root为NULL时不执行后续操作
         return; // 增加return防止空指针访问
@@ -360,19 +358,17 @@ void ESP8266_Json_Parse(char *pData)
         uint8_t led1_val = led1->valueint;
         // 添加LED值范围检查
         if (led1_val > 1) {
-            HAL_UART_Transmit(&huart1, (uint8_t*)"LED值超出范围\r\n", 16, 100);
+            printf("LED值超出范围\r\n");
             cJSON_Delete(root); // 提前释放内存
             return;
         }
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, led1_val ? GPIO_PIN_RESET : GPIO_PIN_SET);
-        
-        char output[64];
-        snprintf(output, sizeof(output), "解析成功: LED1=%s\r\n", led1_val?"ON":"OFF");
-        HAL_UART_Transmit(&huart1, (uint8_t*)output, strlen(output), 100);
+
+        printf("解析成功: LED1=%s\r\n", led1_val?"ON":"OFF");
     }
     else
     {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"JSON字段缺失或类型错误\r\n", 22, 100);
+        printf("JSON字段缺失或类型错误\r\n");
     }
     
     // 释放cJSON内存

@@ -5,6 +5,12 @@
         "string.h": "c",
         "bsp_ili9341_4line.h": "c",
         "main.h": "c",
-        "lv_port_indev_template.h": "c"
+        "lv_port_indev_template.h": "c",
+        "gui_guider.h": "c",
+        "lv_port_disp_template.h": "c",
+        "tim.h": "c",
+        "xutility": "c",
+        "bsp_ft6336.h": "c",
+        "cstdio": "c"
     }
 }

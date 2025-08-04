@@ -21,6 +21,3 @@ void events_init(lv_ui *ui)
 {
 
 }
-
-
-
