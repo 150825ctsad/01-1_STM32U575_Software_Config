@@ -6,11 +6,10 @@
   ******************************************************************************
   */
 #include "bsp_ili9341_4line.h"
-#include "spi.h"
-
-const uint8_t asc2_8x16[][16] = {
-	
-};
+#include "stm32u5xx_hal.h"
+//
+extern SPI_HandleTypeDef hspi1;
+extern DMA_HandleTypeDef handle_GPDMA1_Channel0;
 //
 static uint8_t DFT_SCAN_DIR; //扫描方向 
 //管理ILI9341重要参数
@@ -359,8 +358,8 @@ void ILI9341_Init(void)
 	ILI9341_WR_REG(0x21);	//Display Inversion ON 
 	HAL_Delay(120);
 	ILI9341_WR_REG(0x29); //display on	
-  ILI9341_Display_Dir(SCAN_Vertical);	//竖屏显示
-	//ILI9341_BL=1;					
+  ILI9341_Display_Dir(SCAN_Horizontal);	//横屏显示
+	//屏幕清屏-黑色			
 	ILI9341_Clear(BLACK);
 }  
 /*
@@ -421,23 +420,57 @@ void _HW_DrawPoint(uint16_t x,uint16_t y,uint16_t color)
 * @return  :None 
 **********************************************************************
 */
-void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t color)
+void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* color)
 {  
-	uint16_t i = 0,j = 0;
-	uint16_t xlen = 0;
-	xlen= ex - sx + 1;	   
-	//
-	uint8_t TempBuffer[2] = {color >> 8, color};	
-	//数据写入屏幕
-	for(i=sy;i<=ey;i++)
+	uint16_t rectWidth,rectHeight;	//缓冲区大小
+	uint16_t *pixels= (uint16_t *)color;  //帧缓冲地址
+  uint16_t pheight = 0,pWidth = 0,pBuffCnt = 0;
+	//根据坐标计算缓冲区大小
+	rectWidth = ((ex - sx) > 0) ? (ex - sx + 1) : (sx - ex + 1);
+	rectHeight = ((ey - sy) > 0) ? (ey - sy + 1) : (sy - ey + 1);
+	//保存长度
+	uint32_t pTotalPixel = rectWidth * rectHeight * 2;
+  uint32_t pFull = pTotalPixel / 63488;	//62KB取整
+  uint32_t pRemain = pTotalPixel % 63488;	//62KB取余
+	//设置显示区域
+	ILI9341_SetArea(sx, sy, ex, ey);
+	ILI9341_WriteRAM_Prepare();		//开始写入GRAM	
+	//设置SPI数据格式为16位，缓冲区数据采用小端模式，ILI9341数据传输高字节在前
+	hspi1.Instance->CFG1 &= (~0x1F);
+	hspi1.Instance->CFG1 |= SPI_DATASIZE_16BIT;		
+	//传输长度为62KB的像素点
+	for (pBuffCnt = 0; pBuffCnt < pFull; pBuffCnt++)
 	{
-	 	ILI9341_SetCursor(sx,i);      				//设置光标位置 
-		ILI9341_WriteRAM_Prepare();     			//开始写入GRAM	  
-		for(j=0;j<xlen;j++) 
+		//启动DMA传输
+		if(HAL_SPI_Transmit_DMA(&hspi1,(uint8_t *)pixels,63488) !=HAL_OK)
 		{
-			HAL_SPI_Transmit(&hspi1, TempBuffer, 2, 1);//点设置颜色	
+			// 如果通信失败，调用HAL_SPI_Abort函数
+			HAL_SPI_Abort(&hspi1);
 		}
+		//地址偏移
+		pixels = pixels + 31744;  
+		//等待DMA传输完成
+		while(HAL_DMA_GetState(&handle_GPDMA1_Channel0) != HAL_DMA_STATE_READY);	
+		//适当延时，这是个BUG，不加撕裂...,其实HAL_SPI_Abort也不应该有~_~
+		HAL_Delay(0);
+		//阻塞模式下，终止正在的传输			
+		HAL_SPI_Abort(&hspi1);
 	}
+	//剩余数据传输
+	if(HAL_SPI_Transmit_DMA(&hspi1,(uint8_t *)pixels,pRemain) !=HAL_OK)
+	{
+		// 如果通信失败，调用HAL_SPI_Abort函数
+		HAL_SPI_Abort(&hspi1);
+	}
+	//等待DMA传输完成
+	while(HAL_DMA_GetState(&handle_GPDMA1_Channel0) != HAL_DMA_STATE_READY);	
+	//适当延时，这是个BUG，不加撕裂...,其实HAL_SPI_Abort也不应该有~_~
+	HAL_Delay(0);
+	//阻塞模式下，终止正在的传输
+	HAL_SPI_Abort(&hspi1);
+	//设置SPI数据格式为8位
+	hspi1.Instance->CFG1 &= (~0x1F);
+	hspi1.Instance->CFG1 |= SPI_DATASIZE_8BIT;	
 } 
 /*
 **********************************************************************
@@ -495,39 +528,3 @@ void _HW_DrawLine(uint16_t _usX1,uint16_t _usY1,uint16_t _usX2,uint16_t _usY2,ui
 		x += tx ;
 	}	
 }   
-
-void ILI9341_DrawChar(uint16_t x, uint16_t y, uint8_t ch, uint16_t color, uint16_t bg_color, uint8_t size)
-{
-    uint8_t i, j;
-    uint8_t *pFont = (uint8_t *)&asc2_8x16[ch - ' '];
-    uint16_t x0 = x;
-    
-    for (j = 0; j < 16; j++) {
-        uint8_t temp = pFont[j];
-        for (i = 0; i < 8; i++) {
-            if (temp & 0x80) {
-                _HW_FillFrame(x, y, x + size - 1, y + size - 1, color);
-            } else if (bg_color != 0xFFFF) {
-                _HW_FillFrame(x, y, x + size - 1, y + size - 1, bg_color);
-            }
-            temp <<= 1;
-            x += size;
-        }
-        x = x0;
-        y += size;
-    }
-}
-
-void ILI9341_DrawString(uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color, uint8_t size)
-{
-    while (*str) {
-        if (x > ILI9341dev.width - 8 * size) {
-            x = 0;
-            y += 16 * size;
-            if (y > ILI9341dev.height - 16 * size) break;
-        }
-        ILI9341_DrawChar(x, y, *str, color, bg_color, size);
-        x += 8 * size;
-        str++;
-    }
-}

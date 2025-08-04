@@ -18,8 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
+#include "octospi.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -30,6 +32,14 @@
 #include "bsp_sht20.h"
 #include "bsp_ili9341_4line.h"
 #include <string.h>
+
+#include "lvgl.h"
+#include "lv_port_indev_template.h"
+#include "lv_port_disp_template.h"
+#include "../gui_guider.h"
+#include "../events_init.h"
+
+lv_ui guider_ui;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -123,14 +133,20 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_GPDMA1_Init();
   MX_ICACHE_Init();
   MX_UART5_Init();
   MX_USART1_UART_Init();
-  MX_I2C1_Init();
   MX_SPI1_Init();
+  MX_I2C1_Init();
+  MX_OCTOSPI1_Init();
   /* USER CODE BEGIN 2 */
-  ILI9341_Init();
-  ILI9341_Clear(BLACK);
+  lv_init(); /* lvgl 系统初始化 */
+	lv_port_disp_init();
+	lv_port_indev_init();
+	
+	setup_ui(&guider_ui);
+	events_init(&guider_ui);
   
 	ESP8266_Init(&huart5,(uint8_t*)gRX_BufF,115200);
   ESP8266_STA_MQTTClient();
@@ -143,18 +159,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 while (1)
 {  
-    // 格式化并显示温度
-    char temp_str[20];
-    sprintf(temp_str, "温度: %.1f°C", gTemRH_Val.Tem);
-    ILI9341_DrawString(30, 60, temp_str, GREEN, BLACK, 2);
-    
-    // 格式化并显示湿度
-    char hum_str[20];
-    sprintf(hum_str, "湿度: %.1f%%", gTemRH_Val.Hum);
-    ILI9341_DrawString(30, 90, hum_str, BLUE, BLACK, 2);
-    
-    HAL_Delay(500);
-
     char str[100];
     BSP_SHT20_GetData();    //获取温湿度数据
     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);

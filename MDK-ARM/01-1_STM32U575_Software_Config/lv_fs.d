@@ -1,0 +1,32 @@
+01-1_stm32u575_software_config/lv_fs.o: \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_fs.c \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_fs.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_kconfig.h \
+  ..\Drivers\LVGL\GUI\lvgl\lv_conf.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\misc\lv_assert.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\misc\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\misc\lv_log.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\misc\lv_types.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\misc\lv_mem.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_ll.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_gc.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_mem.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_timer.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\hal\lv_hal_tick.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\hal\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_types.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\lv_img_cache.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\lv_img_decoder.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\lv_img_buf.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\lv_color.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\lv_assert.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\lv_math.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\lv_types.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\lv_area.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\..\misc\lv_fs.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\draw\lv_draw_mask.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\core\lv_obj_pos.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\misc\..\core\..\misc\lv_area.h

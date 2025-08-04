@@ -9,6 +9,7 @@
 #define __BSP_ILI9341_4LINE_H__
 //
 #include "main.h"
+#include "spi.h"
 //
 typedef struct  
 {										    
@@ -74,8 +75,6 @@ void ILI9341_WriteReg(uint8_t ili9341_Reg, uint8_t ili9341_RegValue);
 void ILI9341_WriteRAM_Prepare(void);
 void ILI9341_WriteRAM(uint16_t RGB_Code);		  
 void ILI9341_Display_Dir(Screen_ShowDIR ShowDIR);	//设置屏幕显示方向
-
-void ILI9341_DrawChar(uint16_t x, uint16_t y, uint8_t ch, uint16_t color, uint16_t bg_color, uint8_t size);
-void ILI9341_DrawString(uint16_t x, uint16_t y, const char *str, uint16_t color, uint16_t bg_color, uint8_t size); //在指定位置绘制字符串
-
+//
+void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* color);
 #endif /* __BSP_ILI9341_4LINE_H__ */

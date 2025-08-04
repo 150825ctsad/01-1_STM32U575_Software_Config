@@ -57,12 +57,24 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BULE_LED_Pin GPIO_PIN_13
+#define BULE_LED_GPIO_Port GPIOC
+#define LCD_DXC_Pin GPIO_PIN_4
+#define LCD_DXC_GPIO_Port GPIOA
+#define LCD_RST_Pin GPIO_PIN_8
+#define LCD_RST_GPIO_Port GPIOA
+#define TP_RST_Pin GPIO_PIN_11
+#define TP_RST_GPIO_Port GPIOA
+#define RUN_BEE_Pin GPIO_PIN_15
+#define RUN_BEE_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 #define LCD_RST_Pin GPIO_PIN_8
 #define LCD_RST_GPIO_Port GPIOA
 #define LCD_DCX_Pin GPIO_PIN_4
 #define LCD_DCX_GPIO_Port GPIOA
+#define TP_RST_Pin GPIO_PIN_11
+#define TP_RST_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

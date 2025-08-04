@@ -4,6 +4,7 @@
         "bsp_sht20.h": "c",
         "string.h": "c",
         "bsp_ili9341_4line.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "lv_port_indev_template.h": "c"
     }
 }

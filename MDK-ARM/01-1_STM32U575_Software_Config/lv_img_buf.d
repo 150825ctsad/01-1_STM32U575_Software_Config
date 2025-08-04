@@ -1,0 +1,27 @@
+01-1_stm32u575_software_config/lv_img_buf.o: \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\lv_img_buf.c \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\lv_img_buf.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_color.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\..\lv_conf_kconfig.h \
+  ..\Drivers\LVGL\GUI\lvgl\lv_conf.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_assert.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_log.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_types.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_mem.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_math.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_area.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\lv_draw_img.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\lv_img_decoder.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_fs.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_style.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\..\font\lv_font.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\..\font\..\lv_conf_internal.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\..\font\lv_symbol_def.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\..\font\..\misc\lv_area.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_anim.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_txt.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_printf.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_bidi.h \
+  ..\Drivers\LVGL\GUI\lvgl\src\draw\..\misc\lv_style_gen.h
