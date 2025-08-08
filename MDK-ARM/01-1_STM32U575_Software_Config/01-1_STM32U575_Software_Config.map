@@ -3733,6 +3733,10 @@ Section Cross References
     main.o(.text.main) refers to cmsis_os2.o(.text.osKernelInitialize) for osKernelInitialize
     main.o(.text.main) refers to app_freertos.o(.text.MX_FREERTOS_Init) for MX_FREERTOS_Init
     main.o(.text.main) refers to cmsis_os2.o(.text.osKernelStart) for osKernelStart
+<<<<<<< HEAD
+=======
+    main.o(.text.main) refers to lv_hal_tick.o(.text.lv_tick_inc) for lv_tick_inc
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     main.o(.ARM.exidx.text.main) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     main.o(.text.SystemClock_Config) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
@@ -3882,7 +3886,10 @@ Section Cross References
     app_freertos.o(.text.vTask3) refers to __2printf.o(.text) for __2printf
     app_freertos.o(.text.vTask3) refers to strncpy.o(.text) for strncpy
     app_freertos.o(.text.vTask3) refers to bsp_esp8266.o(.text.ESP8266_Json_Parse) for ESP8266_Json_Parse
+<<<<<<< HEAD
     app_freertos.o(.text.vTask3) refers to rt_memclr.o(.text) for __aeabi_memclr
+=======
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     app_freertos.o(.ARM.exidx.text.vTask3) refers (Special) to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
     app_freertos.o(.ARM.exidx.text.vTask3) refers (Special) to _printf_s.o(.ARM.Collect$$_printf_percent$$00000014) for _printf_s
     app_freertos.o(.ARM.exidx.text.vTask3) refers (Special) to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
@@ -19754,6 +19761,7 @@ Image Symbol Table
     lv_win_constructor                       0x080384d1   Thumb Code   118  lv_win.o(.text.lv_win_constructor)
     [Anonymous Symbol]                       0x080384d0   Section        0  lv_win.o(.text.lv_win_constructor)
     [Anonymous Symbol]                       0x08038548   Section        0  main.o(.text.main)
+<<<<<<< HEAD
     make_one_button_checked                  0x080386a9   Thumb Code   150  lv_btnmatrix.o(.text.make_one_button_checked)
     [Anonymous Symbol]                       0x080386a8   Section        0  lv_btnmatrix.o(.text.make_one_button_checked)
     month_event_cb                           0x08038741   Thumb Code   122  lv_calendar_header_arrow.o(.text.month_event_cb)
@@ -19894,11 +19902,154 @@ Image Symbol Table
     [Anonymous Symbol]                       0x0804173c   Section        0  port.o(.text.vPortYield)
     [Anonymous Symbol]                       0x08041754   Section        0  queue.o(.text.vQueueAddToRegistry)
     [Anonymous Symbol]                       0x08041884   Section        0  queue.o(.text.vQueueWaitForMessageRestricted)
+=======
+    make_one_button_checked                  0x080386ad   Thumb Code   150  lv_btnmatrix.o(.text.make_one_button_checked)
+    [Anonymous Symbol]                       0x080386ac   Section        0  lv_btnmatrix.o(.text.make_one_button_checked)
+    month_event_cb                           0x08038745   Thumb Code   122  lv_calendar_header_arrow.o(.text.month_event_cb)
+    [Anonymous Symbol]                       0x08038744   Section        0  lv_calendar_header_arrow.o(.text.month_event_cb)
+    month_event_cb                           0x080387c1   Thumb Code    54  lv_calendar_header_dropdown.o(.text.month_event_cb)
+    [Anonymous Symbol]                       0x080387c0   Section        0  lv_calendar_header_dropdown.o(.text.month_event_cb)
+    my_constructor                           0x080387f9   Thumb Code   224  lv_calendar_header_arrow.o(.text.my_constructor)
+    [Anonymous Symbol]                       0x080387f8   Section        0  lv_calendar_header_arrow.o(.text.my_constructor)
+    my_constructor                           0x080388e1   Thumb Code   148  lv_calendar_header_dropdown.o(.text.my_constructor)
+    [Anonymous Symbol]                       0x080388e0   Section        0  lv_calendar_header_dropdown.o(.text.my_constructor)
+    next_color_mode                          0x08038999   Thumb Code    50  lv_colorwheel.o(.text.next_color_mode)
+    [Anonymous Symbol]                       0x08038998   Section        0  lv_colorwheel.o(.text.next_color_mode)
+    obj_del_core                             0x080389cd   Thumb Code   772  lv_obj_tree.o(.text.obj_del_core)
+    [Anonymous Symbol]                       0x080389cc   Section        0  lv_obj_tree.o(.text.obj_del_core)
+    opa_scale_anim                           0x08038cd1   Thumb Code     8  lv_disp.o(.text.opa_scale_anim)
+    [Anonymous Symbol]                       0x08038cd0   Section        0  lv_disp.o(.text.opa_scale_anim)
+    [Anonymous Symbol]                       0x08038cd8   Section        0  cmsis_os2.o(.text.osDelay)
+    [Anonymous Symbol]                       0x08038d18   Section        0  cmsis_os2.o(.text.osKernelInitialize)
+    [Anonymous Symbol]                       0x08038d68   Section        0  cmsis_os2.o(.text.osKernelStart)
+    [Anonymous Symbol]                       0x08038dc8   Section        0  cmsis_os2.o(.text.osThreadNew)
+    parse_hex4                               0x08038ec1   Thumb Code   256  cjson.o(.text.parse_hex4)
+    [Anonymous Symbol]                       0x08038ec0   Section        0  cjson.o(.text.parse_hex4)
+    parse_object                             0x08038fc1   Thumb Code   790  cjson.o(.text.parse_object)
+    [Anonymous Symbol]                       0x08038fc0   Section        0  cjson.o(.text.parse_object)
+    parse_string                             0x080392d9   Thumb Code   994  cjson.o(.text.parse_string)
+    [Anonymous Symbol]                       0x080392d8   Section        0  cjson.o(.text.parse_string)
+    parse_value                              0x080396c1   Thumb Code  1160  cjson.o(.text.parse_value)
+    [Anonymous Symbol]                       0x080396c0   Section        0  cjson.o(.text.parse_value)
+    position_knob                            0x08039b59   Thumb Code   180  lv_slider.o(.text.position_knob)
+    [Anonymous Symbol]                       0x08039b58   Section        0  lv_slider.o(.text.position_knob)
+    position_to_selected                     0x08039c0d   Thumb Code    90  lv_dropdown.o(.text.position_to_selected)
+    [Anonymous Symbol]                       0x08039c0c   Section        0  lv_dropdown.o(.text.position_to_selected)
+    prvAddNewTaskToReadyList                 0x08039c69   Thumb Code   678  tasks.o(.text.prvAddNewTaskToReadyList)
+    [Anonymous Symbol]                       0x08039c68   Section        0  tasks.o(.text.prvAddNewTaskToReadyList)
+    prvIdleTask                              0x08039f11   Thumb Code   102  tasks.o(.text.prvIdleTask)
+    [Anonymous Symbol]                       0x08039f10   Section        0  tasks.o(.text.prvIdleTask)
+    prvInitialiseNewTask                     0x08039f79   Thumb Code   246  tasks.o(.text.prvInitialiseNewTask)
+    [Anonymous Symbol]                       0x08039f78   Section        0  tasks.o(.text.prvInitialiseNewTask)
+    prvTaskExitError                         0x0803a071   Thumb Code    54  port.o(.text.prvTaskExitError)
+    [Anonymous Symbol]                       0x0803a070   Section        0  port.o(.text.prvTaskExitError)
+    prvTimerTask                             0x0803a0a9   Thumb Code   786  timers.o(.text.prvTimerTask)
+    [Anonymous Symbol]                       0x0803a0a8   Section        0  timers.o(.text.prvTimerTask)
+    prvUnlockQueue                           0x0803a3bd   Thumb Code   116  queue.o(.text.prvUnlockQueue)
+    [Anonymous Symbol]                       0x0803a3bc   Section        0  queue.o(.text.prvUnlockQueue)
+    [Anonymous Symbol]                       0x0803a430   Section        0  heap_4.o(.text.pvPortMalloc)
+    pwd_char_hider                           0x0803a5f9   Thumb Code   166  lv_textarea.o(.text.pwd_char_hider)
+    [Anonymous Symbol]                       0x0803a5f8   Section        0  lv_textarea.o(.text.pwd_char_hider)
+    pwd_char_hider_anim                      0x0803a6a1   Thumb Code     2  lv_textarea.o(.text.pwd_char_hider_anim)
+    [Anonymous Symbol]                       0x0803a6a0   Section        0  lv_textarea.o(.text.pwd_char_hider_anim)
+    pwd_char_hider_anim_ready                0x0803a6a5   Thumb Code     6  lv_textarea.o(.text.pwd_char_hider_anim_ready)
+    [Anonymous Symbol]                       0x0803a6a4   Section        0  lv_textarea.o(.text.pwd_char_hider_anim_ready)
+    [Anonymous Symbol]                       0x0803a6ac   Section        0  port.o(.text.pxPortInitialiseStack)
+    refr_area_part                           0x0803a71d   Thumb Code  4406  lv_refr.o(.text.refr_area_part)
+    [Anonymous Symbol]                       0x0803a71c   Section        0  lv_refr.o(.text.refr_area_part)
+    refr_cursor_area                         0x0803b855   Thumb Code   518  lv_textarea.o(.text.refr_cursor_area)
+    [Anonymous Symbol]                       0x0803b854   Section        0  lv_textarea.o(.text.refr_cursor_area)
+    refr_knob_pos                            0x0803ba5d   Thumb Code   414  lv_colorwheel.o(.text.refr_knob_pos)
+    [Anonymous Symbol]                       0x0803ba5c   Section        0  lv_colorwheel.o(.text.refr_knob_pos)
+    refr_obj                                 0x0803bbfd   Thumb Code   962  lv_refr.o(.text.refr_obj)
+    [Anonymous Symbol]                       0x0803bbfc   Section        0  lv_refr.o(.text.refr_obj)
+    refr_obj_and_children                    0x0803bfc1   Thumb Code   154  lv_refr.o(.text.refr_obj_and_children)
+    [Anonymous Symbol]                       0x0803bfc0   Section        0  lv_refr.o(.text.refr_obj_and_children)
+    refr_position                            0x0803c05d   Thumb Code   306  lv_roller.o(.text.refr_position)
+    [Anonymous Symbol]                       0x0803c05c   Section        0  lv_roller.o(.text.refr_position)
+    refr_size_form_row                       0x0803c191   Thumb Code   250  lv_table.o(.text.refr_size_form_row)
+    [Anonymous Symbol]                       0x0803c190   Section        0  lv_table.o(.text.refr_size_form_row)
+    refresh_children_style                   0x0803c28d   Thumb Code    62  lv_obj_style.o(.text.refresh_children_style)
+    [Anonymous Symbol]                       0x0803c28c   Section        0  lv_obj_style.o(.text.refresh_children_style)
+    report_style_change_core                 0x0803c2cd   Thumb Code   148  lv_obj_style.o(.text.report_style_change_core)
+    [Anonymous Symbol]                       0x0803c2cc   Section        0  lv_obj_style.o(.text.report_style_change_core)
+    scr_anim_ready                           0x0803c361   Thumb Code    86  lv_disp.o(.text.scr_anim_ready)
+    [Anonymous Symbol]                       0x0803c360   Section        0  lv_disp.o(.text.scr_anim_ready)
+    scr_load_anim_start                      0x0803c3b9   Thumb Code    48  lv_disp.o(.text.scr_load_anim_start)
+    [Anonymous Symbol]                       0x0803c3b8   Section        0  lv_disp.o(.text.scr_load_anim_start)
+    scr_load_internal                        0x0803c3e9   Thumb Code    86  lv_disp.o(.text.scr_load_internal)
+    [Anonymous Symbol]                       0x0803c3e8   Section        0  lv_disp.o(.text.scr_load_internal)
+    scroll_anim_ready_cb                     0x0803c441   Thumb Code    10  lv_obj_scroll.o(.text.scroll_anim_ready_cb)
+    [Anonymous Symbol]                       0x0803c440   Section        0  lv_obj_scroll.o(.text.scroll_anim_ready_cb)
+    scroll_anim_ready_cb                     0x0803c44d   Thumb Code    16  lv_roller.o(.text.scroll_anim_ready_cb)
+    [Anonymous Symbol]                       0x0803c44c   Section        0  lv_roller.o(.text.scroll_anim_ready_cb)
+    scroll_area_into_view                    0x0803c45d   Thumb Code   782  lv_obj_scroll.o(.text.scroll_area_into_view)
+    [Anonymous Symbol]                       0x0803c45c   Section        0  lv_obj_scroll.o(.text.scroll_area_into_view)
+    scroll_to_selected_cell                  0x0803c76d   Thumb Code   124  lv_table.o(.text.scroll_to_selected_cell)
+    [Anonymous Symbol]                       0x0803c76c   Section        0  lv_table.o(.text.scroll_to_selected_cell)
+    scroll_x_anim                            0x0803c7e9   Thumb Code    78  lv_obj_scroll.o(.text.scroll_x_anim)
+    [Anonymous Symbol]                       0x0803c7e8   Section        0  lv_obj_scroll.o(.text.scroll_x_anim)
+    scroll_y_anim                            0x0803c839   Thumb Code    78  lv_obj_scroll.o(.text.scroll_y_anim)
+    [Anonymous Symbol]                       0x0803c838   Section        0  lv_obj_scroll.o(.text.scroll_y_anim)
+    set_ofs_x_anim                           0x0803c889   Thumb Code     8  lv_label.o(.text.set_ofs_x_anim)
+    [Anonymous Symbol]                       0x0803c888   Section        0  lv_label.o(.text.set_ofs_x_anim)
+    set_ofs_y_anim                           0x0803c891   Thumb Code     8  lv_label.o(.text.set_ofs_y_anim)
+    [Anonymous Symbol]                       0x0803c890   Section        0  lv_label.o(.text.set_ofs_y_anim)
+    set_x_anim                               0x0803c899   Thumb Code     6  lv_disp.o(.text.set_x_anim)
+    [Anonymous Symbol]                       0x0803c898   Section        0  lv_disp.o(.text.set_x_anim)
+    set_y_anim                               0x0803c8a1   Thumb Code     6  lv_disp.o(.text.set_y_anim)
+    [Anonymous Symbol]                       0x0803c8a0   Section        0  lv_disp.o(.text.set_y_anim)
+    set_y_anim                               0x0803c8a9   Thumb Code     6  lv_roller.o(.text.set_y_anim)
+    [Anonymous Symbol]                       0x0803c8a8   Section        0  lv_roller.o(.text.set_y_anim)
+    [Anonymous Symbol]                       0x0803c8b0   Section        0  setup_scr_screen.o(.text.setup_scr_screen)
+    [Anonymous Symbol]                       0x0803c98c   Section        0  gui_guider.o(.text.setup_ui)
+    shadow_blur_corner                       0x0803c9a5   Thumb Code  1424  lv_draw_sw_rect.o(.text.shadow_blur_corner)
+    [Anonymous Symbol]                       0x0803c9a4   Section        0  lv_draw_sw_rect.o(.text.shadow_blur_corner)
+    style_init                               0x0803cf35   Thumb Code 12022  lv_theme_default.o(.text.style_init)
+    [Anonymous Symbol]                       0x0803cf34   Section        0  lv_theme_default.o(.text.style_init)
+    __arm_cp.3_1                             0x0803f244   Number         4  lv_theme_default.o(.text.style_init)
+    theme_apply                              0x0803fe2d   Thumb Code  4216  lv_theme_default.o(.text.theme_apply)
+    [Anonymous Symbol]                       0x0803fe2c   Section        0  lv_theme_default.o(.text.theme_apply)
+    tileview_event_cb                        0x08040ea5   Thumb Code   206  lv_tileview.o(.text.tileview_event_cb)
+    [Anonymous Symbol]                       0x08040ea4   Section        0  lv_tileview.o(.text.tileview_event_cb)
+    touchpad_read                            0x08040f75   Thumb Code    64  lv_port_indev_template.o(.text.touchpad_read)
+    [Anonymous Symbol]                       0x08040f74   Section        0  lv_port_indev_template.o(.text.touchpad_read)
+    trans_anim_cb                            0x08040fb5   Thumb Code   362  lv_obj_style.o(.text.trans_anim_cb)
+    [Anonymous Symbol]                       0x08040fb4   Section        0  lv_obj_style.o(.text.trans_anim_cb)
+    trans_anim_ready_cb                      0x08041121   Thumb Code   192  lv_obj_style.o(.text.trans_anim_ready_cb)
+    [Anonymous Symbol]                       0x08041120   Section        0  lv_obj_style.o(.text.trans_anim_ready_cb)
+    trans_anim_start_cb                      0x080411e1   Thumb Code    62  lv_obj_style.o(.text.trans_anim_start_cb)
+    [Anonymous Symbol]                       0x080411e0   Section        0  lv_obj_style.o(.text.trans_anim_start_cb)
+    trans_del                                0x08041221   Thumb Code   438  lv_obj_style.o(.text.trans_del)
+    [Anonymous Symbol]                       0x08041220   Section        0  lv_obj_style.o(.text.trans_del)
+    transform_point                          0x080413d9   Thumb Code   254  lv_obj_pos.o(.text.transform_point)
+    [Anonymous Symbol]                       0x080413d8   Section        0  lv_obj_pos.o(.text.transform_point)
+    [Anonymous Symbol]                       0x080414d8   Section        0  portasm.o(.text.ulSetInterruptMask)
+    unicode_list_compare                     0x080414f1   Thumb Code     8  lv_font_fmt_txt.o(.text.unicode_list_compare)
+    [Anonymous Symbol]                       0x080414f0   Section        0  lv_font_fmt_txt.o(.text.unicode_list_compare)
+    [Anonymous Symbol]                       0x080414f8   Section        0  list.o(.text.uxListRemove)
+    [Anonymous Symbol]                       0x0804151c   Section        0  cmsis_os2.o(.text.vApplicationGetIdleTaskMemory)
+    [Anonymous Symbol]                       0x08041538   Section        0  cmsis_os2.o(.text.vApplicationGetTimerTaskMemory)
+    [Anonymous Symbol]                       0x08041554   Section        0  portasm.o(.text.vClearInterruptMask)
+    [Anonymous Symbol]                       0x08041564   Section        0  list.o(.text.vListInitialise)
+    [Anonymous Symbol]                       0x0804157c   Section        0  list.o(.text.vListInitialiseItem)
+    [Anonymous Symbol]                       0x08041584   Section        0  list.o(.text.vListInsert)
+    [Anonymous Symbol]                       0x080415e8   Section        0  port.o(.text.vPortEnterCritical)
+    [Anonymous Symbol]                       0x08041608   Section        0  port.o(.text.vPortExitCritical)
+    [Anonymous Symbol]                       0x08041638   Section        0  heap_4.o(.text.vPortFree)
+    __tagsym$$used.0                         0x080416f4   Number         0  port.o(.text.vPortSVCHandler_C)
+    [Anonymous Symbol]                       0x080416f4   Section        0  port.o(.text.vPortSVCHandler_C)
+    [Anonymous Symbol]                       0x08041710   Section        0  port.o(.text.vPortSetupTimerInterrupt)
+    [Anonymous Symbol]                       0x08041744   Section        0  port.o(.text.vPortYield)
+    [Anonymous Symbol]                       0x0804175c   Section        0  queue.o(.text.vQueueAddToRegistry)
+    [Anonymous Symbol]                       0x0804188c   Section        0  queue.o(.text.vQueueWaitForMessageRestricted)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     [Anonymous Symbol]                       0x080418e0   Section        0  portasm.o(.text.vRestoreContextOfFirstTask)
     pxCurrentTCBConst2                       0x08041910   Number         0  portasm.o(.text.vRestoreContextOfFirstTask)
     [Anonymous Symbol]                       0x08041920   Section        0  portasm.o(.text.vStartFirstTask)
     xVTORConst                               0x08041940   Number         0  portasm.o(.text.vStartFirstTask)
     [Anonymous Symbol]                       0x08041944   Section        0  app_freertos.o(.text.vTask1)
+<<<<<<< HEAD
     [Anonymous Symbol]                       0x08041988   Section        0  app_freertos.o(.text.vTask2)
     [Anonymous Symbol]                       0x080419bc   Section        0  app_freertos.o(.text.vTask3)
     [Anonymous Symbol]                       0x08041a58   Section        0  tasks.o(.text.vTaskDelay)
@@ -20139,6 +20290,248 @@ Image Symbol Table
     __lcnum_c_thousands                      0x08048726   Data           0  lc_numeric_c.o(locale$$data)
     __lcnum_c_grouping                       0x08048727   Data           0  lc_numeric_c.o(locale$$data)
     __lcnum_c_end                            0x08048728   Data           0  lc_numeric_c.o(locale$$data)
+=======
+    [Anonymous Symbol]                       0x0804198c   Section        0  app_freertos.o(.text.vTask2)
+    [Anonymous Symbol]                       0x080419c0   Section        0  app_freertos.o(.text.vTask3)
+    [Anonymous Symbol]                       0x08041a4c   Section        0  tasks.o(.text.vTaskDelay)
+    [Anonymous Symbol]                       0x08041ac0   Section        0  tasks.o(.text.vTaskInternalSetTimeOutState)
+    [Anonymous Symbol]                       0x08041ad4   Section        0  tasks.o(.text.vTaskMissedYield)
+    [Anonymous Symbol]                       0x08041ae4   Section        0  tasks.o(.text.vTaskPlaceOnEventList)
+    [Anonymous Symbol]                       0x08041b78   Section        0  tasks.o(.text.vTaskPlaceOnEventListRestricted)
+    [Anonymous Symbol]                       0x08041c24   Section        0  tasks.o(.text.vTaskStartScheduler)
+    [Anonymous Symbol]                       0x08041cec   Section        0  tasks.o(.text.vTaskSuspendAll)
+    __tagsym$$used.0                         0x08041cfc   Number         0  tasks.o(.text.vTaskSwitchContext)
+    [Anonymous Symbol]                       0x08041cfc   Section        0  tasks.o(.text.vTaskSwitchContext)
+    value_changed_event_cb                   0x08041db1   Thumb Code    64  lv_calendar_header_arrow.o(.text.value_changed_event_cb)
+    [Anonymous Symbol]                       0x08041db0   Section        0  lv_calendar_header_arrow.o(.text.value_changed_event_cb)
+    value_changed_event_cb                   0x08041df1   Thumb Code   110  lv_calendar_header_dropdown.o(.text.value_changed_event_cb)
+    [Anonymous Symbol]                       0x08041df0   Section        0  lv_calendar_header_dropdown.o(.text.value_changed_event_cb)
+    value_update                             0x08041e61   Thumb Code   234  lv_arc.o(.text.value_update)
+    [Anonymous Symbol]                       0x08041e60   Section        0  lv_arc.o(.text.value_update)
+    [Anonymous Symbol]                       0x08041f4c   Section        0  port.o(.text.xPortStartScheduler)
+    [Anonymous Symbol]                       0x08042080   Section        0  port.o(.text.xPortSysTickHandler)
+    [Anonymous Symbol]                       0x080420a8   Section        0  queue.o(.text.xQueueGenericCreateStatic)
+    [Anonymous Symbol]                       0x08042148   Section        0  queue.o(.text.xQueueReceive)
+    [Anonymous Symbol]                       0x08042320   Section        0  tasks.o(.text.xTaskCheckForTimeOut)
+    [Anonymous Symbol]                       0x080423a4   Section        0  tasks.o(.text.xTaskCreate)
+    [Anonymous Symbol]                       0x08042404   Section        0  tasks.o(.text.xTaskCreateStatic)
+    [Anonymous Symbol]                       0x08042474   Section        0  tasks.o(.text.xTaskGetSchedulerState)
+    [Anonymous Symbol]                       0x08042494   Section        0  tasks.o(.text.xTaskGetTickCount)
+    [Anonymous Symbol]                       0x080424a0   Section        0  tasks.o(.text.xTaskIncrementTick)
+    [Anonymous Symbol]                       0x08042610   Section        0  tasks.o(.text.xTaskRemoveFromEventList)
+    [Anonymous Symbol]                       0x080426e0   Section        0  tasks.o(.text.xTaskResumeAll)
+    [Anonymous Symbol]                       0x08042800   Section        0  timers.o(.text.xTimerCreateTimerTask)
+    year_event_cb                            0x080428ad   Thumb Code   100  lv_calendar_header_dropdown.o(.text.year_event_cb)
+    [Anonymous Symbol]                       0x080428ac   Section        0  lv_calendar_header_dropdown.o(.text.year_event_cb)
+    CL$$btod_d2e                             0x08042910   Section       62  btod.o(CL$$btod_d2e)
+    CL$$btod_d2e_denorm_low                  0x0804294e   Section       70  btod.o(CL$$btod_d2e_denorm_low)
+    CL$$btod_d2e_norm_op1                    0x08042994   Section       96  btod.o(CL$$btod_d2e_norm_op1)
+    CL$$btod_div_common                      0x080429f4   Section      824  btod.o(CL$$btod_div_common)
+    CL$$btod_e2d                             0x08042d2c   Section      132  btod.o(CL$$btod_e2d)
+    CL$$btod_e2e                             0x08042db0   Section      220  btod.o(CL$$btod_e2e)
+    CL$$btod_ediv                            0x08042e8c   Section       42  btod.o(CL$$btod_ediv)
+    CL$$btod_edivd                           0x08042eb6   Section       42  btod.o(CL$$btod_edivd)
+    CL$$btod_emul                            0x08042ee0   Section       42  btod.o(CL$$btod_emul)
+    CL$$btod_emuld                           0x08042f0a   Section       42  btod.o(CL$$btod_emuld)
+    CL$$btod_mult_common                     0x08042f34   Section      580  btod.o(CL$$btod_mult_common)
+    i.__ARM_fpclassify                       0x08043178   Section        0  fpclassify.o(i.__ARM_fpclassify)
+    i.__hardfp___mathlib_tofloat             0x080431a8   Section        0  narrow.o(i.__hardfp___mathlib_tofloat)
+    i.__hardfp_ldexp                         0x080432a0   Section        0  ldexp.o(i.__hardfp_ldexp)
+    i.__hardfp_strtod                        0x08043370   Section        0  strtod.o(i.__hardfp_strtod)
+    i.__mathlib_dbl_overflow                 0x08043398   Section        0  dunder.o(i.__mathlib_dbl_overflow)
+    i.__mathlib_dbl_underflow                0x080433b8   Section        0  dunder.o(i.__mathlib_dbl_underflow)
+    i.__mathlib_narrow                       0x080433d8   Section        0  narrow.o(i.__mathlib_narrow)
+    i.__support_ldexp                        0x080433ea   Section        0  ldexp.o(i.__support_ldexp)
+    i._is_digit                              0x080433fe   Section        0  __printf_wp.o(i._is_digit)
+    i.frexp                                  0x08043410   Section        0  frexp.o(i.frexp)
+    locale$$code                             0x0804349c   Section       44  lc_ctype_c.o(locale$$code)
+    locale$$code                             0x080434c8   Section       44  lc_numeric_c.o(locale$$code)
+    $v0                                      0x080434f4   Number         0  d2f.o(x$fpl$d2f)
+    x$fpl$d2f                                0x080434f4   Section       98  d2f.o(x$fpl$d2f)
+    $v0                                      0x08043558   Number         0  dcheck1.o(x$fpl$dcheck1)
+    x$fpl$dcheck1                            0x08043558   Section       16  dcheck1.o(x$fpl$dcheck1)
+    $v0                                      0x08043568   Number         0  dcmpi.o(x$fpl$dcmpinf)
+    x$fpl$dcmpinf                            0x08043568   Section       24  dcmpi.o(x$fpl$dcmpinf)
+    $v0                                      0x08043580   Number         0  deqf.o(x$fpl$deqf)
+    x$fpl$deqf                               0x08043580   Section      120  deqf.o(x$fpl$deqf)
+    $v0                                      0x080435f8   Number         0  dfix.o(x$fpl$dfix)
+    x$fpl$dfix                               0x080435f8   Section       94  dfix.o(x$fpl$dfix)
+    $v0                                      0x08043658   Number         0  dgeqf.o(x$fpl$dgeqf)
+    x$fpl$dgeqf                              0x08043658   Section      120  dgeqf.o(x$fpl$dgeqf)
+    $v0                                      0x080436d0   Number         0  dleqf.o(x$fpl$dleqf)
+    x$fpl$dleqf                              0x080436d0   Section      120  dleqf.o(x$fpl$dleqf)
+    $v0                                      0x08043748   Number         0  dmul.o(x$fpl$dmul)
+    x$fpl$dmul                               0x08043748   Section      340  dmul.o(x$fpl$dmul)
+    $v0                                      0x0804389c   Number         0  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$dnaninf                            0x0804389c   Section      156  dnaninf.o(x$fpl$dnaninf)
+    $v0                                      0x08043938   Number         0  dretinf.o(x$fpl$dretinf)
+    x$fpl$dretinf                            0x08043938   Section       12  dretinf.o(x$fpl$dretinf)
+    $v0                                      0x08043944   Number         0  drleqf.o(x$fpl$drleqf)
+    x$fpl$drleqf                             0x08043944   Section      108  drleqf.o(x$fpl$drleqf)
+    $v0                                      0x080439b0   Number         0  f2d.o(x$fpl$f2d)
+    x$fpl$f2d                                0x080439b0   Section       86  f2d.o(x$fpl$f2d)
+    $v0                                      0x08043a06   Number         0  dcmp.o(x$fpl$fcmp)
+    x$fpl$fcmp                               0x08043a06   Section       84  dcmp.o(x$fpl$fcmp)
+    $v0                                      0x08043a5a   Number         0  fnaninf.o(x$fpl$fnaninf)
+    x$fpl$fnaninf                            0x08043a5a   Section      140  fnaninf.o(x$fpl$fnaninf)
+    $v0                                      0x08043ae6   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$fpinit                             0x08043ae6   Section       26  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x08043b00   Number         0  fretinf.o(x$fpl$fretinf)
+    x$fpl$fretinf                            0x08043b00   Section       10  fretinf.o(x$fpl$fretinf)
+    $v0                                      0x08043b0a   Number         0  istatus.o(x$fpl$ieeestatus)
+    x$fpl$ieeestatus                         0x08043b0a   Section        6  istatus.o(x$fpl$ieeestatus)
+    $v0                                      0x08043b10   Number         0  printf1.o(x$fpl$printf1)
+    x$fpl$printf1                            0x08043b10   Section        4  printf1.o(x$fpl$printf1)
+    $v0                                      0x08043b14   Number         0  retnan.o(x$fpl$retnan)
+    x$fpl$retnan                             0x08043b14   Section      100  retnan.o(x$fpl$retnan)
+    $v0                                      0x08043b78   Number         0  scalbn.o(x$fpl$scalbn)
+    x$fpl$scalbn                             0x08043b78   Section       92  scalbn.o(x$fpl$scalbn)
+    $v0                                      0x08043bd4   Number         0  scanf1.o(x$fpl$scanf1)
+    x$fpl$scanf1                             0x08043bd4   Section        4  scanf1.o(x$fpl$scanf1)
+    $v0                                      0x08043bd8   Number         0  scanf2.o(x$fpl$scanf2)
+    x$fpl$scanf2                             0x08043bd8   Section        8  scanf2.o(x$fpl$scanf2)
+    $v0                                      0x08043be0   Number         0  trapv.o(x$fpl$trapveneer)
+    x$fpl$trapveneer                         0x08043be0   Section       48  trapv.o(x$fpl$trapveneer)
+    uc_hextab                                0x08043c10   Data          20  _printf_hex_int.o(.constdata)
+    .constdata                               0x08043c10   Section       40  _printf_hex_int.o(.constdata)
+    x$fpl$usenofp                            0x08043c10   Section        0  usenofp.o(x$fpl$usenofp)
+    lc_hextab                                0x08043c24   Data          20  _printf_hex_int.o(.constdata)
+    maptable                                 0x08043c38   Data          17  __printf_flags_ss_wp.o(.constdata)
+    .constdata                               0x08043c38   Section       17  __printf_flags_ss_wp.o(.constdata)
+    tenpwrs_x                                0x08043c4c   Data          60  bigflt0.o(.constdata)
+    .constdata                               0x08043c4c   Section      148  bigflt0.o(.constdata)
+    tenpwrs_i                                0x08043c88   Data          64  bigflt0.o(.constdata)
+    .Lswitch.table.lv_draw_sw_blend_basic.3  0x08043ce0   Data          12  lv_draw_sw_blend.o(.rodata..Lswitch.table.lv_draw_sw_blend_basic.3)
+    .Lswitch.table.lv_menu_refr_sidebar_header_mode 0x08043cec   Data          12  lv_menu.o(.rodata..Lswitch.table.lv_menu_refr_sidebar_header_mode)
+    LPGPIO_Map                               0x08043d10   Data         128  stm32u5xx_hal_gpio.o(.rodata.LPGPIO_Map)
+    [Anonymous Symbol]                       0x08043d10   Section        0  stm32u5xx_hal_gpio.o(.rodata.LPGPIO_Map)
+    cmaps                                    0x08043fdc   Data          40  lv_font_montserrat_14.o(.rodata.cmaps)
+    [Anonymous Symbol]                       0x08043fdc   Section        0  lv_font_montserrat_14.o(.rodata.cmaps)
+    UARTEx_SetNbDataToProcess.numerator      0x08044004   Data           8  stm32u5xx_hal_uart_ex.o(.rodata.cst8)
+    [Anonymous Symbol]                       0x08044004   Section        0  stm32u5xx_hal_uart_ex.o(.rodata.cst8)
+    UARTEx_SetNbDataToProcess.denominator    0x0804400c   Data           8  stm32u5xx_hal_uart_ex.o(.rodata.cst8)
+    default_kb_ctrl_lc_map                   0x08044038   Data          80  lv_keyboard.o(.rodata.default_kb_ctrl_lc_map)
+    [Anonymous Symbol]                       0x08044038   Section        0  lv_keyboard.o(.rodata.default_kb_ctrl_lc_map)
+    default_kb_ctrl_num_map                  0x08044088   Data          34  lv_keyboard.o(.rodata.default_kb_ctrl_num_map)
+    [Anonymous Symbol]                       0x08044088   Section        0  lv_keyboard.o(.rodata.default_kb_ctrl_num_map)
+    default_kb_ctrl_spec_map                 0x080440aa   Data          80  lv_keyboard.o(.rodata.default_kb_ctrl_spec_map)
+    [Anonymous Symbol]                       0x080440aa   Section        0  lv_keyboard.o(.rodata.default_kb_ctrl_spec_map)
+    default_kb_ctrl_uc_map                   0x080440fa   Data          80  lv_keyboard.o(.rodata.default_kb_ctrl_uc_map)
+    [Anonymous Symbol]                       0x080440fa   Section        0  lv_keyboard.o(.rodata.default_kb_ctrl_uc_map)
+    default_kb_map_lc                        0x0804414c   Data         176  lv_keyboard.o(.rodata.default_kb_map_lc)
+    [Anonymous Symbol]                       0x0804414c   Section        0  lv_keyboard.o(.rodata.default_kb_map_lc)
+    default_kb_map_num                       0x080441fc   Data          84  lv_keyboard.o(.rodata.default_kb_map_num)
+    [Anonymous Symbol]                       0x080441fc   Section        0  lv_keyboard.o(.rodata.default_kb_map_num)
+    default_kb_map_spec                      0x08044250   Data         176  lv_keyboard.o(.rodata.default_kb_map_spec)
+    [Anonymous Symbol]                       0x08044250   Section        0  lv_keyboard.o(.rodata.default_kb_map_spec)
+    default_kb_map_uc                        0x08044300   Data         176  lv_keyboard.o(.rodata.default_kb_map_uc)
+    [Anonymous Symbol]                       0x08044300   Section        0  lv_keyboard.o(.rodata.default_kb_map_uc)
+    font_dsc                                 0x080443b0   Data          24  lv_font_montserrat_14.o(.rodata.font_dsc)
+    [Anonymous Symbol]                       0x080443b0   Section        0  lv_font_montserrat_14.o(.rodata.font_dsc)
+    glyph_bitmap                             0x080443c8   Data        8832  lv_font_montserrat_14.o(.rodata.glyph_bitmap)
+    [Anonymous Symbol]                       0x080443c8   Section        0  lv_font_montserrat_14.o(.rodata.glyph_bitmap)
+    glyph_dsc                                0x08046648   Data        1264  lv_font_montserrat_14.o(.rodata.glyph_dsc)
+    [Anonymous Symbol]                       0x08046648   Section        0  lv_font_montserrat_14.o(.rodata.glyph_dsc)
+    kern_class_values                        0x08046b38   Data        2989  lv_font_montserrat_14.o(.rodata.kern_class_values)
+    [Anonymous Symbol]                       0x08046b38   Section        0  lv_font_montserrat_14.o(.rodata.kern_class_values)
+    kern_classes                             0x080476e8   Data          16  lv_font_montserrat_14.o(.rodata.kern_classes)
+    [Anonymous Symbol]                       0x080476e8   Section        0  lv_font_montserrat_14.o(.rodata.kern_classes)
+    kern_left_class_mapping                  0x080476f8   Data         158  lv_font_montserrat_14.o(.rodata.kern_left_class_mapping)
+    [Anonymous Symbol]                       0x080476f8   Section        0  lv_font_montserrat_14.o(.rodata.kern_left_class_mapping)
+    kern_right_class_mapping                 0x08047796   Data         158  lv_font_montserrat_14.o(.rodata.kern_right_class_mapping)
+    [Anonymous Symbol]                       0x08047796   Section        0  lv_font_montserrat_14.o(.rodata.kern_right_class_mapping)
+    lv_palette_darken.colors                 0x08047bec   Data         152  lv_color.o(.rodata.lv_palette_darken.colors)
+    [Anonymous Symbol]                       0x08047bec   Section        0  lv_color.o(.rodata.lv_palette_darken.colors)
+    lv_palette_lighten.colors                0x08047c84   Data         190  lv_color.o(.rodata.lv_palette_lighten.colors)
+    [Anonymous Symbol]                       0x08047c84   Section        0  lv_color.o(.rodata.lv_palette_lighten.colors)
+    lv_palette_main.colors                   0x08047d42   Data          38  lv_color.o(.rodata.lv_palette_main.colors)
+    [Anonymous Symbol]                       0x08047d42   Section        0  lv_color.o(.rodata.lv_palette_main.colors)
+    month_names_def                          0x08047eb8   Data          48  lv_calendar_header_arrow.o(.rodata.month_names_def)
+    [Anonymous Symbol]                       0x08047eb8   Section        0  lv_calendar_header_arrow.o(.rodata.month_names_def)
+    sin0_90_table                            0x08047ee8   Data         182  lv_math.o(.rodata.sin0_90_table)
+    [Anonymous Symbol]                       0x08047ee8   Section        0  lv_math.o(.rodata.sin0_90_table)
+    .L.str                                   0x08047f9e   Data           5  bsp_esp8266.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08047f9e   Section        0  bsp_esp8266.o(.rodata.str1.1)
+    .L.str                                   0x08047fa1   Data           2  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.1                                 0x08047fa1   Data           2  bsp_esp8266.o(.rodata.str1.1)
+    .Lstr.34                                 0x08047fa3   Data          54  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.2                                 0x08047fa6   Data          11  bsp_esp8266.o(.rodata.str1.1)
+    .Lstr.33                                 0x08047fd9   Data          56  bsp_esp8266.o(.rodata.str1.1)
+    .Lstr.40                                 0x08048011   Data          21  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.13                                0x08048014   Data          27  bsp_esp8266.o(.rodata.str1.1)
+    .Lstr.39                                 0x08048026   Data          21  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.10                                0x0804803b   Data          41  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.9                                 0x08048064   Data          19  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.11                                0x08048092   Data          24  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.5                                 0x080480aa   Data          12  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.3                                 0x080480c1   Data           3  bsp_esp8266.o(.rodata.str1.1)
+    .L.str.3                                 0x080480c4   Data           6  cjson.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080480c4   Section        0  cjson.o(.rodata.str1.1)
+    .L.str.4                                 0x080480ca   Data           5  cjson.o(.rodata.str1.1)
+    .L.str.2                                 0x080480cf   Data           5  cjson.o(.rodata.str1.1)
+    .Lstr.4                                  0x080480d4   Data          38  main.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080480d4   Section        0  main.o(.rodata.str1.1)
+    .Lstr                                    0x080480fa   Data          38  main.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08048120   Section        0  app_freertos.o(.rodata.str1.1)
+    .L.str                                   0x0804813e   Data           8  lv_draw_img.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0804813e   Section        0  lv_draw_img.o(.rodata.str1.1)
+    .L.str                                   0x08048146   Data           4  lv_img_decoder.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08048146   Section        0  lv_img_decoder.o(.rodata.str1.1)
+    .L.str                                   0x0804814a   Data           4  lv_menu.o(.rodata.str1.1)
+    .L.str.8                                 0x0804814a   Data           4  lv_menu.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0804814a   Section        0  lv_menu.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0804814e   Section        0  lv_keyboard.o(.rodata.str1.1)
+    .L.str.2                                 0x08048152   Data           3  lv_keyboard.o(.rodata.str1.1)
+    .L.str.2                                 0x08048161   Data           2  lv_keyboard.o(.rodata.str1.1)
+    .L.str.11                                0x08048167   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str.1                                 0x08048189   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str                                   0x080481bf   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str.5                                 0x080481e1   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str.9                                 0x080481e5   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str.10                                0x080481e9   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str.4                                 0x080481ed   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str.7                                 0x080481f1   Data           4  lv_keyboard.o(.rodata.str1.1)
+    .L.str                                   0x080481f4   Data           1  lv_keyboard.o(.rodata.str1.1)
+    .L.str                                   0x080481f4   Data           1  lv_keyboard.o(.rodata.str1.1)
+    .L.str                                   0x080481f4   Data           1  lv_keyboard.o(.rodata.str1.1)
+    .L.str.1                                 0x080481f4   Data           1  lv_keyboard.o(.rodata.str1.1)
+    .L.str.2                                 0x080481f4   Data           1  lv_keyboard.o(.rodata.str1.1)
+    .L.str.20                                0x080481f4   Data           1  lv_keyboard.o(.rodata.str1.1)
+    .L.str                                   0x080481f5   Data           3  lv_chart.o(.rodata.str1.1)
+    .L.str                                   0x080481f5   Data           3  lv_chart.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080481f5   Section        0  lv_chart.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080481f8   Section        0  lv_calendar_header_arrow.o(.rodata.str1.1)
+    .L.str.2                                 0x0804822d   Data           6  lv_calendar_header_arrow.o(.rodata.str1.1)
+    .L.str.1                                 0x08048230   Data           3  lv_calendar_header_arrow.o(.rodata.str1.1)
+    .L.str                                   0x08048254   Data         615  lv_calendar_header_dropdown.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08048254   Section        0  lv_calendar_header_dropdown.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080484bb   Section        0  lv_btnmatrix.o(.rodata.str1.1)
+    .L.str.3                                 0x080484d4   Data          27  lv_dropdown.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080484d4   Section        0  lv_dropdown.o(.rodata.str1.1)
+    .L.str                                   0x080484ef   Data          45  lv_roller.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x080484ef   Section        0  lv_roller.o(.rodata.str1.1)
+    .L.str.1                                 0x0804851c   Data           4  lv_textarea.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x0804851c   Section        0  lv_textarea.o(.rodata.str1.1)
+    .L.str.1                                 0x08048520   Data           5  timers.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08048520   Section        0  timers.o(.rodata.str1.1)
+    style_init.trans_props                   0x08048526   Data          22  lv_theme_default.o(.rodata.style_init.trans_props)
+    [Anonymous Symbol]                       0x08048526   Section        0  lv_theme_default.o(.rodata.style_init.trans_props)
+    unicode_list_1                           0x0804853c   Data         124  lv_font_montserrat_14.o(.rodata.unicode_list_1)
+    [Anonymous Symbol]                       0x0804853c   Section        0  lv_font_montserrat_14.o(.rodata.unicode_list_1)
+    c$$dinf                                  0x080485dc   Section        8  fpconst.o(c$$dinf)
+    c$$dmax                                  0x080485e4   Section        8  fpconst.o(c$$dmax)
+    locale$$data                             0x080485ec   Section      272  lc_ctype_c.o(locale$$data)
+    __lcctype_c_name                         0x080485f0   Data           2  lc_ctype_c.o(locale$$data)
+    __lcctype_c_start                        0x080485f8   Data           0  lc_ctype_c.o(locale$$data)
+    __lcctype_c_end                          0x080486fc   Data           0  lc_ctype_c.o(locale$$data)
+    locale$$data                             0x080486fc   Section       28  lc_numeric_c.o(locale$$data)
+    __lcnum_c_name                           0x08048700   Data           2  lc_numeric_c.o(locale$$data)
+    __lcnum_c_start                          0x08048708   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_point                          0x08048714   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_thousands                      0x08048716   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_grouping                       0x08048717   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_end                            0x08048718   Data           0  lc_numeric_c.o(locale$$data)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     .L_MergedGlobals                         0x20000000   Data           8  bsp_ili9341_4line.o(.data..L_MergedGlobals)
     old_x0                                   0x20000000   Data           2  bsp_ili9341_4line.o(.data..L_MergedGlobals)
     [Anonymous Symbol]                       0x20000000   Section        0  bsp_ili9341_4line.o(.data..L_MergedGlobals)
@@ -21382,6 +21775,7 @@ Image Symbol Table
     lv_txt_get_size                          0x08037fb9   Thumb Code   200  lv_txt.o(.text.lv_txt_get_size)
     lv_txt_get_width                         0x08038081   Thumb Code   262  lv_txt.o(.text.lv_txt_get_width)
     lv_vsnprintf                             0x080384b1   Thumb Code    32  lv_printf.o(.text.lv_vsnprintf)
+<<<<<<< HEAD
     main                                     0x08038549   Thumb Code   344  main.o(.text.main)
     osDelay                                  0x08038cd5   Thumb Code    64  cmsis_os2.o(.text.osDelay)
     osKernelInitialize                       0x08038d15   Thumb Code    80  cmsis_os2.o(.text.osKernelInitialize)
@@ -21571,6 +21965,197 @@ Image Symbol Table
     __huge_val                               0x080485ec   Data           0  fpconst.o(c$$dinf)
     __dbl_max                                0x080485f4   Data           0  fpconst.o(c$$dmax)
     __ctype                                  0x08048609   Data           0  lc_ctype_c.o(locale$$data)
+=======
+    main                                     0x08038549   Thumb Code   348  main.o(.text.main)
+    osDelay                                  0x08038cd9   Thumb Code    64  cmsis_os2.o(.text.osDelay)
+    osKernelInitialize                       0x08038d19   Thumb Code    80  cmsis_os2.o(.text.osKernelInitialize)
+    osKernelStart                            0x08038d69   Thumb Code    96  cmsis_os2.o(.text.osKernelStart)
+    osThreadNew                              0x08038dc9   Thumb Code   246  cmsis_os2.o(.text.osThreadNew)
+    pvPortMalloc                             0x0803a431   Thumb Code   456  heap_4.o(.text.pvPortMalloc)
+    pxPortInitialiseStack                    0x0803a6ad   Thumb Code   110  port.o(.text.pxPortInitialiseStack)
+    setup_scr_screen                         0x0803c8b1   Thumb Code   220  setup_scr_screen.o(.text.setup_scr_screen)
+    setup_ui                                 0x0803c98d   Thumb Code    24  gui_guider.o(.text.setup_ui)
+    ulSetInterruptMask                       0x080414d9   Thumb Code    22  portasm.o(.text.ulSetInterruptMask)
+    uxListRemove                             0x080414f9   Thumb Code    34  list.o(.text.uxListRemove)
+    vApplicationGetIdleTaskMemory            0x0804151d   Thumb Code    26  cmsis_os2.o(.text.vApplicationGetIdleTaskMemory)
+    vApplicationGetTimerTaskMemory           0x08041539   Thumb Code    28  cmsis_os2.o(.text.vApplicationGetTimerTaskMemory)
+    vClearInterruptMask                      0x08041555   Thumb Code    14  portasm.o(.text.vClearInterruptMask)
+    vListInitialise                          0x08041565   Thumb Code    22  list.o(.text.vListInitialise)
+    vListInitialiseItem                      0x0804157d   Thumb Code     6  list.o(.text.vListInitialiseItem)
+    vListInsert                              0x08041585   Thumb Code    98  list.o(.text.vListInsert)
+    vPortEnterCritical                       0x080415e9   Thumb Code    30  port.o(.text.vPortEnterCritical)
+    vPortExitCritical                        0x08041609   Thumb Code    46  port.o(.text.vPortExitCritical)
+    vPortFree                                0x08041639   Thumb Code   188  heap_4.o(.text.vPortFree)
+    vPortSVCHandler_C                        0x080416f5   Thumb Code    26  port.o(.text.vPortSVCHandler_C)
+    vPortSetupTimerInterrupt                 0x08041711   Thumb Code    52  port.o(.text.vPortSetupTimerInterrupt)
+    vPortYield                               0x08041745   Thumb Code    24  port.o(.text.vPortYield)
+    vQueueAddToRegistry                      0x0804175d   Thumb Code   302  queue.o(.text.vQueueAddToRegistry)
+    vQueueWaitForMessageRestricted           0x0804188d   Thumb Code    82  queue.o(.text.vQueueWaitForMessageRestricted)
+    vRestoreContextOfFirstTask               0x080418e1   Thumb Code    52  portasm.o(.text.vRestoreContextOfFirstTask)
+    vStartFirstTask                          0x08041921   Thumb Code    36  portasm.o(.text.vStartFirstTask)
+    vTask1                                   0x08041945   Thumb Code    52  app_freertos.o(.text.vTask1)
+    vTask2                                   0x0804198d   Thumb Code    32  app_freertos.o(.text.vTask2)
+    vTask3                                   0x080419c1   Thumb Code    96  app_freertos.o(.text.vTask3)
+    vTaskDelay                               0x08041a4d   Thumb Code   116  tasks.o(.text.vTaskDelay)
+    vTaskInternalSetTimeOutState             0x08041ac1   Thumb Code    18  tasks.o(.text.vTaskInternalSetTimeOutState)
+    vTaskMissedYield                         0x08041ad5   Thumb Code    14  tasks.o(.text.vTaskMissedYield)
+    vTaskPlaceOnEventList                    0x08041ae5   Thumb Code   146  tasks.o(.text.vTaskPlaceOnEventList)
+    vTaskPlaceOnEventListRestricted          0x08041b79   Thumb Code   172  tasks.o(.text.vTaskPlaceOnEventListRestricted)
+    vTaskStartScheduler                      0x08041c25   Thumb Code   192  tasks.o(.text.vTaskStartScheduler)
+    vTaskSuspendAll                          0x08041ced   Thumb Code    16  tasks.o(.text.vTaskSuspendAll)
+    vTaskSwitchContext                       0x08041cfd   Thumb Code   180  tasks.o(.text.vTaskSwitchContext)
+    xPortStartScheduler                      0x08041f4d   Thumb Code   306  port.o(.text.xPortStartScheduler)
+    xPortSysTickHandler                      0x08042081   Thumb Code    38  port.o(.text.xPortSysTickHandler)
+    xQueueGenericCreateStatic                0x080420a9   Thumb Code   158  queue.o(.text.xQueueGenericCreateStatic)
+    xQueueReceive                            0x08042149   Thumb Code   470  queue.o(.text.xQueueReceive)
+    xTaskCheckForTimeOut                     0x08042321   Thumb Code   130  tasks.o(.text.xTaskCheckForTimeOut)
+    xTaskCreate                              0x080423a5   Thumb Code    96  tasks.o(.text.xTaskCreate)
+    xTaskCreateStatic                        0x08042405   Thumb Code   110  tasks.o(.text.xTaskCreateStatic)
+    xTaskGetSchedulerState                   0x08042475   Thumb Code    30  tasks.o(.text.xTaskGetSchedulerState)
+    xTaskGetTickCount                        0x08042495   Thumb Code    12  tasks.o(.text.xTaskGetTickCount)
+    xTaskIncrementTick                       0x080424a1   Thumb Code   366  tasks.o(.text.xTaskIncrementTick)
+    xTaskRemoveFromEventList                 0x08042611   Thumb Code   208  tasks.o(.text.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x080426e1   Thumb Code   288  tasks.o(.text.xTaskResumeAll)
+    xTimerCreateTimerTask                    0x08042801   Thumb Code   164  timers.o(.text.xTimerCreateTimerTask)
+    _btod_d2e                                0x08042911   Thumb Code    62  btod.o(CL$$btod_d2e)
+    _d2e_denorm_low                          0x0804294f   Thumb Code    70  btod.o(CL$$btod_d2e_denorm_low)
+    _d2e_norm_op1                            0x08042995   Thumb Code    96  btod.o(CL$$btod_d2e_norm_op1)
+    __btod_div_common                        0x080429f5   Thumb Code   696  btod.o(CL$$btod_div_common)
+    _e2d                                     0x08042d2d   Thumb Code   122  btod.o(CL$$btod_e2d)
+    _e2e                                     0x08042db1   Thumb Code   220  btod.o(CL$$btod_e2e)
+    _btod_ediv                               0x08042e8d   Thumb Code    42  btod.o(CL$$btod_ediv)
+    _btod_edivd                              0x08042eb7   Thumb Code    42  btod.o(CL$$btod_edivd)
+    _btod_emul                               0x08042ee1   Thumb Code    42  btod.o(CL$$btod_emul)
+    _btod_emuld                              0x08042f0b   Thumb Code    42  btod.o(CL$$btod_emuld)
+    __btod_mult_common                       0x08042f35   Thumb Code   580  btod.o(CL$$btod_mult_common)
+    __ARM_fpclassify                         0x08043179   Thumb Code    48  fpclassify.o(i.__ARM_fpclassify)
+    __hardfp___mathlib_tofloat               0x080431a9   Thumb Code   232  narrow.o(i.__hardfp___mathlib_tofloat)
+    __hardfp_ldexp                           0x080432a1   Thumb Code   200  ldexp.o(i.__hardfp_ldexp)
+    __hardfp_strtod                          0x08043371   Thumb Code    32  strtod.o(i.__hardfp_strtod)
+    __mathlib_dbl_overflow                   0x08043399   Thumb Code    24  dunder.o(i.__mathlib_dbl_overflow)
+    __mathlib_dbl_underflow                  0x080433b9   Thumb Code    24  dunder.o(i.__mathlib_dbl_underflow)
+    __mathlib_narrow                         0x080433d9   Thumb Code    18  narrow.o(i.__mathlib_narrow)
+    __support_ldexp                          0x080433eb   Thumb Code    20  ldexp.o(i.__support_ldexp)
+    _is_digit                                0x080433ff   Thumb Code    14  __printf_wp.o(i._is_digit)
+    frexp                                    0x08043411   Thumb Code   118  frexp.o(i.frexp)
+    _get_lc_ctype                            0x0804349d   Thumb Code    44  lc_ctype_c.o(locale$$code)
+    _get_lc_numeric                          0x080434c9   Thumb Code    44  lc_numeric_c.o(locale$$code)
+    __aeabi_d2f                              0x080434f5   Thumb Code     0  d2f.o(x$fpl$d2f)
+    _d2f                                     0x080434f5   Thumb Code    98  d2f.o(x$fpl$d2f)
+    __fpl_dcheck_NaN1                        0x08043559   Thumb Code    10  dcheck1.o(x$fpl$dcheck1)
+    __fpl_dcmp_Inf                           0x08043569   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
+    __aeabi_cdcmpeq                          0x08043581   Thumb Code     0  deqf.o(x$fpl$deqf)
+    _dcmpeq                                  0x08043581   Thumb Code   120  deqf.o(x$fpl$deqf)
+    __aeabi_d2iz                             0x080435f9   Thumb Code     0  dfix.o(x$fpl$dfix)
+    _dfix                                    0x080435f9   Thumb Code    94  dfix.o(x$fpl$dfix)
+    __aeabi_cdcmpge                          0x08043659   Thumb Code     0  dgeqf.o(x$fpl$dgeqf)
+    _dcmpge                                  0x08043659   Thumb Code   120  dgeqf.o(x$fpl$dgeqf)
+    __aeabi_cdcmple                          0x080436d1   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    _dcmple                                  0x080436d1   Thumb Code   120  dleqf.o(x$fpl$dleqf)
+    __fpl_dcmple_InfNaN                      0x08043733   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    __aeabi_dmul                             0x08043749   Thumb Code     0  dmul.o(x$fpl$dmul)
+    _dmul                                    0x08043749   Thumb Code   332  dmul.o(x$fpl$dmul)
+    __fpl_dnaninf                            0x0804389d   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __fpl_dretinf                            0x08043939   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    __aeabi_cdrcmple                         0x08043945   Thumb Code     0  drleqf.o(x$fpl$drleqf)
+    _drcmple                                 0x08043945   Thumb Code   108  drleqf.o(x$fpl$drleqf)
+    __aeabi_f2d                              0x080439b1   Thumb Code     0  f2d.o(x$fpl$f2d)
+    _f2d                                     0x080439b1   Thumb Code    86  f2d.o(x$fpl$f2d)
+    __aeabi_dcmpeq                           0x08043a07   Thumb Code     0  dcmp.o(x$fpl$fcmp)
+    _deq                                     0x08043a07   Thumb Code    14  dcmp.o(x$fpl$fcmp)
+    _dneq                                    0x08043a15   Thumb Code    14  dcmp.o(x$fpl$fcmp)
+    __aeabi_dcmpgt                           0x08043a23   Thumb Code     0  dcmp.o(x$fpl$fcmp)
+    _dgr                                     0x08043a23   Thumb Code    14  dcmp.o(x$fpl$fcmp)
+    __aeabi_dcmpge                           0x08043a31   Thumb Code     0  dcmp.o(x$fpl$fcmp)
+    _dgeq                                    0x08043a31   Thumb Code    14  dcmp.o(x$fpl$fcmp)
+    __aeabi_dcmple                           0x08043a3f   Thumb Code     0  dcmp.o(x$fpl$fcmp)
+    _dleq                                    0x08043a3f   Thumb Code    14  dcmp.o(x$fpl$fcmp)
+    __aeabi_dcmplt                           0x08043a4d   Thumb Code     0  dcmp.o(x$fpl$fcmp)
+    _dls                                     0x08043a4d   Thumb Code    14  dcmp.o(x$fpl$fcmp)
+    __fpl_fnaninf                            0x08043a5b   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
+    _fp_init                                 0x08043ae7   Thumb Code    26  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x08043aff   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x08043aff   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fpl_fretinf                            0x08043b01   Thumb Code    10  fretinf.o(x$fpl$fretinf)
+    __ieee_status                            0x08043b0b   Thumb Code     6  istatus.o(x$fpl$ieeestatus)
+    _printf_fp_dec                           0x08043b11   Thumb Code     4  printf1.o(x$fpl$printf1)
+    __fpl_return_NaN                         0x08043b15   Thumb Code   100  retnan.o(x$fpl$retnan)
+    __ARM_scalbn                             0x08043b79   Thumb Code    92  scalbn.o(x$fpl$scalbn)
+    _scanf_real                              0x08043bd5   Thumb Code     4  scanf1.o(x$fpl$scanf1)
+    _scanf_hex_real                          0x08043bd9   Thumb Code     4  scanf2.o(x$fpl$scanf2)
+    _scanf_infnan                            0x08043bdd   Thumb Code     4  scanf2.o(x$fpl$scanf2)
+    __fpl_cmpreturn                          0x08043be1   Thumb Code    48  trapv.o(x$fpl$trapveneer)
+    __I$use$fp                               0x08043c10   Number         0  usenofp.o(x$fpl$usenofp)
+    AHBPrescTable                            0x08043cf8   Data          16  system_stm32u5xx.o(.rodata.AHBPrescTable)
+    APBPrescTable                            0x08043d08   Data           8  system_stm32u5xx.o(.rodata.APBPrescTable)
+    MSIRangeTable                            0x08043d90   Data          64  system_stm32u5xx.o(.rodata.MSIRangeTable)
+    Task1_attributes                         0x08043dd0   Data          36  app_freertos.o(.rodata.Task1_attributes)
+    Task2_attributes                         0x08043df4   Data          36  app_freertos.o(.rodata.Task2_attributes)
+    Task3_attributes                         0x08043e18   Data          36  app_freertos.o(.rodata.Task3_attributes)
+    UARTPrescTable                           0x08043e3c   Data          24  stm32u5xx_hal_uart.o(.rodata.UARTPrescTable)
+    _lv_bpp1_opa_table                       0x08043e54   Data           2  lv_draw_sw_letter.o(.rodata._lv_bpp1_opa_table)
+    _lv_bpp2_opa_table                       0x08043e56   Data           4  lv_draw_sw_letter.o(.rodata._lv_bpp2_opa_table)
+    _lv_bpp4_opa_table                       0x08043e5a   Data          16  lv_draw_sw_letter.o(.rodata._lv_bpp4_opa_table)
+    _lv_bpp8_opa_table                       0x08043e6a   Data         256  lv_draw_sw_letter.o(.rodata._lv_bpp8_opa_table)
+    _lv_style_builtin_prop_flag_lookup_table 0x08043f6a   Data         113  lv_style.o(.rodata._lv_style_builtin_prop_flag_lookup_table)
+    defaultTask_attributes                   0x08044014   Data          36  app_freertos.o(.rodata.defaultTask_attributes)
+    lv_arc_class                             0x08047834   Data          28  lv_arc.o(.rodata.lv_arc_class)
+    lv_bar_class                             0x08047850   Data          28  lv_bar.o(.rodata.lv_bar_class)
+    lv_btn_class                             0x0804786c   Data          28  lv_btn.o(.rodata.lv_btn_class)
+    lv_btnmatrix_class                       0x08047888   Data          28  lv_btnmatrix.o(.rodata.lv_btnmatrix_class)
+    lv_calendar_class                        0x080478a4   Data          28  lv_calendar.o(.rodata.lv_calendar_class)
+    lv_calendar_header_arrow_class           0x080478c0   Data          28  lv_calendar_header_arrow.o(.rodata.lv_calendar_header_arrow_class)
+    lv_calendar_header_dropdown_class        0x080478dc   Data          28  lv_calendar_header_dropdown.o(.rodata.lv_calendar_header_dropdown_class)
+    lv_chart_class                           0x080478f8   Data          28  lv_chart.o(.rodata.lv_chart_class)
+    lv_checkbox_class                        0x08047914   Data          28  lv_checkbox.o(.rodata.lv_checkbox_class)
+    lv_colorwheel_class                      0x08047930   Data          28  lv_colorwheel.o(.rodata.lv_colorwheel_class)
+    lv_dropdown_class                        0x0804794c   Data          28  lv_dropdown.o(.rodata.lv_dropdown_class)
+    lv_dropdownlist_class                    0x08047968   Data          28  lv_dropdown.o(.rodata.lv_dropdownlist_class)
+    lv_font_montserrat_14                    0x08047984   Data          28  lv_font_montserrat_14.o(.rodata.lv_font_montserrat_14)
+    lv_img_class                             0x080479a0   Data          28  lv_img.o(.rodata.lv_img_class)
+    lv_keyboard_class                        0x080479bc   Data          28  lv_keyboard.o(.rodata.lv_keyboard_class)
+    lv_label_class                           0x080479d8   Data          28  lv_label.o(.rodata.lv_label_class)
+    lv_led_class                             0x080479f4   Data          28  lv_led.o(.rodata.lv_led_class)
+    lv_line_class                            0x08047a10   Data          28  lv_line.o(.rodata.lv_line_class)
+    lv_list_btn_class                        0x08047a2c   Data          28  lv_list.o(.rodata.lv_list_btn_class)
+    lv_list_class                            0x08047a48   Data          28  lv_list.o(.rodata.lv_list_class)
+    lv_list_text_class                       0x08047a64   Data          28  lv_list.o(.rodata.lv_list_text_class)
+    lv_menu_class                            0x08047a80   Data          28  lv_menu.o(.rodata.lv_menu_class)
+    lv_menu_cont_class                       0x08047a9c   Data          28  lv_menu.o(.rodata.lv_menu_cont_class)
+    lv_menu_main_cont_class                  0x08047ab8   Data          28  lv_menu.o(.rodata.lv_menu_main_cont_class)
+    lv_menu_main_header_cont_class           0x08047ad4   Data          28  lv_menu.o(.rodata.lv_menu_main_header_cont_class)
+    lv_menu_page_class                       0x08047af0   Data          28  lv_menu.o(.rodata.lv_menu_page_class)
+    lv_menu_section_class                    0x08047b0c   Data          28  lv_menu.o(.rodata.lv_menu_section_class)
+    lv_menu_separator_class                  0x08047b28   Data          28  lv_menu.o(.rodata.lv_menu_separator_class)
+    lv_menu_sidebar_cont_class               0x08047b44   Data          28  lv_menu.o(.rodata.lv_menu_sidebar_cont_class)
+    lv_menu_sidebar_header_cont_class        0x08047b60   Data          28  lv_menu.o(.rodata.lv_menu_sidebar_header_cont_class)
+    lv_meter_class                           0x08047b7c   Data          28  lv_meter.o(.rodata.lv_meter_class)
+    lv_msgbox_backdrop_class                 0x08047b98   Data          28  lv_msgbox.o(.rodata.lv_msgbox_backdrop_class)
+    lv_msgbox_class                          0x08047bb4   Data          28  lv_msgbox.o(.rodata.lv_msgbox_class)
+    lv_obj_class                             0x08047bd0   Data          28  lv_obj.o(.rodata.lv_obj_class)
+    lv_roller_class                          0x08047d68   Data          28  lv_roller.o(.rodata.lv_roller_class)
+    lv_roller_label_class                    0x08047d84   Data          28  lv_roller.o(.rodata.lv_roller_label_class)
+    lv_slider_class                          0x08047da0   Data          28  lv_slider.o(.rodata.lv_slider_class)
+    lv_spinbox_class                         0x08047dbc   Data          28  lv_spinbox.o(.rodata.lv_spinbox_class)
+    lv_spinner_class                         0x08047dd8   Data          28  lv_spinner.o(.rodata.lv_spinner_class)
+    lv_switch_class                          0x08047df4   Data          28  lv_switch.o(.rodata.lv_switch_class)
+    lv_table_class                           0x08047e10   Data          28  lv_table.o(.rodata.lv_table_class)
+    lv_tabview_class                         0x08047e2c   Data          28  lv_tabview.o(.rodata.lv_tabview_class)
+    lv_textarea_class                        0x08047e48   Data          28  lv_textarea.o(.rodata.lv_textarea_class)
+    lv_tileview_class                        0x08047e64   Data          28  lv_tileview.o(.rodata.lv_tileview_class)
+    lv_tileview_tile_class                   0x08047e80   Data          28  lv_tileview.o(.rodata.lv_tileview_tile_class)
+    lv_win_class                             0x08047e9c   Data          28  lv_win.o(.rodata.lv_win_class)
+    uxTopUsedPriority                        0x080485b8   Data           4  tasks.o(.rodata.uxTopUsedPriority)
+    Region$$Table$$Base                      0x080485bc   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080485dc   Number         0  anon$$obj.o(Region$$Table)
+    __aeabi_HUGE_VAL                         0x080485dc   Data           0  fpconst.o(c$$dinf)
+    __aeabi_HUGE_VALL                        0x080485dc   Data           0  fpconst.o(c$$dinf)
+    __aeabi_INFINITY                         0x080485dc   Data           0  fpconst.o(c$$dinf)
+    __dInf                                   0x080485dc   Data           0  fpconst.o(c$$dinf)
+    __huge_val                               0x080485dc   Data           0  fpconst.o(c$$dinf)
+    __dbl_max                                0x080485e4   Data           0  fpconst.o(c$$dmax)
+    __ctype                                  0x080485f9   Data           0  lc_ctype_c.o(locale$$data)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     uwTickFreq                               0x20000008   Data           1  stm32u5xx_hal.o(.data..L_MergedGlobals)
     uwTickPrio                               0x2000000c   Data           4  stm32u5xx_hal.o(.data..L_MergedGlobals)
     _lv_txt_encoded_size                     0x2000005c   Data           4  lv_txt.o(.data..L_MergedGlobals)
@@ -21653,9 +22238,15 @@ Memory Map of the image
 
   Image Entry point : 0x08000239
 
+<<<<<<< HEAD
   Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00048800, Max: 0x00200000, ABSOLUTE)
 
     Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00048728, Max: 0x00200000, ABSOLUTE)
+=======
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000487f0, Max: 0x00200000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00048718, Max: 0x00200000, ABSOLUTE)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -23107,6 +23698,7 @@ Memory Map of the image
     0x080384b0   0x080384b0   0x00000020   Code   RO         5317    .text.lv_vsnprintf  lv_printf.o
     0x080384d0   0x080384d0   0x00000076   Code   RO         3830    .text.lv_win_constructor  lv_win.o
     0x08038546   0x08038546   0x00000002   PAD
+<<<<<<< HEAD
     0x08038548   0x08038548   0x00000160   Code   RO          511    .text.main          main.o
     0x080386a8   0x080386a8   0x00000096   Code   RO         5854    .text.make_one_button_checked  lv_btnmatrix.o
     0x0803873e   0x0803873e   0x00000002   PAD
@@ -23482,6 +24074,382 @@ Memory Map of the image
     0x200000cc   0x080487f4   0x00000004   Data   RW         6856    .data.ulCriticalNesting  port.o
     0x200000d0   0x080487f8   0x00000004   Data   RW         5301    .data.zero_mem      lv_mem.o
     0x200000d4   0x080487fc   0x00000004   PAD
+=======
+    0x08038548   0x08038548   0x00000164   Code   RO          511    .text.main          main.o
+    0x080386ac   0x080386ac   0x00000096   Code   RO         5854    .text.make_one_button_checked  lv_btnmatrix.o
+    0x08038742   0x08038742   0x00000002   PAD
+    0x08038744   0x08038744   0x0000007a   Code   RO         4495    .text.month_event_cb  lv_calendar_header_arrow.o
+    0x080387be   0x080387be   0x00000002   PAD
+    0x080387c0   0x080387c0   0x00000036   Code   RO         4518    .text.month_event_cb  lv_calendar_header_dropdown.o
+    0x080387f6   0x080387f6   0x00000002   PAD
+    0x080387f8   0x080387f8   0x000000e8   Code   RO         4491    .text.my_constructor  lv_calendar_header_arrow.o
+    0x080388e0   0x080388e0   0x000000b8   Code   RO         4510    .text.my_constructor  lv_calendar_header_dropdown.o
+    0x08038998   0x08038998   0x00000032   Code   RO         4335    .text.next_color_mode  lv_colorwheel.o
+    0x080389ca   0x080389ca   0x00000002   PAD
+    0x080389cc   0x080389cc   0x00000304   Code   RO         3309    .text.obj_del_core  lv_obj_tree.o
+    0x08038cd0   0x08038cd0   0x00000008   Code   RO         2549    .text.opa_scale_anim  lv_disp.o
+    0x08038cd8   0x08038cd8   0x00000040   Code   RO         6951    .text.osDelay       cmsis_os2.o
+    0x08038d18   0x08038d18   0x00000050   Code   RO         6893    .text.osKernelInitialize  cmsis_os2.o
+    0x08038d68   0x08038d68   0x00000060   Code   RO         6899    .text.osKernelStart  cmsis_os2.o
+    0x08038dc8   0x08038dc8   0x000000f6   Code   RO         6915    .text.osThreadNew   cmsis_os2.o
+    0x08038ebe   0x08038ebe   0x00000002   PAD
+    0x08038ec0   0x08038ec0   0x00000100   Code   RO          418    .text.parse_hex4    cjson.o
+    0x08038fc0   0x08038fc0   0x00000316   Code   RO          416    .text.parse_object  cjson.o
+    0x080392d6   0x080392d6   0x00000002   PAD
+    0x080392d8   0x080392d8   0x000003e2   Code   RO          414    .text.parse_string  cjson.o
+    0x080396ba   0x080396ba   0x00000006   PAD
+    0x080396c0   0x080396c0   0x00000498   Code   RO          268    .text.parse_value   cjson.o
+    0x08039b58   0x08039b58   0x000000b4   Code   RO         6213    .text.position_knob  lv_slider.o
+    0x08039c0c   0x08039c0c   0x0000005a   Code   RO         5981    .text.position_to_selected  lv_dropdown.o
+    0x08039c66   0x08039c66   0x00000002   PAD
+    0x08039c68   0x08039c68   0x000002a6   Code   RO         6657    .text.prvAddNewTaskToReadyList  tasks.o
+    0x08039f0e   0x08039f0e   0x00000002   PAD
+    0x08039f10   0x08039f10   0x00000066   Code   RO         6689    .text.prvIdleTask   tasks.o
+    0x08039f76   0x08039f76   0x00000002   PAD
+    0x08039f78   0x08039f78   0x000000f6   Code   RO         6655    .text.prvInitialiseNewTask  tasks.o
+    0x0803a06e   0x0803a06e   0x00000002   PAD
+    0x0803a070   0x0803a070   0x00000036   Code   RO         6846    .text.prvTaskExitError  port.o
+    0x0803a0a6   0x0803a0a6   0x00000002   PAD
+    0x0803a0a8   0x0803a0a8   0x00000312   Code   RO         6780    .text.prvTimerTask  timers.o
+    0x0803a3ba   0x0803a3ba   0x00000002   PAD
+    0x0803a3bc   0x0803a3bc   0x00000074   Code   RO         6548    .text.prvUnlockQueue  queue.o
+    0x0803a430   0x0803a430   0x000001c8   Code   RO         7054    .text.pvPortMalloc  heap_4.o
+    0x0803a5f8   0x0803a5f8   0x000000a6   Code   RO         6315    .text.pwd_char_hider  lv_textarea.o
+    0x0803a69e   0x0803a69e   0x00000002   PAD
+    0x0803a6a0   0x0803a6a0   0x00000002   Code   RO         6391    .text.pwd_char_hider_anim  lv_textarea.o
+    0x0803a6a2   0x0803a6a2   0x00000002   PAD
+    0x0803a6a4   0x0803a6a4   0x00000006   Code   RO         6393    .text.pwd_char_hider_anim_ready  lv_textarea.o
+    0x0803a6aa   0x0803a6aa   0x00000002   PAD
+    0x0803a6ac   0x0803a6ac   0x0000006e   Code   RO         6844    .text.pxPortInitialiseStack  port.o
+    0x0803a71a   0x0803a71a   0x00000002   PAD
+    0x0803a71c   0x0803a71c   0x00001136   Code   RO         3367    .text.refr_area_part  lv_refr.o
+    0x0803b852   0x0803b852   0x00000002   PAD
+    0x0803b854   0x0803b854   0x00000206   Code   RO         6337    .text.refr_cursor_area  lv_textarea.o
+    0x0803ba5a   0x0803ba5a   0x00000002   PAD
+    0x0803ba5c   0x0803ba5c   0x0000019e   Code   RO         4319    .text.refr_knob_pos  lv_colorwheel.o
+    0x0803bbfa   0x0803bbfa   0x00000002   PAD
+    0x0803bbfc   0x0803bbfc   0x000003c2   Code   RO         3355    .text.refr_obj      lv_refr.o
+    0x0803bfbe   0x0803bfbe   0x00000002   PAD
+    0x0803bfc0   0x0803bfc0   0x0000009a   Code   RO         3371    .text.refr_obj_and_children  lv_refr.o
+    0x0803c05a   0x0803c05a   0x00000002   PAD
+    0x0803c05c   0x0803c05c   0x00000132   Code   RO         6178    .text.refr_position  lv_roller.o
+    0x0803c18e   0x0803c18e   0x00000002   PAD
+    0x0803c190   0x0803c190   0x000000fa   Code   RO         6263    .text.refr_size_form_row  lv_table.o
+    0x0803c28a   0x0803c28a   0x00000002   PAD
+    0x0803c28c   0x0803c28c   0x0000003e   Code   RO         3074    .text.refresh_children_style  lv_obj_style.o
+    0x0803c2ca   0x0803c2ca   0x00000002   PAD
+    0x0803c2cc   0x0803c2cc   0x00000094   Code   RO         3072    .text.report_style_change_core  lv_obj_style.o
+    0x0803c360   0x0803c360   0x00000056   Code   RO         2543    .text.scr_anim_ready  lv_disp.o
+    0x0803c3b6   0x0803c3b6   0x00000002   PAD
+    0x0803c3b8   0x0803c3b8   0x00000030   Code   RO         2541    .text.scr_load_anim_start  lv_disp.o
+    0x0803c3e8   0x0803c3e8   0x00000056   Code   RO         2539    .text.scr_load_internal  lv_disp.o
+    0x0803c43e   0x0803c43e   0x00000002   PAD
+    0x0803c440   0x0803c440   0x0000000a   Code   RO         3022    .text.scroll_anim_ready_cb  lv_obj_scroll.o
+    0x0803c44a   0x0803c44a   0x00000002   PAD
+    0x0803c44c   0x0803c44c   0x00000010   Code   RO         6192    .text.scroll_anim_ready_cb  lv_roller.o
+    0x0803c45c   0x0803c45c   0x0000030e   Code   RO         3034    .text.scroll_area_into_view  lv_obj_scroll.o
+    0x0803c76a   0x0803c76a   0x00000002   PAD
+    0x0803c76c   0x0803c76c   0x0000007c   Code   RO         6287    .text.scroll_to_selected_cell  lv_table.o
+    0x0803c7e8   0x0803c7e8   0x0000004e   Code   RO         3014    .text.scroll_x_anim  lv_obj_scroll.o
+    0x0803c836   0x0803c836   0x00000002   PAD
+    0x0803c838   0x0803c838   0x0000004e   Code   RO         3016    .text.scroll_y_anim  lv_obj_scroll.o
+    0x0803c886   0x0803c886   0x00000002   PAD
+    0x0803c888   0x0803c888   0x00000008   Code   RO         6101    .text.set_ofs_x_anim  lv_label.o
+    0x0803c890   0x0803c890   0x00000008   Code   RO         6103    .text.set_ofs_y_anim  lv_label.o
+    0x0803c898   0x0803c898   0x00000006   Code   RO         2545    .text.set_x_anim    lv_disp.o
+    0x0803c89e   0x0803c89e   0x00000002   PAD
+    0x0803c8a0   0x0803c8a0   0x00000006   Code   RO         2547    .text.set_y_anim    lv_disp.o
+    0x0803c8a6   0x0803c8a6   0x00000002   PAD
+    0x0803c8a8   0x0803c8a8   0x00000006   Code   RO         6190    .text.set_y_anim    lv_roller.o
+    0x0803c8ae   0x0803c8ae   0x00000002   PAD
+    0x0803c8b0   0x0803c8b0   0x000000dc   Code   RO         6442    .text.setup_scr_screen  setup_scr_screen.o
+    0x0803c98c   0x0803c98c   0x00000018   Code   RO         6430    .text.setup_ui      gui_guider.o
+    0x0803c9a4   0x0803c9a4   0x00000590   Code   RO         3802    .text.shadow_blur_corner  lv_draw_sw_rect.o
+    0x0803cf34   0x0803cf34   0x00002ef6   Code   RO         4576    .text.style_init    lv_theme_default.o
+    0x0803fe2a   0x0803fe2a   0x00000002   PAD
+    0x0803fe2c   0x0803fe2c   0x00001078   Code   RO         4574    .text.theme_apply   lv_theme_default.o
+    0x08040ea4   0x08040ea4   0x000000ce   Code   RO         3866    .text.tileview_event_cb  lv_tileview.o
+    0x08040f72   0x08040f72   0x00000002   PAD
+    0x08040f74   0x08040f74   0x00000040   Code   RO         2502    .text.touchpad_read  lv_port_indev_template.o
+    0x08040fb4   0x08040fb4   0x0000016a   Code   RO         3094    .text.trans_anim_cb  lv_obj_style.o
+    0x0804111e   0x0804111e   0x00000002   PAD
+    0x08041120   0x08041120   0x000000c0   Code   RO         3098    .text.trans_anim_ready_cb  lv_obj_style.o
+    0x080411e0   0x080411e0   0x0000003e   Code   RO         3096    .text.trans_anim_start_cb  lv_obj_style.o
+    0x0804121e   0x0804121e   0x00000002   PAD
+    0x08041220   0x08041220   0x000001b6   Code   RO         3060    .text.trans_del     lv_obj_style.o
+    0x080413d6   0x080413d6   0x00000002   PAD
+    0x080413d8   0x080413d8   0x000000fe   Code   RO         2958    .text.transform_point  lv_obj_pos.o
+    0x080414d6   0x080414d6   0x00000002   PAD
+    0x080414d8   0x080414d8   0x00000016   Code   RO         6876    .text.ulSetInterruptMask  portasm.o
+    0x080414ee   0x080414ee   0x00000002   PAD
+    0x080414f0   0x080414f0   0x00000008   Code   RO         4763    .text.unicode_list_compare  lv_font_fmt_txt.o
+    0x080414f8   0x080414f8   0x00000022   Code   RO         6510    .text.uxListRemove  list.o
+    0x0804151a   0x0804151a   0x00000002   PAD
+    0x0804151c   0x0804151c   0x0000001a   Code   RO         7037    .text.vApplicationGetIdleTaskMemory  cmsis_os2.o
+    0x08041536   0x08041536   0x00000002   PAD
+    0x08041538   0x08041538   0x0000001c   Code   RO         7039    .text.vApplicationGetTimerTaskMemory  cmsis_os2.o
+    0x08041554   0x08041554   0x0000000e   Code   RO         6878    .text.vClearInterruptMask  portasm.o
+    0x08041562   0x08041562   0x00000002   PAD
+    0x08041564   0x08041564   0x00000016   Code   RO         6502    .text.vListInitialise  list.o
+    0x0804157a   0x0804157a   0x00000002   PAD
+    0x0804157c   0x0804157c   0x00000006   Code   RO         6504    .text.vListInitialiseItem  list.o
+    0x08041582   0x08041582   0x00000002   PAD
+    0x08041584   0x08041584   0x00000062   Code   RO         6508    .text.vListInsert   list.o
+    0x080415e6   0x080415e6   0x00000002   PAD
+    0x080415e8   0x080415e8   0x0000001e   Code   RO         6836    .text.vPortEnterCritical  port.o
+    0x08041606   0x08041606   0x00000002   PAD
+    0x08041608   0x08041608   0x0000002e   Code   RO         6838    .text.vPortExitCritical  port.o
+    0x08041636   0x08041636   0x00000002   PAD
+    0x08041638   0x08041638   0x000000bc   Code   RO         7056    .text.vPortFree     heap_4.o
+    0x080416f4   0x080416f4   0x0000001a   Code   RO         6842    .text.vPortSVCHandler_C  port.o
+    0x0804170e   0x0804170e   0x00000002   PAD
+    0x08041710   0x08041710   0x00000034   Code   RO         6832    .text.vPortSetupTimerInterrupt  port.o
+    0x08041744   0x08041744   0x00000018   Code   RO         6834    .text.vPortYield    port.o
+    0x0804175c   0x0804175c   0x0000012e   Code   RO         6586    .text.vQueueAddToRegistry  queue.o
+    0x0804188a   0x0804188a   0x00000002   PAD
+    0x0804188c   0x0804188c   0x00000052   Code   RO         6590    .text.vQueueWaitForMessageRestricted  queue.o
+    0x080418de   0x080418de   0x00000002   PAD
+    0x080418e0   0x080418e0   0x00000034   Code   RO         6866    .text.vRestoreContextOfFirstTask  portasm.o
+    0x08041914   0x08041914   0x0000000c   PAD
+    0x08041920   0x08041920   0x00000024   Code   RO         6874    .text.vStartFirstTask  portasm.o
+    0x08041944   0x08041944   0x00000048   Code   RO          553    .text.vTask1        app_freertos.o
+    0x0804198c   0x0804198c   0x00000034   Code   RO          555    .text.vTask2        app_freertos.o
+    0x080419c0   0x080419c0   0x0000008c   Code   RO          557    .text.vTask3        app_freertos.o
+    0x08041a4c   0x08041a4c   0x00000074   Code   RO         6669    .text.vTaskDelay    tasks.o
+    0x08041ac0   0x08041ac0   0x00000012   Code   RO         6723    .text.vTaskInternalSetTimeOutState  tasks.o
+    0x08041ad2   0x08041ad2   0x00000002   PAD
+    0x08041ad4   0x08041ad4   0x0000000e   Code   RO         6727    .text.vTaskMissedYield  tasks.o
+    0x08041ae2   0x08041ae2   0x00000002   PAD
+    0x08041ae4   0x08041ae4   0x00000092   Code   RO         6711    .text.vTaskPlaceOnEventList  tasks.o
+    0x08041b76   0x08041b76   0x00000002   PAD
+    0x08041b78   0x08041b78   0x000000ac   Code   RO         6715    .text.vTaskPlaceOnEventListRestricted  tasks.o
+    0x08041c24   0x08041c24   0x000000c8   Code   RO         6687    .text.vTaskStartScheduler  tasks.o
+    0x08041cec   0x08041cec   0x00000010   Code   RO         6665    .text.vTaskSuspendAll  tasks.o
+    0x08041cfc   0x08041cfc   0x000000b4   Code   RO         6681    .text.vTaskSwitchContext  tasks.o
+    0x08041db0   0x08041db0   0x00000040   Code   RO         4497    .text.value_changed_event_cb  lv_calendar_header_arrow.o
+    0x08041df0   0x08041df0   0x0000006e   Code   RO         4520    .text.value_changed_event_cb  lv_calendar_header_dropdown.o
+    0x08041e5e   0x08041e5e   0x00000002   PAD
+    0x08041e60   0x08041e60   0x000000ea   Code   RO         5715    .text.value_update  lv_arc.o
+    0x08041f4a   0x08041f4a   0x00000002   PAD
+    0x08041f4c   0x08041f4c   0x00000132   Code   RO         6848    .text.xPortStartScheduler  port.o
+    0x0804207e   0x0804207e   0x00000002   PAD
+    0x08042080   0x08042080   0x00000026   Code   RO         6840    .text.xPortSysTickHandler  port.o
+    0x080420a6   0x080420a6   0x00000002   PAD
+    0x080420a8   0x080420a8   0x0000009e   Code   RO         6522    .text.xQueueGenericCreateStatic  queue.o
+    0x08042146   0x08042146   0x00000002   PAD
+    0x08042148   0x08042148   0x000001d6   Code   RO         6554    .text.xQueueReceive  queue.o
+    0x0804231e   0x0804231e   0x00000002   PAD
+    0x08042320   0x08042320   0x00000082   Code   RO         6725    .text.xTaskCheckForTimeOut  tasks.o
+    0x080423a2   0x080423a2   0x00000002   PAD
+    0x080423a4   0x080423a4   0x00000060   Code   RO         6659    .text.xTaskCreate   tasks.o
+    0x08042404   0x08042404   0x0000006e   Code   RO         6653    .text.xTaskCreateStatic  tasks.o
+    0x08042472   0x08042472   0x00000002   PAD
+    0x08042474   0x08042474   0x0000001e   Code   RO         6739    .text.xTaskGetSchedulerState  tasks.o
+    0x08042492   0x08042492   0x00000002   PAD
+    0x08042494   0x08042494   0x0000000c   Code   RO         6695    .text.xTaskGetTickCount  tasks.o
+    0x080424a0   0x080424a0   0x0000016e   Code   RO         6693    .text.xTaskIncrementTick  tasks.o
+    0x0804260e   0x0804260e   0x00000002   PAD
+    0x08042610   0x08042610   0x000000d0   Code   RO         6717    .text.xTaskRemoveFromEventList  tasks.o
+    0x080426e0   0x080426e0   0x00000120   Code   RO         6667    .text.xTaskResumeAll  tasks.o
+    0x08042800   0x08042800   0x000000ac   Code   RO         6778    .text.xTimerCreateTimerTask  timers.o
+    0x080428ac   0x080428ac   0x00000064   Code   RO         4516    .text.year_event_cb  lv_calendar_header_dropdown.o
+    0x08042910   0x08042910   0x0000003e   Code   RO         7468    CL$$btod_d2e        c_w.l(btod.o)
+    0x0804294e   0x0804294e   0x00000046   Code   RO         7470    CL$$btod_d2e_denorm_low  c_w.l(btod.o)
+    0x08042994   0x08042994   0x00000060   Code   RO         7469    CL$$btod_d2e_norm_op1  c_w.l(btod.o)
+    0x080429f4   0x080429f4   0x00000338   Code   RO         7478    CL$$btod_div_common  c_w.l(btod.o)
+    0x08042d2c   0x08042d2c   0x00000084   Code   RO         7476    CL$$btod_e2d        c_w.l(btod.o)
+    0x08042db0   0x08042db0   0x000000dc   Code   RO         7475    CL$$btod_e2e        c_w.l(btod.o)
+    0x08042e8c   0x08042e8c   0x0000002a   Code   RO         7472    CL$$btod_ediv       c_w.l(btod.o)
+    0x08042eb6   0x08042eb6   0x0000002a   Code   RO         7474    CL$$btod_edivd      c_w.l(btod.o)
+    0x08042ee0   0x08042ee0   0x0000002a   Code   RO         7471    CL$$btod_emul       c_w.l(btod.o)
+    0x08042f0a   0x08042f0a   0x0000002a   Code   RO         7473    CL$$btod_emuld      c_w.l(btod.o)
+    0x08042f34   0x08042f34   0x00000244   Code   RO         7477    CL$$btod_mult_common  c_w.l(btod.o)
+    0x08043178   0x08043178   0x00000030   Code   RO         7530    i.__ARM_fpclassify  m_wm.l(fpclassify.o)
+    0x080431a8   0x080431a8   0x000000f8   Code   RO         7532    i.__hardfp___mathlib_tofloat  m_wm.l(narrow.o)
+    0x080432a0   0x080432a0   0x000000d0   Code   RO         7619    i.__hardfp_ldexp    m_wm.l(ldexp.o)
+    0x08043370   0x08043370   0x00000028   Code   RO         7284    i.__hardfp_strtod   m_wm.l(strtod.o)
+    0x08043398   0x08043398   0x00000020   Code   RO         7642    i.__mathlib_dbl_overflow  m_wm.l(dunder.o)
+    0x080433b8   0x080433b8   0x00000020   Code   RO         7644    i.__mathlib_dbl_underflow  m_wm.l(dunder.o)
+    0x080433d8   0x080433d8   0x00000012   Code   RO         7533    i.__mathlib_narrow  m_wm.l(narrow.o)
+    0x080433ea   0x080433ea   0x00000014   Code   RO         7621    i.__support_ldexp   m_wm.l(ldexp.o)
+    0x080433fe   0x080433fe   0x0000000e   Code   RO         7200    i._is_digit         c_w.l(__printf_wp.o)
+    0x0804340c   0x0804340c   0x00000004   PAD
+    0x08043410   0x08043410   0x0000008c   Code   RO         7581    i.frexp             m_wm.l(frexp.o)
+    0x0804349c   0x0804349c   0x0000002c   Code   RO         7500    locale$$code        c_w.l(lc_ctype_c.o)
+    0x080434c8   0x080434c8   0x0000002c   Code   RO         7503    locale$$code        c_w.l(lc_numeric_c.o)
+    0x080434f4   0x080434f4   0x00000062   Code   RO         7575    x$fpl$d2f           fz_wm.l(d2f.o)
+    0x08043556   0x08043556   0x00000002   PAD
+    0x08043558   0x08043558   0x00000010   Code   RO         7669    x$fpl$dcheck1       fz_wm.l(dcheck1.o)
+    0x08043568   0x08043568   0x00000018   Code   RO         7514    x$fpl$dcmpinf       fz_wm.l(dcmpi.o)
+    0x08043580   0x08043580   0x00000078   Code   RO         7398    x$fpl$deqf          fz_wm.l(deqf.o)
+    0x080435f8   0x080435f8   0x0000005e   Code   RO         7266    x$fpl$dfix          fz_wm.l(dfix.o)
+    0x08043656   0x08043656   0x00000002   PAD
+    0x08043658   0x08043658   0x00000078   Code   RO         7400    x$fpl$dgeqf         fz_wm.l(dgeqf.o)
+    0x080436d0   0x080436d0   0x00000078   Code   RO         7402    x$fpl$dleqf         fz_wm.l(dleqf.o)
+    0x08043748   0x08043748   0x00000154   Code   RO         7276    x$fpl$dmul          fz_wm.l(dmul.o)
+    0x0804389c   0x0804389c   0x0000009c   Code   RO         7404    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
+    0x08043938   0x08043938   0x0000000c   Code   RO         7406    x$fpl$dretinf       fz_wm.l(dretinf.o)
+    0x08043944   0x08043944   0x0000006c   Code   RO         7577    x$fpl$drleqf        fz_wm.l(drleqf.o)
+    0x080439b0   0x080439b0   0x00000056   Code   RO         7278    x$fpl$f2d           fz_wm.l(f2d.o)
+    0x08043a06   0x08043a06   0x00000054   Code   RO         7264    x$fpl$fcmp          fz_wm.l(dcmp.o)
+    0x08043a5a   0x08043a5a   0x0000008c   Code   RO         7408    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
+    0x08043ae6   0x08043ae6   0x0000001a   Code   RO         7520    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x08043b00   0x08043b00   0x0000000a   Code   RO         7617    x$fpl$fretinf       fz_wm.l(fretinf.o)
+    0x08043b0a   0x08043b0a   0x00000006   Code   RO         7522    x$fpl$ieeestatus    fz_wm.l(istatus.o)
+    0x08043b10   0x08043b10   0x00000004   Code   RO         7280    x$fpl$printf1       fz_wm.l(printf1.o)
+    0x08043b14   0x08043b14   0x00000064   Code   RO         7675    x$fpl$retnan        fz_wm.l(retnan.o)
+    0x08043b78   0x08043b78   0x0000005c   Code   RO         7636    x$fpl$scalbn        fz_wm.l(scalbn.o)
+    0x08043bd4   0x08043bd4   0x00000004   Code   RO         7282    x$fpl$scanf1        fz_wm.l(scanf1.o)
+    0x08043bd8   0x08043bd8   0x00000008   Code   RO         7524    x$fpl$scanf2        fz_wm.l(scanf2.o)
+    0x08043be0   0x08043be0   0x00000030   Code   RO         7677    x$fpl$trapveneer    fz_wm.l(trapv.o)
+    0x08043c10   0x08043c10   0x00000000   Code   RO         7410    x$fpl$usenofp       fz_wm.l(usenofp.o)
+    0x08043c10   0x08043c10   0x00000028   Data   RO         7173    .constdata          c_w.l(_printf_hex_int.o)
+    0x08043c38   0x08043c38   0x00000011   Data   RO         7208    .constdata          c_w.l(__printf_flags_ss_wp.o)
+    0x08043c49   0x08043c49   0x00000003   PAD
+    0x08043c4c   0x08043c4c   0x00000094   Data   RO         7466    .constdata          c_w.l(bigflt0.o)
+    0x08043ce0   0x08043ce0   0x0000000c   Data   RO         3699    .rodata..Lswitch.table.lv_draw_sw_blend_basic.3  lv_draw_sw_blend.o
+    0x08043cec   0x08043cec   0x0000000c   Data   RO         4185    .rodata..Lswitch.table.lv_menu_refr_sidebar_header_mode  lv_menu.o
+    0x08043cf8   0x08043cf8   0x00000010   Data   RO         2443    .rodata.AHBPrescTable  system_stm32u5xx.o
+    0x08043d08   0x08043d08   0x00000008   Data   RO         2444    .rodata.APBPrescTable  system_stm32u5xx.o
+    0x08043d10   0x08043d10   0x00000080   Data   RO         1758    .rodata.LPGPIO_Map  stm32u5xx_hal_gpio.o
+    0x08043d90   0x08043d90   0x00000040   Data   RO         2445    .rodata.MSIRangeTable  system_stm32u5xx.o
+    0x08043dd0   0x08043dd0   0x00000024   Data   RO          561    .rodata.Task1_attributes  app_freertos.o
+    0x08043df4   0x08043df4   0x00000024   Data   RO          562    .rodata.Task2_attributes  app_freertos.o
+    0x08043e18   0x08043e18   0x00000024   Data   RO          563    .rodata.Task3_attributes  app_freertos.o
+    0x08043e3c   0x08043e3c   0x00000018   Data   RO         2384    .rodata.UARTPrescTable  stm32u5xx_hal_uart.o
+    0x08043e54   0x08043e54   0x00000002   Data   RO         3758    .rodata._lv_bpp1_opa_table  lv_draw_sw_letter.o
+    0x08043e56   0x08043e56   0x00000004   Data   RO         3759    .rodata._lv_bpp2_opa_table  lv_draw_sw_letter.o
+    0x08043e5a   0x08043e5a   0x00000010   Data   RO         3761    .rodata._lv_bpp4_opa_table  lv_draw_sw_letter.o
+    0x08043e6a   0x08043e6a   0x00000100   Data   RO         3762    .rodata._lv_bpp8_opa_table  lv_draw_sw_letter.o
+    0x08043f6a   0x08043f6a   0x00000071   Data   RO         5357    .rodata._lv_style_builtin_prop_flag_lookup_table  lv_style.o
+    0x08043fdb   0x08043fdb   0x00000001   PAD
+    0x08043fdc   0x08043fdc   0x00000028   Data   RO         4815    .rodata.cmaps       lv_font_montserrat_14.o
+    0x08044004   0x08044004   0x00000010   Data   RO         2429    .rodata.cst8        stm32u5xx_hal_uart_ex.o
+    0x08044014   0x08044014   0x00000024   Data   RO          560    .rodata.defaultTask_attributes  app_freertos.o
+    0x08044038   0x08044038   0x00000050   Data   RO         4269    .rodata.default_kb_ctrl_lc_map  lv_keyboard.o
+    0x08044088   0x08044088   0x00000022   Data   RO         4272    .rodata.default_kb_ctrl_num_map  lv_keyboard.o
+    0x080440aa   0x080440aa   0x00000050   Data   RO         4271    .rodata.default_kb_ctrl_spec_map  lv_keyboard.o
+    0x080440fa   0x080440fa   0x00000050   Data   RO         4270    .rodata.default_kb_ctrl_uc_map  lv_keyboard.o
+    0x0804414a   0x0804414a   0x00000002   PAD
+    0x0804414c   0x0804414c   0x000000b0   Data   RO         4265    .rodata.default_kb_map_lc  lv_keyboard.o
+    0x080441fc   0x080441fc   0x00000054   Data   RO         4268    .rodata.default_kb_map_num  lv_keyboard.o
+    0x08044250   0x08044250   0x000000b0   Data   RO         4267    .rodata.default_kb_map_spec  lv_keyboard.o
+    0x08044300   0x08044300   0x000000b0   Data   RO         4266    .rodata.default_kb_map_uc  lv_keyboard.o
+    0x080443b0   0x080443b0   0x00000018   Data   RO         4818    .rodata.font_dsc    lv_font_montserrat_14.o
+    0x080443c8   0x080443c8   0x00002280   Data   RO         4814    .rodata.glyph_bitmap  lv_font_montserrat_14.o
+    0x08046648   0x08046648   0x000004f0   Data   RO         4819    .rodata.glyph_dsc   lv_font_montserrat_14.o
+    0x08046b38   0x08046b38   0x00000bad   Data   RO         4821    .rodata.kern_class_values  lv_font_montserrat_14.o
+    0x080476e5   0x080476e5   0x00000003   PAD
+    0x080476e8   0x080476e8   0x00000010   Data   RO         4816    .rodata.kern_classes  lv_font_montserrat_14.o
+    0x080476f8   0x080476f8   0x0000009e   Data   RO         4822    .rodata.kern_left_class_mapping  lv_font_montserrat_14.o
+    0x08047796   0x08047796   0x0000009e   Data   RO         4823    .rodata.kern_right_class_mapping  lv_font_montserrat_14.o
+    0x08047834   0x08047834   0x0000001c   Data   RO         5759    .rodata.lv_arc_class  lv_arc.o
+    0x08047850   0x08047850   0x0000001c   Data   RO         5804    .rodata.lv_bar_class  lv_bar.o
+    0x0804786c   0x0804786c   0x0000001c   Data   RO         5817    .rodata.lv_btn_class  lv_btn.o
+    0x08047888   0x08047888   0x0000001c   Data   RO         5870    .rodata.lv_btnmatrix_class  lv_btnmatrix.o
+    0x080478a4   0x080478a4   0x0000001c   Data   RO         4481    .rodata.lv_calendar_class  lv_calendar.o
+    0x080478c0   0x080478c0   0x0000001c   Data   RO         4499    .rodata.lv_calendar_header_arrow_class  lv_calendar_header_arrow.o
+    0x080478dc   0x080478dc   0x0000001c   Data   RO         4522    .rodata.lv_calendar_header_dropdown_class  lv_calendar_header_dropdown.o
+    0x080478f8   0x080478f8   0x0000001c   Data   RO         4443    .rodata.lv_chart_class  lv_chart.o
+    0x08047914   0x08047914   0x0000001c   Data   RO         5946    .rodata.lv_checkbox_class  lv_checkbox.o
+    0x08047930   0x08047930   0x0000001c   Data   RO         4337    .rodata.lv_colorwheel_class  lv_colorwheel.o
+    0x0804794c   0x0804794c   0x0000001c   Data   RO         6023    .rodata.lv_dropdown_class  lv_dropdown.o
+    0x08047968   0x08047968   0x0000001c   Data   RO         6024    .rodata.lv_dropdownlist_class  lv_dropdown.o
+    0x08047984   0x08047984   0x0000001c   Data   RO         4813    .rodata.lv_font_montserrat_14  lv_font_montserrat_14.o
+    0x080479a0   0x080479a0   0x0000001c   Data   RO         6074    .rodata.lv_img_class  lv_img.o
+    0x080479bc   0x080479bc   0x0000001c   Data   RO         4263    .rodata.lv_keyboard_class  lv_keyboard.o
+    0x080479d8   0x080479d8   0x0000001c   Data   RO         6133    .rodata.lv_label_class  lv_label.o
+    0x080479f4   0x080479f4   0x0000001c   Data   RO         4232    .rodata.lv_led_class  lv_led.o
+    0x08047a10   0x08047a10   0x0000001c   Data   RO         6154    .rodata.lv_line_class  lv_line.o
+    0x08047a2c   0x08047a2c   0x0000001c   Data   RO         4203    .rodata.lv_list_btn_class  lv_list.o
+    0x08047a48   0x08047a48   0x0000001c   Data   RO         4202    .rodata.lv_list_class  lv_list.o
+    0x08047a64   0x08047a64   0x0000001c   Data   RO         4204    .rodata.lv_list_text_class  lv_list.o
+    0x08047a80   0x08047a80   0x0000001c   Data   RO         4175    .rodata.lv_menu_class  lv_menu.o
+    0x08047a9c   0x08047a9c   0x0000001c   Data   RO         4177    .rodata.lv_menu_cont_class  lv_menu.o
+    0x08047ab8   0x08047ab8   0x0000001c   Data   RO         4181    .rodata.lv_menu_main_cont_class  lv_menu.o
+    0x08047ad4   0x08047ad4   0x0000001c   Data   RO         4182    .rodata.lv_menu_main_header_cont_class  lv_menu.o
+    0x08047af0   0x08047af0   0x0000001c   Data   RO         4176    .rodata.lv_menu_page_class  lv_menu.o
+    0x08047b0c   0x08047b0c   0x0000001c   Data   RO         4178    .rodata.lv_menu_section_class  lv_menu.o
+    0x08047b28   0x08047b28   0x0000001c   Data   RO         4179    .rodata.lv_menu_separator_class  lv_menu.o
+    0x08047b44   0x08047b44   0x0000001c   Data   RO         4180    .rodata.lv_menu_sidebar_cont_class  lv_menu.o
+    0x08047b60   0x08047b60   0x0000001c   Data   RO         4183    .rodata.lv_menu_sidebar_header_cont_class  lv_menu.o
+    0x08047b7c   0x08047b7c   0x0000001c   Data   RO         4106    .rodata.lv_meter_class  lv_meter.o
+    0x08047b98   0x08047b98   0x0000001c   Data   RO         4062    .rodata.lv_msgbox_backdrop_class  lv_msgbox.o
+    0x08047bb4   0x08047bb4   0x0000001c   Data   RO         4060    .rodata.lv_msgbox_class  lv_msgbox.o
+    0x08047bd0   0x08047bd0   0x0000001c   Data   RO         2817    .rodata.lv_obj_class  lv_obj.o
+    0x08047bec   0x08047bec   0x00000098   Data   RO         5122    .rodata.lv_palette_darken.colors  lv_color.o
+    0x08047c84   0x08047c84   0x000000be   Data   RO         5121    .rodata.lv_palette_lighten.colors  lv_color.o
+    0x08047d42   0x08047d42   0x00000026   Data   RO         5120    .rodata.lv_palette_main.colors  lv_color.o
+    0x08047d68   0x08047d68   0x0000001c   Data   RO         6194    .rodata.lv_roller_class  lv_roller.o
+    0x08047d84   0x08047d84   0x0000001c   Data   RO         6195    .rodata.lv_roller_label_class  lv_roller.o
+    0x08047da0   0x08047da0   0x0000001c   Data   RO         6215    .rodata.lv_slider_class  lv_slider.o
+    0x08047dbc   0x08047dbc   0x0000001c   Data   RO         3968    .rodata.lv_spinbox_class  lv_spinbox.o
+    0x08047dd8   0x08047dd8   0x0000001c   Data   RO         3922    .rodata.lv_spinner_class  lv_spinner.o
+    0x08047df4   0x08047df4   0x0000001c   Data   RO         6236    .rodata.lv_switch_class  lv_switch.o
+    0x08047e10   0x08047e10   0x0000001c   Data   RO         6295    .rodata.lv_table_class  lv_table.o
+    0x08047e2c   0x08047e2c   0x0000001c   Data   RO         3903    .rodata.lv_tabview_class  lv_tabview.o
+    0x08047e48   0x08047e48   0x0000001c   Data   RO         6395    .rodata.lv_textarea_class  lv_textarea.o
+    0x08047e64   0x08047e64   0x0000001c   Data   RO         3868    .rodata.lv_tileview_class  lv_tileview.o
+    0x08047e80   0x08047e80   0x0000001c   Data   RO         3869    .rodata.lv_tileview_tile_class  lv_tileview.o
+    0x08047e9c   0x08047e9c   0x0000001c   Data   RO         3842    .rodata.lv_win_class  lv_win.o
+    0x08047eb8   0x08047eb8   0x00000030   Data   RO         4501    .rodata.month_names_def  lv_calendar_header_arrow.o
+    0x08047ee8   0x08047ee8   0x000000b6   Data   RO         5260    .rodata.sin0_90_table  lv_math.o
+    0x08047f9e   0x08047f9e   0x00000126   Data   RO           40    .rodata.str1.1      bsp_esp8266.o
+    0x080480c4   0x080480c4   0x00000010   Data   RO          426    .rodata.str1.1      cjson.o
+    0x080480d4   0x080480d4   0x0000004c   Data   RO          527    .rodata.str1.1      main.o
+    0x08048120   0x08048120   0x0000001e   Data   RO          559    .rodata.str1.1      app_freertos.o
+    0x0804813e   0x0804813e   0x00000008   Data   RO         3449    .rodata.str1.1      lv_draw_img.o
+    0x08048146   0x08048146   0x00000004   Data   RO         3654    .rodata.str1.1      lv_img_decoder.o
+    0x0804814a   0x0804814a   0x00000004   Data   RO         4184    .rodata.str1.1      lv_menu.o
+    0x0804814e   0x0804814e   0x000000a7   Data   RO         4264    .rodata.str1.1      lv_keyboard.o
+    0x080481f5   0x080481f5   0x00000003   Data   RO         4444    .rodata.str1.1      lv_chart.o
+    0x080481f8   0x080481f8   0x0000005c   Data   RO         4500    .rodata.str1.1      lv_calendar_header_arrow.o
+    0x08048254   0x08048254   0x00000267   Data   RO         4523    .rodata.str1.1      lv_calendar_header_dropdown.o
+    0x080484bb   0x080484bb   0x00000019   Data   RO         5871    .rodata.str1.1      lv_btnmatrix.o
+    0x080484d4   0x080484d4   0x0000001b   Data   RO         6025    .rodata.str1.1      lv_dropdown.o
+    0x080484ef   0x080484ef   0x0000002d   Data   RO         6196    .rodata.str1.1      lv_roller.o
+    0x0804851c   0x0804851c   0x00000004   Data   RO         6396    .rodata.str1.1      lv_textarea.o
+    0x08048520   0x08048520   0x00000005   Data   RO         6822    .rodata.str1.1      timers.o
+    0x08048525   0x08048525   0x00000001   PAD
+    0x08048526   0x08048526   0x00000016   Data   RO         4584    .rodata.style_init.trans_props  lv_theme_default.o
+    0x0804853c   0x0804853c   0x0000007c   Data   RO         4820    .rodata.unicode_list_1  lv_font_montserrat_14.o
+    0x080485b8   0x080485b8   0x00000004   Data   RO         6766    .rodata.uxTopUsedPriority  tasks.o
+    0x080485bc   0x080485bc   0x00000020   Data   RO         7680    Region$$Table       anon$$obj.o
+    0x080485dc   0x080485dc   0x00000008   Data   RO         7516    c$$dinf             fz_wm.l(fpconst.o)
+    0x080485e4   0x080485e4   0x00000008   Data   RO         7519    c$$dmax             fz_wm.l(fpconst.o)
+    0x080485ec   0x080485ec   0x00000110   Data   RO         7499    locale$$data        c_w.l(lc_ctype_c.o)
+    0x080486fc   0x080486fc   0x0000001c   Data   RO         7502    locale$$data        c_w.l(lc_numeric_c.o)
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08048718, Size: 0x00035998, Max: 0x000c0000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x08048718   0x00000008   Data   RW           89    .data..L_MergedGlobals  bsp_ili9341_4line.o
+    0x20000008   0x08048720   0x00000008   Data   RW         1348    .data..L_MergedGlobals  stm32u5xx_hal.o
+    0x20000010   0x08048728   0x00000048   Data   RW         4273    .data..L_MergedGlobals  lv_keyboard.o
+    0x20000058   0x08048770   0x00000004   Data   RW         4339    .data..L_MergedGlobals  lv_colorwheel.o
+    0x2000005c   0x08048774   0x00000008   Data   RW         5680    .data..L_MergedGlobals  lv_txt.o
+    0x20000064   0x0804877c   0x00000004   Data   RW         2442    .data.SystemCoreClock  system_stm32u5xx.o
+    0x20000068   0x08048780   0x00000004   Data   RW         5677    .data._lv_txt_encoded_get_byte_id  lv_txt.o
+    0x2000006c   0x08048784   0x00000004   Data   RW         5678    .data._lv_txt_encoded_get_char_id  lv_txt.o
+    0x20000070   0x08048788   0x00000004   Data   RW         5676    .data._lv_txt_encoded_prev  lv_txt.o
+    0x20000074   0x0804878c   0x00000004   Data   RW         5679    .data._lv_txt_get_encoded_length  lv_txt.o
+    0x20000078   0x08048790   0x00000004   Data   RW         5674    .data._lv_txt_unicode_to_encoded  lv_txt.o
+    0x2000007c   0x08048794   0x00000001   Data   RW         2490    .data.disp_flush_enabled  lv_port_disp_template.o
+    0x2000007d   0x08048795   0x00000003   PAD
+    0x20000080   0x08048798   0x0000000c   Data   RW          425    .data.global_hooks  cjson.o
+    0x2000008c   0x080487a4   0x00000002   Data   RW         5359    .data.last_custom_prop_id  lv_style.o
+    0x2000008e   0x080487a6   0x00000002   PAD
+    0x20000090   0x080487a8   0x0000001c   Data   RW         5872    .data.lv_btnmatrix_def_map  lv_btnmatrix.o
+    0x200000ac   0x080487c4   0x00000004   Data   RW         5075    .data.lv_point_transform.angle_prev  lv_area.o
+    0x200000b0   0x080487c8   0x00000001   Data   RW         3116    .data.style_refr    lv_obj_style.o
+    0x200000b1   0x080487c9   0x00000003   PAD
+    0x200000b4   0x080487cc   0x00000018   Data   RW          201    .data.tp_dev        bsp_ft6336.o
+    0x200000cc   0x080487e4   0x00000004   Data   RW         6856    .data.ulCriticalNesting  port.o
+    0x200000d0   0x080487e8   0x00000004   Data   RW         5301    .data.zero_mem      lv_mem.o
+    0x200000d4   0x080487ec   0x00000004   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x200000d8        -       0x00000060   Zero   RW         7416    .bss                c_w.l(libspace.o)
     0x20000138        -       0x00000008   Zero   RW          427    .bss..L_MergedGlobals  cjson.o
     0x20000140        -       0x00000010   Zero   RW          529    .bss..L_MergedGlobals  main.o
@@ -23498,7 +24466,11 @@ Memory Map of the image
     0x20000248        -       0x0000006c   Zero   RW         4585    .bss..L_MergedGlobals  lv_theme_default.o
     0x200002b4        -       0x00000016   Zero   RW         4669    .bss..L_MergedGlobals  lv_grid.o
     0x200002ca        -       0x0000000c   Zero   RW         4716    .bss..L_MergedGlobals  lv_flex.o
+<<<<<<< HEAD
     0x200002d6   0x080487fc   0x00000002   PAD
+=======
+    0x200002d6   0x080487ec   0x00000002   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x200002d8        -       0x00000008   Zero   RW         4957    .bss..L_MergedGlobals  lv_hal_tick.o
     0x200002e0        -       0x0000000c   Zero   RW         5004    .bss..L_MergedGlobals  lv_anim.o
     0x200002ec        -       0x00000008   Zero   RW         5076    .bss..L_MergedGlobals  lv_area.o
@@ -23510,6 +24482,7 @@ Memory Map of the image
     0x2000043c        -       0x00000008   Zero   RW         6857    .bss..L_MergedGlobals  port.o
     0x20000444        -       0x0000001c   Zero   RW         7069    .bss..L_MergedGlobals  heap_4.o
     0x20000460        -       0x0000000a   Zero   RW           90    .bss..L_MergedGlobals.1  bsp_ili9341_4line.o
+<<<<<<< HEAD
     0x2000046a   0x080487fc   0x00000002   PAD
     0x2000046c        -       0x00000028   Zero   RW         6769    .bss..L_MergedGlobals.2  tasks.o
     0x20000494        -       0x00000004   Zero   RW         4340    .bss..L_MergedGlobals.3  lv_colorwheel.o
@@ -23518,6 +24491,16 @@ Memory Map of the image
     0x2000089c        -       0x00000004   Zero   RW         7041    .bss.KernelState    cmsis_os2.o
     0x200008a0        -       0x00000001   Zero   RW          525    .bss.TouchPress     main.o
     0x200008a1   0x080487fc   0x00000003   PAD
+=======
+    0x2000046a   0x080487ec   0x00000002   PAD
+    0x2000046c        -       0x00000028   Zero   RW         6769    .bss..L_MergedGlobals.2  tasks.o
+    0x20000494        -       0x00000004   Zero   RW         4340    .bss..L_MergedGlobals.3  lv_colorwheel.o
+    0x20000498        -       0x00000402   Zero   RW           39    .bss.ESP8266_Fram_Record_Struct  bsp_esp8266.o
+    0x2000089a   0x080487ec   0x00000002   PAD
+    0x2000089c        -       0x00000004   Zero   RW         7041    .bss.KernelState    cmsis_os2.o
+    0x200008a0        -       0x00000001   Zero   RW          525    .bss.TouchPress     main.o
+    0x200008a1   0x080487ec   0x00000003   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x200008a4        -       0x00000054   Zero   RW          526    .bss.__stdout       main.o
     0x200008f8        -       0x00000070   Zero   RW         5180    .bss._lv_circle_cache  lv_gc.o
     0x20000968        -       0x00000080   Zero   RW         5181    .bss._lv_draw_mask_list  lv_gc.o
@@ -23526,7 +24509,11 @@ Memory Map of the image
     0x20000a18        -       0x00000008   Zero   RW         4817    .bss.cache          lv_font_montserrat_14.o
     0x20000a20        -       0x00000002   Zero   RW         3843    .bss.create_header_height  lv_win.o
     0x20000a22        -       0x00000001   Zero   RW         4338    .bss.create_knob_recolor  lv_colorwheel.o
+<<<<<<< HEAD
     0x20000a23   0x080487fc   0x00000001   PAD
+=======
+    0x20000a23   0x080487ec   0x00000001   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x20000a24        -       0x00000004   Zero   RW         2687    .bss.default_group  lv_group.o
     0x20000a28        -       0x00000004   Zero   RW         4921    .bss.disp_def       lv_hal_disp.o
     0x20000a2c        -       0x00000100   Zero   RW         3763    .bss.draw_letter_normal.opa_table  lv_draw_sw_letter.o
@@ -23542,15 +24529,26 @@ Memory Map of the image
     0x20000e1c        -       0x00000094   Zero   RW          661    .bss.huart5         usart.o
     0x20000eb0        -       0x00000004   Zero   RW         2975    .bss.layout_cnt     lv_obj_pos.o
     0x20000eb4        -       0x00000001   Zero   RW         2818    .bss.lv_initialized  lv_obj.o
+<<<<<<< HEAD
     0x20000eb5   0x080487fc   0x00000003   PAD
+=======
+    0x20000eb5   0x080487ec   0x00000003   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x20000eb8        -       0x00000080   Zero   RW         5179    .bss.lv_mem_buf     lv_gc.o
     0x20000f38        -       0x0000c000   Zero   RW         5300    .bss.lv_mem_init.work_mem_int  lv_mem.o
     0x2000cf38        -       0x00000004   Zero   RW         2819    .bss.lv_obj_allocate_spec_attr.x  lv_obj.o
     0x2000cf3c        -       0x00000001   Zero   RW         2974    .bss.lv_obj_update_layout.mutex  lv_obj_pos.o
+<<<<<<< HEAD
     0x2000cf3d   0x080487fc   0x00000001   PAD
     0x2000cf3e        -       0x00025800   Zero   RW         2489    .bss.lv_port_disp_init.buf_1  lv_port_disp_template.o
     0x2003273e        -       0x000000a0   Zero   RW         6821    .bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage  timers.o
     0x200327de   0x080487fc   0x00000002   PAD
+=======
+    0x2000cf3d   0x080487ec   0x00000001   PAD
+    0x2000cf3e        -       0x00025800   Zero   RW         2489    .bss.lv_port_disp_init.buf_1  lv_port_disp_template.o
+    0x2003273e        -       0x000000a0   Zero   RW         6821    .bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage  timers.o
+    0x200327de   0x080487ec   0x00000002   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x200327e0        -       0x00000050   Zero   RW         6820    .bss.prvCheckForValidListAndQueue.xStaticTimerQueue  timers.o
     0x20032830        -       0x00000004   Zero   RW         6765    .bss.pxCurrentTCB   tasks.o
     0x20032834        -       0x00000460   Zero   RW         6767    .bss.pxReadyTasksLists  tasks.o
@@ -23562,7 +24560,11 @@ Memory Map of the image
     0x20034ef8        -       0x00000400   Zero   RW         7045    .bss.vApplicationGetTimerTaskMemory.Timer_Stack  cmsis_os2.o
     0x200352f8        -       0x0000005c   Zero   RW         7044    .bss.vApplicationGetTimerTaskMemory.Timer_TCB  cmsis_os2.o
     0x20035354        -       0x00000040   Zero   RW         6592    .bss.xQueueRegistry  queue.o
+<<<<<<< HEAD
     0x20035394   0x080487fc   0x00000004   PAD
+=======
+    0x20035394   0x080487ec   0x00000004   PAD
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
     0x20035398        -       0x00000200   Zero   RW            2    HEAP                startup_stm32u575xx.o
     0x20035598        -       0x00000400   Zero   RW            1    STACK               startup_stm32u575xx.o
 
@@ -23574,7 +24576,11 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
+<<<<<<< HEAD
        398         84        174          0         16       4667   app_freertos.o
+=======
+       386         84        174          0         16       4663   app_freertos.o
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
       1592        264        294          0       1026      15504   bsp_esp8266.o
        528         24          0         24          0      15670   bsp_ft6336.o
       3634          0          0          8         10      13924   bsp_ili9341_4line.o
@@ -23685,7 +24691,11 @@ Image component sizes
       3098        128          0         28          0      17870   lv_txt.o
         82          0          0          0          0       1133   lv_utils.o
        118          0         28          0          2      11375   lv_win.o
+<<<<<<< HEAD
        714         24         76          0        101      19895   main.o
+=======
+       718         24         76          0        101      19898   main.o
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
        416          0          0          0         92       9347   octospi.o
        686          0          0          4          8       4480   port.o
        244         16          0          0          0       1367   portasm.o
@@ -23722,9 +24732,15 @@ Image component sizes
        594          0          0          0        296      11989   usart.o
 
     ----------------------------------------------------------------------
+<<<<<<< HEAD
     264212       3350      19252        212     219236    3039600   Object Totals
          0          0         32          0          0          0   (incl. Generated)
       1056         12          7          8         24          0   (incl. Padding)
+=======
+    264200       3350      19252        212     219236    3039599   Object Totals
+         0          0         32          0          0          0   (incl. Generated)
+      1052         12          7          8         24          0   (incl. Padding)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 
     ----------------------------------------------------------------------
 
@@ -23853,8 +24869,13 @@ Image component sizes
         40          8          0          0          0        128   strtod.o
 
     ----------------------------------------------------------------------
+<<<<<<< HEAD
      12756        488        524          0         96      11084   Library Totals
         26          0          3          0          0          0   (incl. Padding)
+=======
+     12752        488        524          0         96      11084   Library Totals
+        22          0          3          0          0          0   (incl. Padding)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 
     ----------------------------------------------------------------------
 
@@ -23865,7 +24886,11 @@ Image component sizes
        786         70          0          0          0       1248   m_wm.l
 
     ----------------------------------------------------------------------
+<<<<<<< HEAD
      12756        488        524          0         96      11084   Library Totals
+=======
+     12752        488        524          0         96      11084   Library Totals
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 
     ----------------------------------------------------------------------
 
@@ -23874,6 +24899,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
+<<<<<<< HEAD
     276968       3838      19776        212     219332    3041000   Grand Totals
     276968       3838      19776        212     219332    3041000   ELF Image Totals
     276968       3838      19776        212          0          0   ROM Totals
@@ -23883,6 +24909,17 @@ Image component sizes
     Total RO  Size (Code + RO Data)               296744 ( 289.79kB)
     Total RW  Size (RW Data + ZI Data)            219544 ( 214.40kB)
     Total ROM Size (Code + RO Data + RW Data)     296956 ( 290.00kB)
+=======
+    276952       3838      19776        212     219332    3040999   Grand Totals
+    276952       3838      19776        212     219332    3040999   ELF Image Totals
+    276952       3838      19776        212          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)               296728 ( 289.77kB)
+    Total RW  Size (RW Data + ZI Data)            219544 ( 214.40kB)
+    Total ROM Size (Code + RO Data + RW Data)     296940 ( 289.98kB)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 
 ==============================================================================
 

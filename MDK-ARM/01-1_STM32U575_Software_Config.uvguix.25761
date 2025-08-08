@@ -1874,9 +1874,15 @@
       </Doc>
       <Doc>
         <Name>../Core/Src/app_freertos.c</Name>
+<<<<<<< HEAD
         <ColumnNumber>30</ColumnNumber>
         <TopLine>128</TopLine>
         <CurrentLine>129</CurrentLine>
+=======
+        <ColumnNumber>15</ColumnNumber>
+        <TopLine>156</TopLine>
+        <CurrentLine>163</CurrentLine>
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

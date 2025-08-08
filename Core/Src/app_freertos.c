@@ -70,7 +70,11 @@ void vPrintString( const char *pcString )
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
+<<<<<<< HEAD
   .priority = (osPriority_t) osPriorityNormal,
+=======
+  .priority = (osPriority_t) osPriorityLow,
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
   .stack_size = 128 * 4
 };
 
@@ -94,13 +98,20 @@ const osThreadAttr_t Task3_attributes = {
   .priority = (osPriority_t) osPriorityLow,
   .stack_size = 256 * 16
 };
+<<<<<<< HEAD
+=======
+/* USER CODE END FunctionPrototypes */
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 
 void vTask1(void *argument);
 void vTask2(void *argument);
 void vTask3(void *argument);
 
+<<<<<<< HEAD
 /* USER CODE END FunctionPrototypes */
 
+=======
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 /**
   * @brief  FreeRTOS initialization
   * @param  None
@@ -172,8 +183,13 @@ void vTask1(void *argument)
       vPrintString( pcTaskName );
       /* 延时一会 */
       vTaskDelay(pdMS_TO_TICKS(300));
+<<<<<<< HEAD
 			/* 翻转输出绿色LED */
 			HAL_GPIO_TogglePin(GREEN_LED_GPIO_Port,GREEN_LED_Pin);
+=======
+			/* 翻转输出蓝色LED */
+			HAL_GPIO_TogglePin(BLUE_LED_GPIO_Port,BLUE_LED_Pin);
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
       BSP_SHT20_GetData();
   }
 }
@@ -201,6 +217,7 @@ void vTask3(void *argument)
       vTaskDelay(pdMS_TO_TICKS(100));
       printf("g_MQTT_Data_Ready:%d\n",g_MQTT_Data_Ready);
     if (g_MQTT_Data_Ready)
+<<<<<<< HEAD
       {
         // 复制数据到局部缓冲区（避免解析过程中被新数据覆盖）
         char temp_buf[RX_BUF_MAX_LEN];
@@ -217,3 +234,22 @@ void vTask3(void *argument)
 }
 /* USER CODE END Application */
 
+=======
+        {
+          // 进入临界区保护，防止中断修改数据
+          taskENTER_CRITICAL();
+          {
+            // 复制数据到局部缓冲区（避免解析过程中被新数据覆盖）
+            char temp_buf[RX_BUF_MAX_LEN];
+            strncpy(temp_buf, ESP8266_Fram_Record_Struct.Data_RX_BUF, RX_BUF_MAX_LEN);
+            // 解析JSON
+            ESP8266_Json_Parse(temp_buf);
+            // 清除标志位
+            g_MQTT_Data_Ready = 0;
+          }
+          taskEXIT_CRITICAL();
+        }
+  }
+}
+/* USER CODE END Application */
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46

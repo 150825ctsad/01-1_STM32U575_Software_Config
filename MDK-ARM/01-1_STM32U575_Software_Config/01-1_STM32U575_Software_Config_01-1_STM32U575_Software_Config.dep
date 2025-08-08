@@ -1,9 +1,16 @@
 Dependencies for Project '01-1_STM32U575_Software_Config', Target '01-1_STM32U575_Software_Config': (DO NOT MODIFY !)
 CompilerVersion: 6220000::V6.22::ARMCLANG
+<<<<<<< HEAD
 F (startup_stm32u575xx.s)(0x6895E010)(--target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4 -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 541" -Wa,armasm,--pd,"STM32U575xx SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o 01-1_stm32u575_software_config/startup_stm32u575xx.o)
 F (..\Core\Src\bsp_esp8266.c)(0x6892E66F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/bsp_esp8266.o -MMD)
 I (..\Core\Inc\bsp_esp8266.h)(0x6890AE32)
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+F (startup_stm32u575xx.s)(0x6892DAEB)(--target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4 -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 541" -Wa,armasm,--pd,"STM32U575xx SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o 01-1_stm32u575_software_config/startup_stm32u575xx.o)
+F (..\Core\Src\bsp_esp8266.c)(0x6892E66F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/bsp_esp8266.o -MMD)
+I (..\Core\Inc\bsp_esp8266.h)(0x6890AE32)
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -39,7 +46,11 @@ I (..\Core\Inc\usart.h)(0x6890AABD)
 I (..\Core\Inc\cJSON.h)(0x6890AABD)
 F (..\Core\Src\bsp_sht20.c)(0x6892E774)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/bsp_sht20.o -MMD)
 I (..\Core\Inc\bsp_sht20.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -84,7 +95,11 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h)(0x6891B118)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h)(0x6891B118)
 F (..\Core\Src\bsp_ili9341_4line.c)(0x6890AABD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/bsp_ili9341_4line.o -MMD)
 I (..\Core\Inc\bsp_ili9341_4line.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -119,7 +134,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 I (..\Core\Inc\spi.h)(0x6890AABD)
 F (..\Core\Src\bsp_ft6336.c)(0x6890AABD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/bsp_ft6336.o -MMD)
 I (..\Core\Inc\bsp_ft6336.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -191,8 +210,13 @@ I (..\Core\Inc\cJSON.h)(0x6890AABD)
 F (..\Core\Src\cJSON_Utils.c)(0x6890AABD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/cjson_utils.o -MMD)
 I (..\Core\Inc\cJSON_Utils.h)(0x6890AABD)
 I (..\Core\Inc\cJSON.h)(0x6890AABD)
+<<<<<<< HEAD
 F (../Core/Src/main.c)(0x6895E25D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/main.o -MMD)
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+F (../Core/Src/main.c)(0x6895D826)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/main.o -MMD)
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -454,9 +478,15 @@ I (..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_indev_template.h)(0x6890AAB
 I (..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_disp_template.h)(0x6890AABD)
 I (..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h)(0x68919F5A)
 I (..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\events_init.h)(0x68919F5A)
+<<<<<<< HEAD
 F (../Core/Src/gpio.c)(0x6895E00A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/gpio.o -MMD)
 I (..\Core\Inc\gpio.h)(0x6890AABD)
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+F (../Core/Src/gpio.c)(0x6891DCC2)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/gpio.o -MMD)
+I (..\Core\Inc\gpio.h)(0x6890AABD)
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -488,7 +518,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_tim_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
+<<<<<<< HEAD
 F (../Core/Src/app_freertos.c)(0x6895E601)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/app_freertos.o -MMD)
+=======
+F (../Core/Src/app_freertos.c)(0x6895DEBA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/app_freertos.o -MMD)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Core\Inc\app_freertos.h)(0x68921CA8)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6891B118)
 I (..\Core\Inc\FreeRTOSConfig.h)(0x689233B5)
@@ -500,7 +534,11 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM33_NTZ\non_secu
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h)(0x6891B118)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h)(0x6891B118)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h)(0x6891B118)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -754,7 +792,11 @@ I (..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h)(0x68
 I (..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\events_init.h)(0x68919F5A)
 F (../Core/Src/gpdma.c)(0x6892D9A5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/gpdma.o -MMD)
 I (..\Core\Inc\gpdma.h)(0x6892D9A5)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -788,7 +830,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/i2c.c)(0x6890AABD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/i2c.o -MMD)
 I (..\Core\Inc\i2c.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -822,7 +868,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/icache.c)(0x6890AABD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/icache.o -MMD)
 I (..\Core\Inc\icache.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -856,7 +906,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/octospi.c)(0x6890EA74)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/octospi.o -MMD)
 I (..\Core\Inc\octospi.h)(0x6890EA74)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -890,7 +944,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/spi.c)(0x68921CA9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/spi.o -MMD)
 I (..\Core\Inc\spi.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -924,7 +982,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/tim.c)(0x689230D9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/tim.o -MMD)
 I (..\Core\Inc\tim.h)(0x689230D9)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -958,7 +1020,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/usart.c)(0x6892D9A7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/usart.o -MMD)
 I (..\Core\Inc\usart.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -991,7 +1057,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 F (../Core/Src/stm32u5xx_it.c)(0x689233B7)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/stm32u5xx_it.o -MMD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -1025,7 +1095,11 @@ I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h)(0x683C2350)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_it.h)(0x689233B7)
 F (../Core/Src/stm32u5xx_hal_msp.c)(0x68921CAA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O3 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc -I ../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/EFSM/efsm -I ../Drivers/LVGL/GUI -I ../Drivers/LVGL/GUI/lvgl -I ../Drivers/LVGL/GUI/lvgl/src -I ../Drivers/LVGL/GUI/lvgl/examples/porting -I ../Drivers/LVGL/GUI_APP -I ../Drivers/LVGL/GUI_APP/custom -I ../Drivers/LVGL/GUI_APP/generated/guider_customer_fonts -I ../Drivers/LVGL/GUI_APP/generated/guider_fonts -I ../Drivers/LVGL/GUI_APP/generated/images -I ../Middlewares/Third_Party/FreeRTOS/Source/include/ -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/ -I ../Middlewares/Third_Party/CMSIS/RTOS2/Include/-I./RTE/_01-1_STM32U575_Software_Config-ID:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include-D__UVISION_VERSION="541" -DSTM32U575xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32U575xx-o 01-1_stm32u575_software_config/stm32u5xx_hal_msp.o -MMD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -2111,7 +2185,11 @@ I (..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\imgbtn\..\..\..\lvgl.h)(0x6890AABD
 I (..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\lv_span.h)(0x6890AABD)
 I (..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\..\..\..\lvgl.h)(0x6890AABD)
 I (..\Core\Inc\bsp_ili9341_4line.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)
@@ -2360,7 +2438,11 @@ I (..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\lv_span.h)(0x6890AABD)
 I (..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\..\..\..\lvgl.h)(0x6890AABD)
 I (..\Drivers\LVGL\GUI\lvgl\examples\porting\..\..\lvgl.h)(0x6890AABD)
 I (..\Core\Inc\bsp_ft6336.h)(0x6890AABD)
+<<<<<<< HEAD
 I (..\Core\Inc\main.h)(0x6895E00E)
+=======
+I (..\Core\Inc\main.h)(0x6891DCC6)
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h)(0x683C2350)
 I (..\Core\Inc\stm32u5xx_hal_conf.h)(0x6892DAE9)
 I (..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h)(0x683C2350)

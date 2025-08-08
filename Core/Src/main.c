@@ -199,7 +199,13 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Init scheduler */
+<<<<<<< HEAD
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+=======
+  osKernelInitialize(); 
+
+  /* Call init function for freertos objects (in freertos.c) */
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
   MX_FREERTOS_Init();
 
   /* Start scheduler */
@@ -309,8 +315,14 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
         // 设置标志位，通知任务处理解析
         g_MQTT_Data_Ready = 1;
       }
+<<<<<<< HEAD
     ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 1;
     HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
+=======
+
+		ESP8266_Fram_Record_Struct .InfBit .FramFinishFlag = 1;
+		HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 	} 	
 }
 

@@ -3,7 +3,11 @@
 <title>Static Call Graph - [01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image 01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf</H1><HR>
+<<<<<<< HEAD
 <BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Aug  8 19:56:58 2025
+=======
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Aug  8 19:25:51 2025
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 <BR><P>
 <H3>Maximum Stack Usage =       2208 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1244,8 +1248,12 @@ Global Symbols
 <P><STRONG><a name="[517]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, aeabi_memset4.o(.text), UNUSED)
 
 <P><STRONG><a name="[18d]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr.o(.text))
+<<<<<<< HEAD
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask3
 <LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_memset_00
+=======
+<BR><BR>[Called By]<UL><LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_memset_00
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
 <LI><a href="#[489]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[48b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
@@ -2826,8 +2834,13 @@ Global Symbols
 <LI>Call Chain = StartDefaultTask &rArr;  StartDefaultTask (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<<<<<<< HEAD
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tick_inc
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
+=======
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
+<LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tick_inc
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 </UL>
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
 </UL>
@@ -9448,6 +9461,10 @@ Global Symbols
 
 <P><STRONG><a name="[257]"></a>lv_tick_inc</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lv_hal_tick.o(.text.lv_tick_inc))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
+<<<<<<< HEAD
+=======
+<LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 </UL>
 
 <P><STRONG><a name="[260]"></a>lv_timer_create</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, lv_timer.o(.text.lv_timer_create))
@@ -9614,11 +9631,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_txt_set_text_vfmt
 </UL>
 
+<<<<<<< HEAD
 <P><STRONG><a name="[170]"></a>main</STRONG> (Thumb, 344 bytes, Stack size 120 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 696 + Unknown Stack Size
 <LI>Call Chain = main &rArr; setup_ui &rArr; lv_disp_load_scr &rArr; lv_scr_load_anim &rArr; lv_obj_set_pos &rArr; lv_obj_set_style_y &rArr; lv_obj_set_local_style_prop &rArr; lv_obj_refresh_style &rArr; refresh_children_style &rArr;  refresh_children_style (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[485]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
+=======
+<P><STRONG><a name="[170]"></a>main</STRONG> (Thumb, 348 bytes, Stack size 120 bytes, main.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 696 + Unknown Stack Size
+<LI>Call Chain = main &rArr; setup_ui &rArr; lv_disp_load_scr &rArr; lv_scr_load_anim &rArr; lv_obj_set_pos &rArr; lv_obj_set_style_y &rArr; lv_obj_set_local_style_prop &rArr; lv_obj_refresh_style &rArr; refresh_children_style &rArr;  refresh_children_style (Cycle)
+</UL>
+<BR>[Calls]<UL><LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tick_inc
+<LI><a href="#[485]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_FREERTOS_Init
 <LI><a href="#[484]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
 <LI><a href="#[481]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;events_init
@@ -9911,7 +9937,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 </UL>
 
+<<<<<<< HEAD
 <P><STRONG><a name="[94]"></a>vTask1</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, app_freertos.o(.text.vTask1))
+=======
+<P><STRONG><a name="[94]"></a>vTask1</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, app_freertos.o(.text.vTask1))
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 <BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
 <LI>Call Chain = vTask1 &rArr; BSP_SHT20_GetData &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -9935,7 +9965,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_freertos.o(.text.MX_FREERTOS_Init)
 </UL>
+<<<<<<< HEAD
 <P><STRONG><a name="[96]"></a>vTask3</STRONG> (Thumb, 112 bytes, Stack size 1024 bytes, app_freertos.o(.text.vTask3))
+=======
+<P><STRONG><a name="[96]"></a>vTask3</STRONG> (Thumb, 96 bytes, Stack size 1024 bytes, app_freertos.o(.text.vTask3))
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 <BR><BR>[Stack]<UL><LI>Max Depth = 2208 + Unknown Stack Size
 <LI>Call Chain = vTask3 &rArr; ESP8266_Json_Parse &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -9944,7 +9978,10 @@ Global Symbols
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266_Json_Parse
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
+<<<<<<< HEAD
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+=======
+>>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;puts
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
