@@ -30,6 +30,7 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
+  ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
   ..\Core\Inc\gpdma.h ..\Core\Inc\i2c.h ..\Core\Inc\icache.h \
   ..\Core\Inc\octospi.h ..\Core\Inc\spi.h ..\Core\Inc\tim.h \
   ..\Core\Inc\usart.h ..\Core\Inc\gpio.h ..\Core\Inc\bsp_esp8266.h \

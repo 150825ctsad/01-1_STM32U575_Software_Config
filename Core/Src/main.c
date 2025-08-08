@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os2.h"
 #include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
@@ -67,42 +68,45 @@ lv_ui guider_ui;
 
 /* USER CODE BEGIN PV */
 volatile uint8_t gRX_BufF[1];
+volatile uint8_t g_MQTT_Data_Ready = 0;
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
-extern volatile SHT20_TemRH_Val gTemRH_Val;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void SystemPower_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-__ASM (".global __use_no_semihosting");	//AC6������
- 	//��׼����Ҫ��֧�ֺ���
-	struct FILE 
- 	{
- 	  int handle; 
- 	};
- 	FILE __stdout;
- 	//����_sys_exit()�Ա���ʹ�ð�����ģʽ  
-	void _sys_exit(int x) 
-	{ 
-	  x = x; 
-	}
-	void _ttywrch(int ch)
-	{
-	  ch = ch;
-	}
-	//printfʵ���ض���
-	int fputc(int ch, FILE *f)	
-	{
-		uint8_t temp[1] = {ch};
-		HAL_UART_Transmit(&huart1, temp, 1, 2);
-		return ch;
-	}
+__ASM (".global __use_no_semihosting");	//AC6编译器
+//标准库需要的支持函数
+struct FILE 
+{
+  int handle; 
+};
+FILE __stdout;
+//定义_sys_exit()以避免使用半主机模式  
+void _sys_exit(int x) 
+{ 
+  x = x; 
+}
+void _ttywrch(int ch)
+{
+  ch = ch;
+}
+//printf实现重定向
+int fputc(int ch, FILE *f)	
+{
+	uint8_t temp[1] = {ch};
+	HAL_UART_Transmit(&huart1, temp, 1, 2);
+	return ch;
+}
 
   void OSPI_W25Qxx_mmap(void)		//Flash读写测试
 {
@@ -171,11 +175,10 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
-  MX_TIM16_Init();
   MX_TIM2_Init();
-  MX_TIM17_Init();
   MX_OCTOSPI1_Init();
   /* USER CODE BEGIN 2 */
+  
   OSPI_W25Qxx_Init();	//初始化W25Q128
   OSPI_W25Qxx_mmap();
 
@@ -186,45 +189,28 @@ int main(void)
 	setup_ui(&guider_ui);
 	events_init(&guider_ui);
 
-	ESP8266_Init(&huart5,(uint8_t*)gRX_BufF,115200);
+  ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,115200);	//ESP8266初始化
   ESP8266_STA_MQTTClient();
   HAL_Delay(1000);
-  ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);	//订阅Get_State主题(等下修改)
-  HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
+  ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
   Update_Backlight(80); //设置背光亮度
-  HAL_TIM_Base_Start_IT(&htim16);//开启定时器16开启,系统任务调度开始
-  HAL_TIM_Base_Start_IT(&htim17);//开启定时器17开启,设备控制任务开始 
   
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize(); 
+
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 while (1)
 {  
-  lv_task_handler();
-  HAL_Delay(5);
-
-    //char str[100];
-    //BSP_SHT20_GetData();    //获取温湿度数据
-    //sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);
-    //ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);
-/*
-  if (ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag)
-    {
-        // 增加缓冲区长度检查
-        if (ESP8266_Fram_Record_Struct.InfBit.FramLength >= RX_BUF_MAX_LEN) {
-            HAL_UART_Transmit(&huart1, (uint8_t*)"接收缓冲区溢出\r\n", 16, 100);
-        } else if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV") != NULL)
-        {
-            ESP8266_Json_Parse(ESP8266_Fram_Record_Struct.Data_RX_BUF);
-            // 重置接收缓冲区
-            ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 0;
-            ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
-            memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
-        }
-    }
-*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -303,38 +289,6 @@ static void SystemPower_Config(void)
 
 /* USER CODE BEGIN 4 */
 
-//定时器16
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	static uint8_t p_Time16Cnt = 0,p_Time17Cnt = 0;
-	/***************************************************************************************/
-	//定时器16进行1ms任务中断
-	if (htim->Instance == htim16.Instance) 
-	{
-		p_Time16Cnt++;
-		//lvgl的 1ms 心跳函数
-		lv_tick_inc(1); 
-		//1000ms运行一次
-		if(!(p_Time16Cnt % 1000))  
-		{
-			p_Time16Cnt = 0; 
-		}
-	}
-	/***************************************************************************************/
-	//定时器17进行100ms任务中断
-	if (htim->Instance == htim17.Instance) 
-	{
-		p_Time17Cnt++;
-		if(!(p_Time17Cnt % 100))  //10s进行一次下列代码 
-		{
-			p_Time17Cnt = 0; 
-		}
-	}
-	/***************************************************************************************/
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(htim);
-}
-
 //UART5接收中断回调函数
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -352,6 +306,12 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == UART5)
 	{
+    if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV") != NULL)
+      {
+        // 设置标志位，通知任务处理解析
+        g_MQTT_Data_Ready = 1;
+      }
+
 		ESP8266_Fram_Record_Struct .InfBit .FramFinishFlag = 1;
 		HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
 	} 	
@@ -362,7 +322,7 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
   * @param  GPIO_Pin: Specifies the port pin connected to corresponding EXTI line.
   * @retval None
   */
-uint8_t TouchPress = 0; //触摸按下标志
+  uint8_t TouchPress = 0;
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
@@ -381,10 +341,31 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 	if(HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin) && TouchPress)
 	{
 		FT6336_irq_fuc();	//触摸中断产生
-		TouchPress = 0;	//清除触摸标志
+    TouchPress = 0;	//清除触摸标志
 	}
 }
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
