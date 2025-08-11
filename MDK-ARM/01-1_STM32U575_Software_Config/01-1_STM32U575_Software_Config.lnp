@@ -5,6 +5,7 @@
 "01-1_stm32u575_software_config\bsp_ili9341_4line.o"
 "01-1_stm32u575_software_config\bsp_ft6336.o"
 "01-1_stm32u575_software_config\bsp_ospi_w25q128.o"
+"01-1_stm32u575_software_config\bsp_ov7670.o"
 "01-1_stm32u575_software_config\cjson.o"
 "01-1_stm32u575_software_config\cjson_utils.o"
 "01-1_stm32u575_software_config\main.o"

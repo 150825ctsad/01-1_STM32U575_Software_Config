@@ -36,7 +36,7 @@
   ..\Core\Inc\usart.h ..\Core\Inc\gpio.h ..\Core\Inc\bsp_esp8266.h \
   ..\Core\Inc\bsp_sht20.h ..\Core\Inc\bsp_ili9341_4line.h \
   ..\Core\Inc\bsp_ft6336.h ..\Core\Inc\bsp_ospi_w25q128.h \
-  ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
+  ..\Core\Inc\bsp_ov7670.h ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_log.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_kconfig.h \

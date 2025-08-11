@@ -35,6 +35,8 @@
 #include "bsp_ili9341_4line.h"
 #include "bsp_ft6336.h"
 #include "bsp_ospi_w25q128.h"
+#include "bsp_ov7670.h"
+
 #include <string.h>
 
 #include "lvgl.h"
@@ -177,6 +179,7 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM2_Init();
   MX_OCTOSPI1_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
   
   OSPI_W25Qxx_Init();	//初始化W25Q128
@@ -194,18 +197,14 @@ int main(void)
   HAL_Delay(1000);
   ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
+  OV7670_Init();
+
   Update_Backlight(80); //设置背光亮度
   
   /* USER CODE END 2 */
 
   /* Init scheduler */
-<<<<<<< HEAD
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
-=======
-  osKernelInitialize(); 
-
-  /* Call init function for freertos objects (in freertos.c) */
->>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
   MX_FREERTOS_Init();
 
   /* Start scheduler */
@@ -315,14 +314,8 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
         // 设置标志位，通知任务处理解析
         g_MQTT_Data_Ready = 1;
       }
-<<<<<<< HEAD
     ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 1;
     HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
-=======
-
-		ESP8266_Fram_Record_Struct .InfBit .FramFinishFlag = 1;
-		HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
->>>>>>> ce646e6276fed7192c2c0208b38d9c478a4c1d46
 	} 	
 }
 
