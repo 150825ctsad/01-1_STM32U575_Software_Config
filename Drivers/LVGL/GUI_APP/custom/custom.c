@@ -30,6 +30,13 @@
 /**********************
  *  STATIC VARIABLES
  **********************/
+lv_img_dsc_t camera_img_dsc = {
+    .header.w = 320,                  // 与摄像头分辨率一致
+    .header.h = 240,
+    .header.cf = LV_IMG_CF_RGB565,    // 与摄像头输出格式一致（RGB565）
+    .data_size = OV7670_FRAME_SIZE,   // 320*240*2（由 bsp_ov7670.h 定义）
+    .data = g_image_buffer,           // 指向摄像头采集的全局缓冲区
+};
 
 /**
  * Create a demo application

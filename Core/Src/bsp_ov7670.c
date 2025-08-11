@@ -1,6 +1,8 @@
 #include "bsp_ov7670.h"
 #include "i2c.h"
-
+#include "main.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "stdio.h"
 
 
@@ -21,9 +23,71 @@ HAL_StatusTypeDef OV7670_ReadReg(uint8_t reg, uint8_t *value)
     return status;
 }
 
+uint8_t g_image_buffer[OV7670_FRAME_SIZE] = {0};
+volatile uint8_t g_image_ready = 0;
+SemaphoreHandle_t xImageSemaphore = NULL;
 
-void OV7670_Init(void)
+volatile uint8_t g_capturing = 0;
+
+// 复位写指针
+void FIFO_ResetWPoint(void){
+    HAL_GPIO_WritePin(WRST_GPIO_Port, WRST_Pin, GPIO_PIN_RESET);
+    vTaskDelay(pdMS_TO_TICKS(1)); 
+    HAL_GPIO_WritePin(WRST_GPIO_Port, WRST_Pin, GPIO_PIN_SET);
+    vTaskDelay(pdMS_TO_TICKS(1)); 
+}
+// 复位读指针
+void FIFO_ResetRPoint(void){
+    HAL_GPIO_WritePin(RRST_GPIO_Port, RRST_Pin, 0);  
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 0);  
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 1);
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 0);
+    HAL_GPIO_WritePin(RRST_GPIO_Port, RRST_Pin, 1);
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 1);
+}
+void FIFO_OpenReadData(void){
+    HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, 0);     // 允许写入
+}
+void FIFO_CloseReadData(void){
+    HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, 1);     // 禁止写入
+}
+void FIFO_ReadData(uint8_t* cache, uint16_t len){
+    FIFO_ResetRPoint();
+    FIFO_OpenReadData();
+    for(uint16_t index = 0; index < len; ++index){
+        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 1);
+        cache[index] = 
+		(HAL_GPIO_ReadPin(D0_GPIO_Port, D0_Pin)) |
+		(HAL_GPIO_ReadPin(D1_GPIO_Port, D1_Pin) << 1) |
+		(HAL_GPIO_ReadPin(D2_GPIO_Port, D2_Pin) << 2) |
+		(HAL_GPIO_ReadPin(D3_GPIO_Port, D3_Pin) << 3) |
+		(HAL_GPIO_ReadPin(D4_GPIO_Port, D4_Pin) << 4) |
+		(HAL_GPIO_ReadPin(D5_GPIO_Port, D5_Pin) << 5) |
+		(HAL_GPIO_ReadPin(D6_GPIO_Port, D6_Pin) << 6) |
+		(HAL_GPIO_ReadPin(D7_GPIO_Port, D7_Pin) << 7);
+        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 0);
+    }
+    FIFO_CloseReadData();
+}
+
+// 启动采集
+void OV7670_StartCapture(void)
 {
+	g_capturing = 1;
+    FIFO_ResetWPoint();  // 清除FIFO旧数据
+}
+
+// 停止采集
+void OV7670_StopCapture(void)
+{
+	g_capturing = 0;
+}
+
+// 定义互斥锁
+SemaphoreHandle_t xImageMutex = NULL;
+
+HAL_StatusTypeDef OV7670_Init(void) {
+
     OV7670_WriteReg(0x3a, 0x04);
 	OV7670_WriteReg(0x40, 0xd0);
 	OV7670_WriteReg(0x12, 0x14);
@@ -201,7 +265,10 @@ void OV7670_Init(void)
 	OV7670_WriteReg(0xc8, 0x30);
 	OV7670_WriteReg(0x79, 0x26); 
 	OV7670_WriteReg(0x09, 0x00);	
-    printf("OV7670_Init ok!\n");
+    
+    xImageSemaphore = xSemaphoreCreateBinary();
+    configASSERT(xImageSemaphore != NULL);  
+
+    return HAL_OK;
 }
 
- 

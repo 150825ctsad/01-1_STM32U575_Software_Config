@@ -28,6 +28,7 @@
 
 #include "bsp_sht20.h"
 #include "bsp_esp8266.h"
+#include "bsp_ov7670.h"
 
 #include "lvgl.h"
 #include "lv_port_indev_template.h"
@@ -57,6 +58,7 @@ extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 void vTask1(void *argument);
 void vTask2(void *argument);
 void vTask3(void *argument);
+void vCameraCaptureTask(void *argument);
 
 void vPrintString( const char *pcString )
 {
@@ -84,21 +86,39 @@ osThreadId_t Task1Handle;
 const osThreadAttr_t Task1_attributes = {
   .name = "Task1",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 128 * 4
+  .stack_size = 1024 * 4
 };
 osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 256 * 8
+  .stack_size = 1024 * 8
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
   .name = "Task3",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 256 * 16
+  .stack_size = 1024 * 4
 };
+osThreadId_t cameraTaskHandle;
+const osThreadAttr_t cameraTask_attributes = {
+    .name = "cameraTask",
+    .priority = (osPriority_t)osPriorityLow,  
+    .stack_size = 1024 * 16  
+};
+
 /* USER CODE END FunctionPrototypes */
+
+/* USER CODE BEGIN 4 */
+void vApplicationStackOverflowHook(xTaskHandle xTask, char *pcTaskName)
+{
+  printf("Error: Stack overflow in task %s\n", pcTaskName);
+  while(1);
+   /* Run time stack overflow checking is performed if
+   configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
+   called if a stack overflow is detected. */
+}
+/* USER CODE END 4 */
 
 /**
   * @brief  FreeRTOS initialization
@@ -107,7 +127,6 @@ const osThreadAttr_t Task3_attributes = {
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -133,6 +152,7 @@ void MX_FREERTOS_Init(void) {
     Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
     Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
     Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
+    cameraTaskHandle = osThreadNew(vCameraCaptureTask, NULL, &cameraTask_attributes);
 
   /* USER CODE END RTOS_THREADS */
 
@@ -164,23 +184,19 @@ void StartDefaultTask(void *argument)
 /* USER CODE BEGIN Application */
 void vTask1(void *argument)
 {
-  const char * pcTaskName = "Task 1 is running\r\n";
   for( ; ; )
   {
-      /* 打印出这个任务的名称。 */
-      vPrintString( pcTaskName );
+      vPrintString("");
       /* 延时一会 */
       vTaskDelay(pdMS_TO_TICKS(300));
-      BSP_SHT20_GetData();
+      //BSP_SHT20_GetData();
   }
 }
 void vTask2(void *argument)
 {
-  const char * pcTaskName = "Task 2 is running\r\n";
   for( ; ; )
   {
-      /* 打印出这个任务的名称。 */
-      vPrintString( pcTaskName );
+      vPrintString("");
       /* 延时一会 */
       vTaskDelay(pdMS_TO_TICKS(100));
       //LCD 刷新
@@ -189,14 +205,12 @@ void vTask2(void *argument)
 }
 void vTask3(void *argument)
 {
-  const char * pcTaskName = "Task 3 is running\r\n";
   for( ; ; )
   {
-      /* 打印出这个任务的名称。 */
-      vPrintString( pcTaskName );
+      vPrintString("");
       //ESP8266 处理
       vTaskDelay(pdMS_TO_TICKS(100));
-      printf("g_MQTT_Data_Ready:%d\n",g_MQTT_Data_Ready);
+      //printf("g_MQTT_Data_Ready:%d\n",g_MQTT_Data_Ready);
     if (g_MQTT_Data_Ready)
       {
         // 复制数据到局部缓冲区（避免解析过程中被新数据覆盖）
@@ -211,6 +225,13 @@ void vTask3(void *argument)
         g_MQTT_Data_Ready = 0;
       }
   }
+}
+void vCameraCaptureTask(void *argument) {
+    for (;;) {
+      vPrintString("vCameraCaptureTask");
+      
+      osDelay(10);
+    }
 }
 /* USER CODE END Application */
 

@@ -73,7 +73,6 @@ volatile uint8_t gRX_BufF[1];
 volatile uint8_t g_MQTT_Data_Ready = 0;
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -192,10 +191,10 @@ int main(void)
 	setup_ui(&guider_ui);
 	events_init(&guider_ui);
 
-  ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,115200);	//ESP8266初始化
-  ESP8266_STA_MQTTClient();
-  HAL_Delay(1000);
-  ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
+  //ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,115200);	//ESP8266初始化
+  //ESP8266_STA_MQTTClient();
+  //HAL_Delay(1000);
+  //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
   OV7670_Init();
 
@@ -328,12 +327,16 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
-	UNUSED(GPIO_Pin);
-	//触摸按下事件
-	if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
-	{
-		TouchPress = 1;
-	}
+  UNUSED(GPIO_Pin);
+  //触摸按下事件
+  if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
+  {
+    TouchPress = 1;
+  }else if ((GPIO_Pin == VSYNC_Pin) && (g_capturing == 1)) {
+
+  }else if ((GPIO_Pin == HREF_Pin) && (g_capturing == 1)) {
+
+  }
 }
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {

@@ -14,6 +14,9 @@ extern "C" {
 #endif
 
 #include "../gui_guider.h"
+#include "bsp_ov7670.h"
+
+extern lv_img_dsc_t camera_img_dsc;
 
 void custom_init(lv_ui *ui);
 

@@ -46,7 +46,13 @@
     "streambuf": "c",
     "system_error": "c",
     "tuple": "c",
-    "variant": "c"
+    "variant": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "span": "c",
+    "bsp_ov7670.h": "c",
+    "stm32u5xx_hal_gpio_ex.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

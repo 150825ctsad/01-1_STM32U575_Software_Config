@@ -57,10 +57,12 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define BLUE_LED_Pin GPIO_PIN_13
 #define BLUE_LED_GPIO_Port GPIOC
-#define HREF_Pin GPIO_PIN_0
-#define HREF_GPIO_Port GPIOA
-#define VSYNC_Pin GPIO_PIN_1
+#define VSYNC_Pin GPIO_PIN_0
 #define VSYNC_GPIO_Port GPIOA
+#define VSYNC_EXTI_IRQn EXTI0_IRQn
+#define HREF_Pin GPIO_PIN_1
+#define HREF_GPIO_Port GPIOA
+#define HREF_EXTI_IRQn EXTI1_IRQn
 #define LCD_DXC_Pin GPIO_PIN_4
 #define LCD_DXC_GPIO_Port GPIOA
 #define D0_Pin GPIO_PIN_4
@@ -69,8 +71,8 @@ void Error_Handler(void);
 #define D1_GPIO_Port GPIOC
 #define RRST_Pin GPIO_PIN_0
 #define RRST_GPIO_Port GPIOB
-#define WRRST_Pin GPIO_PIN_1
-#define WRRST_GPIO_Port GPIOB
+#define WRST_Pin GPIO_PIN_1
+#define WRST_GPIO_Port GPIOB
 #define OE_Pin GPIO_PIN_2
 #define OE_GPIO_Port GPIOB
 #define STROBE_Pin GPIO_PIN_12
@@ -93,8 +95,8 @@ void Error_Handler(void);
 #define D6_GPIO_Port GPIOC
 #define D7_Pin GPIO_PIN_11
 #define D7_GPIO_Port GPIOC
-#define WR_Pin GPIO_PIN_3
-#define WR_GPIO_Port GPIOB
+#define WR_CTR_Pin GPIO_PIN_3
+#define WR_CTR_GPIO_Port GPIOB
 #define RCK_Pin GPIO_PIN_4
 #define RCK_GPIO_Port GPIOB
 #define TP_INT_Pin GPIO_PIN_5

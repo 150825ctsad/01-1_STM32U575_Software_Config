@@ -71,18 +71,19 @@ extern uint32_t SystemCoreClock;
 #define configTICK_RATE_HZ                       ((TickType_t)1000)
 #define configMAX_PRIORITIES                     ( 56 )
 #define configMINIMAL_STACK_SIZE                 ((uint16_t)128)
-#define configTOTAL_HEAP_SIZE                    ((size_t)8192)
+#define configTOTAL_HEAP_SIZE                    ((size_t)36*1024)
 #define configSTACK_ALLOCATION_FROM_SEPARATE_HEAP 0
 #define configMAX_TASK_NAME_LEN                  ( 16 )
 #define configUSE_TRACE_FACILITY                 1
 #define configUSE_16_BIT_TICKS                   0
 #define configUSE_MUTEXES                        1
 #define configQUEUE_REGISTRY_SIZE                8
+#define configCHECK_FOR_STACK_OVERFLOW           2
 #define configUSE_RECURSIVE_MUTEXES              1
 #define configUSE_COUNTING_SEMAPHORES            1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION  0
 #define configUSE_TASK_NOTIFICATIONS             1
-#define configHEAP_CLEAR_MEMORY_ON_FREE          0
+#define configHEAP_CLEAR_MEMORY_ON_FREE          1
 #define configUSE_MINI_LIST_ITEM                 1
 #define configUSE_SB_COMPLETED_CALLBACK          0
 /* USER CODE BEGIN MESSAGE_BUFFER_LENGTH_TYPE */

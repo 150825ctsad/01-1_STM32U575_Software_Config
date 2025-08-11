@@ -43,6 +43,9 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
   ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
   ..\Core\Inc\usart.h ..\Core\Inc\bsp_sht20.h ..\Core\Inc\bsp_esp8266.h \
+  ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\i2c.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_log.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \
