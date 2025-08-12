@@ -3,7 +3,7 @@
 <title>Static Call Graph - [01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image 01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6230001: Last Updated: Tue Aug 12 17:36:26 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6230001: Last Updated: Tue Aug 12 23:28:42 2025
 <BR><P>
 <H3>Maximum Stack Usage =       2208 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1050,11 +1050,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vApplicationStackOverflowHook
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vCameraCaptureTask
+<LI><a href="#[4b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vApplicationStackOverflowHook
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSPI_W25Qxx_Init
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FT6336_scan_task
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266_Json_Parse
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;camera_refresh_timer
 </UL>
 
 <P><STRONG><a name="[181]"></a>__2sprintf</STRONG> (Thumb, 38 bytes, Stack size 32 bytes, __2sprintf.o(.text))
@@ -5351,13 +5351,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 360 + Unknown Stack Size
 <LI>Call Chain = lv_group_add_obj &rArr; lv_group_remove_obj &rArr; focus_next_core &rArr; lv_obj_invalidate &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[3b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_remove_obj
+<BR>[Calls]<UL><LI><a href="#[3b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_remove_obj
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_next
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_head
 <LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;focus_next_core
 <LI><a href="#[2b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_allocate_spec_attr
 <LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_ins_tail
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 </UL>
 <BR>[Called By]<UL><LI><a href="#[365]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_class_init_obj
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tabview_constructor
@@ -5375,14 +5375,14 @@ Global Symbols
 <P><STRONG><a name="[33c]"></a>lv_group_focus_obj</STRONG> (Thumb, 314 bytes, Stack size 32 bytes, lv_group.o(.text.lv_group_focus_obj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = lv_group_focus_obj &rArr; lv_group_set_editing &rArr; lv_obj_invalidate &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_next
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_next
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_head
 <LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_next
 <LI><a href="#[2b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_invalidate
 <LI><a href="#[2aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_send
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_set_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 </UL>
 <BR>[Called By]<UL><LI><a href="#[338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;indev_proc_press
 </UL>
@@ -5426,8 +5426,7 @@ Global Symbols
 <P><STRONG><a name="[3b8]"></a>lv_group_remove_obj</STRONG> (Thumb, 344 bytes, Stack size 32 bytes, lv_group.o(.text.lv_group_remove_obj))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = lv_group_remove_obj &rArr; focus_next_core &rArr; lv_obj_invalidate &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_mem_free
+<BR>[Calls]<UL><LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_mem_free
 <LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_remove
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_next
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_head
@@ -5436,6 +5435,7 @@ Global Symbols
 <LI><a href="#[323]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;focus_next_core
 <LI><a href="#[2aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_send
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_tail
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_add_obj
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_destructor
@@ -9795,8 +9795,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSwitchContext
 </UL>
 
-<P><STRONG><a name="[97]"></a>vCameraCaptureTask</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, app_freertos.o(.text.vCameraCaptureTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = vCameraCaptureTask &rArr; xQueueSemaphoreTake &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[97]"></a>vCameraCaptureTask</STRONG> (Thumb, 166 bytes, Stack size 0 bytes, app_freertos.o(.text.vCameraCaptureTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = vCameraCaptureTask &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
 <LI><a href="#[25f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -9804,6 +9805,7 @@ Global Symbols
 <LI><a href="#[49c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_EnableIRQ
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FIFO_ReadData
+<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_freertos.o(.text.MX_FREERTOS_Init)
 </UL>
@@ -10987,8 +10989,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 432 + Unknown Stack Size
 <LI>Call Chain = indev_proc_press &rArr; _lv_indev_scroll_throw_handler &rArr; lv_obj_scroll_by &rArr; lv_obj_invalidate &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_has_flag
+<BR>[Calls]<UL><LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_has_flag
 <LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tick_get
 <LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tick_elaps
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_disp_get_layer_sys
@@ -11000,6 +11001,7 @@ Local Symbols
 <LI><a href="#[339]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_search_obj
 <LI><a href="#[337]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;indev_gesture
 <LI><a href="#[33c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_focus_obj
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_read_timer_cb
 </UL>
@@ -11357,8 +11359,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 132 + In Cycle
 <LI>Call Chain = obj_del_core &rArr;  obj_del_core (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_mem_free
+<BR>[Calls]<UL><LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_mem_free
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_next
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_ll_get_head
 <LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_next
@@ -11368,6 +11369,7 @@ Local Symbols
 <LI><a href="#[48d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_lv_obj_destruct
 <LI><a href="#[31f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_obj_act
 <LI><a href="#[3c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_reset
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_del
 <LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;obj_del_core
@@ -11757,14 +11759,14 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 944 + Unknown Stack Size
 <LI>Call Chain = lv_spinbox_event &rArr; lv_spinbox_step_prev &rArr; lv_spinbox_updatevalue &rArr; lv_textarea_set_text &rArr; lv_textarea_add_char &rArr;  lv_textarea_add_text (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[310]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_param
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_code
 <LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_target
 <LI><a href="#[350]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_event_base
 <LI><a href="#[2a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_act
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[446]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_spinbox_step_prev
 <LI><a href="#[445]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_pow
 <LI><a href="#[443]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_spinbox_decrement
@@ -12694,8 +12696,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 600 + Unknown Stack Size
 <LI>Call Chain = lv_arc_event &rArr; lv_arc_set_value &rArr; value_update &rArr; lv_arc_set_end_angle &rArr; inv_arc_area &rArr; lv_obj_invalidate_area &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[307]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_draw_ctx
 <LI><a href="#[310]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_param
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_code
@@ -12721,6 +12722,7 @@ Local Symbols
 <LI><a href="#[355]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_point
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_set_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[356]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_atan2
 <LI><a href="#[31b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_map
 <LI><a href="#[35a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_arc_set_value
@@ -12902,8 +12904,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 816 + Unknown Stack Size
 <LI>Call Chain = lv_btnmatrix_event &rArr; draw_main &rArr; lv_draw_label &rArr; lv_txt_get_size &rArr; _lv_txt_get_next_line &rArr; lv_font_get_glyph_width
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[325]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_next
 <LI><a href="#[36b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_set_ext_draw_size
 <LI><a href="#[310]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_param
@@ -12917,6 +12918,7 @@ Local Symbols
 <LI><a href="#[355]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_point
 <LI><a href="#[369]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_reset_long_press
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[367]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_btnmatrix_set_map
 <LI><a href="#[306]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_main
 <LI><a href="#[36a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;make_one_button_checked
@@ -13046,8 +13048,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 760 + Unknown Stack Size
 <LI>Call Chain = lv_dropdown_event &rArr; draw_main &rArr; lv_draw_img &rArr; lv_draw_label &rArr; lv_txt_get_size &rArr; _lv_txt_get_next_line &rArr; lv_font_get_glyph_width
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[310]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_param
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_code
 <LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_target
@@ -13061,6 +13062,7 @@ Local Symbols
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_add_flag
 <LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_clear_state
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[39c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_dropdown_close
 <LI><a href="#[2cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_dropdown_open
 <LI><a href="#[2ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;btn_release_handler
@@ -13114,8 +13116,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 656 + Unknown Stack Size
 <LI>Call Chain = btn_release_handler &rArr; lv_dropdown_open &rArr; lv_obj_align_to &rArr; layout_update_core &rArr;  layout_update_core (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[2a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_has_flag
 <LI><a href="#[2a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_act
 <LI><a href="#[2b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_invalidate
@@ -13124,6 +13125,7 @@ Local Symbols
 <LI><a href="#[2ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_add_flag
 <LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_clear_state
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_set_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[2cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_dropdown_open
 </UL>
 <BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_dropdown_event
@@ -13146,8 +13148,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 560 + Unknown Stack Size
 <LI>Call Chain = lv_dropdown_list_event &rArr; draw_box_label &rArr; lv_draw_label &rArr; lv_txt_get_size &rArr; _lv_txt_get_next_line &rArr; lv_font_get_glyph_width
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[307]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_draw_ctx
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_code
 <LI><a href="#[2d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_target
@@ -13164,6 +13165,7 @@ Local Symbols
 <LI><a href="#[2cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_clear_state
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_set_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[301]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_box_label
 <LI><a href="#[2fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_box
 </UL>
@@ -13385,8 +13387,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 664 + Unknown Stack Size
 <LI>Call Chain = lv_roller_event &rArr; lv_roller_set_selected &rArr; refr_position &rArr; inf_normalize &rArr; lv_obj_set_y &rArr; lv_obj_set_style_y &rArr; lv_obj_set_local_style_prop &rArr; lv_obj_refresh_style &rArr; refresh_children_style &rArr;  refresh_children_style (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[307]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_draw_ctx
 <LI><a href="#[310]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_param
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_code
@@ -13417,6 +13418,7 @@ Local Symbols
 <LI><a href="#[355]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_point
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_set_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[303]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_label_get_text
 <LI><a href="#[439]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_roller_set_selected
 <LI><a href="#[436]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;refr_position
@@ -13520,8 +13522,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 624 + Unknown Stack Size
 <LI>Call Chain = lv_slider_event &rArr; lv_bar_set_start_value &rArr; lv_bar_set_value_with_anim &rArr; lv_obj_invalidate &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
-<LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
+<BR>[Calls]<UL><LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_type
 <LI><a href="#[307]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_draw_ctx
 <LI><a href="#[310]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_param
 <LI><a href="#[2d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_event_get_code
@@ -13545,6 +13546,7 @@ Local Symbols
 <LI><a href="#[355]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_indev_get_point
 <LI><a href="#[351]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_editing
 <LI><a href="#[2d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_set_editing
+<LI><a href="#[2d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_group
 <LI><a href="#[43e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_knob
 <LI><a href="#[43f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_bar_get_start_value
 <LI><a href="#[43d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_bar_get_value
@@ -13891,14 +13893,13 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> setup_scr_screen.o(.text.setup_scr_screen)
 </UL>
-<P><STRONG><a name="[fa]"></a>camera_refresh_timer</STRONG> (Thumb, 594 bytes, Stack size 40 bytes, setup_scr_screen.o(.text.camera_refresh_timer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 384 + Unknown Stack Size
+<P><STRONG><a name="[fa]"></a>camera_refresh_timer</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, setup_scr_screen.o(.text.camera_refresh_timer))
+<BR><BR>[Stack]<UL><LI>Max Depth = 360 + Unknown Stack Size
 <LI>Call Chain = camera_refresh_timer &rArr; lv_img_set_src &rArr; lv_obj_refresh_ext_draw_size &rArr; lv_obj_invalidate &rArr; lv_obj_area_is_visible &rArr; lv_obj_get_transformed_area &rArr; lv_obj_transform_point &rArr;  lv_obj_transform_point (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
 <LI><a href="#[2db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_img_set_src
 <LI><a href="#[2dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> setup_scr_screen.o(.text.setup_scr_screen)
 </UL>
@@ -13907,8 +13908,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[49e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[49c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[4ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[4ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskMissedYield
+<LI><a href="#[4ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
 <LI><a href="#[2dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
