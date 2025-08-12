@@ -23,6 +23,14 @@ static lv_obj_t *camera_ctrl_btn;  // 摄像头控制按钮
 static lv_obj_t *camera_back_btn;  // 返回按钮
 static lv_obj_t *camera_img;       // 摄像头图像控件
 
+lv_img_dsc_t camera_img_dsc = {
+    .header.w = 320,                  
+    .header.h = 240,
+    .header.cf = LV_IMG_CF_RGB565,    
+    .data_size = CAMERA_FRAME_SIZE,   
+    .data = g_image_buffer,           
+};
+
 // 按钮点击计数回调（原有功能）
 static void screen_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
@@ -76,7 +84,8 @@ static void camera_refresh_timer(lv_timer_t *timer) {
         
         lv_img_set_src(camera_img, &camera_img_dsc);  // 读取图像缓冲区
         g_image_ready = 0;
-        
+        printf("%d",g_image_ready);
+
         xSemaphoreGive(xImageMutex);  // 释放锁
     }
 }

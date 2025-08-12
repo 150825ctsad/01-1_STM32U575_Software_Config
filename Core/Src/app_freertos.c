@@ -103,8 +103,8 @@ const osThreadAttr_t Task3_attributes = {
 osThreadId_t cameraTaskHandle;
 const osThreadAttr_t cameraTask_attributes = {
     .name = "cameraTask",
-    .priority = (osPriority_t)osPriorityLow,  
-    .stack_size = 1024 * 16  
+    .priority = (osPriority_t)osPriorityHigh,  
+    .stack_size = 1024 * 8  
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -232,10 +232,14 @@ void vTask3(void *argument)
     if (xSemaphoreTake(xImageSemaphore, portMAX_DELAY) == pdPASS) {  // 等待信号量
       FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
       g_processing_frame = 0;
+      vTaskDelay(pdMS_TO_TICKS(1));
+      g_image_ready = 1;
       HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-      for(int i=0; i<10; i++) {
-        printf("g_image_buffer:%02X ",g_image_buffer[i]);
-      } 
+
+      printf("%d",g_image_ready);
+      //for(int i=0; i<5; i++) {
+      //  printf("%02X ",g_image_buffer[i]);
+      //} 
     }
       osDelay(10);
     }

@@ -277,4 +277,3 @@ HAL_StatusTypeDef OV7670_Init(void) {
 
     return HAL_OK;
 }
-
