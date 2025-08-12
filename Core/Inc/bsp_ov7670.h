@@ -10,17 +10,19 @@
 #define OV7670_DEVICE_WRITE_ADDRESS    0x42
 #define OV7670_DEVICE_READ_ADDRESS     0x43
 
-#define OV7670_WIDTH    320
-#define OV7670_HEIGHT   240
-#define OV7670_FRAME_SIZE (OV7670_WIDTH * OV7670_HEIGHT * 2)  // 153600字节
+#define CAMERA_WIDTH    320
+#define CAMERA_HEIGHT   240
+#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
 
-extern uint8_t g_image_buffer[OV7670_FRAME_SIZE];  // 图像缓冲区
+extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];  // 图像缓冲区
 extern volatile uint8_t g_image_ready;             // 一帧数据就绪标志（0：未就绪，1：就绪）
 extern SemaphoreHandle_t xImageSemaphore;  
 
 extern volatile uint8_t g_capturing;                      
   
 extern SemaphoreHandle_t xImageMutex;
+
+void OV7670_Reset(void);
 
 HAL_StatusTypeDef OV7670_Init(void);
 

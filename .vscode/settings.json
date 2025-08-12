@@ -52,7 +52,10 @@
     "string_view": "c",
     "span": "c",
     "bsp_ov7670.h": "c",
-    "stm32u5xx_hal_gpio_ex.h": "c"
+    "stm32u5xx_hal_gpio_ex.h": "c",
+    "freertos.h": "c",
+    "semphr.h": "c",
+    "gpio.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

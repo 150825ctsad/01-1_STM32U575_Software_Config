@@ -45,6 +45,7 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
+ extern volatile uint8_t g_processing_frame;
 
 /* USER CODE END EM */
 

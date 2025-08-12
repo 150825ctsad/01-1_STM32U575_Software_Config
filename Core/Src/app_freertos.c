@@ -92,7 +92,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 16
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -226,10 +226,15 @@ void vTask3(void *argument)
       }
   }
 }
-void vCameraCaptureTask(void *argument) {
+ void vCameraCaptureTask(void *argument) {
     for (;;) {
-      vPrintString("vCameraCaptureTask");
-      
+      vPrintString("");
+    if (xSemaphoreTake(xImageSemaphore, portMAX_DELAY) == pdPASS) {  // 等待信号量
+      FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
+      g_processing_frame = 0;
+      g_image_ready = 1;
+      HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+    }
       osDelay(10);
     }
 }

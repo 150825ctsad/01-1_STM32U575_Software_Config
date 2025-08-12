@@ -23,39 +23,45 @@ HAL_StatusTypeDef OV7670_ReadReg(uint8_t reg, uint8_t *value)
     return status;
 }
 
-uint8_t g_image_buffer[OV7670_FRAME_SIZE] = {0};
+uint8_t g_image_buffer[CAMERA_FRAME_SIZE] = {0};
 volatile uint8_t g_image_ready = 0;
 SemaphoreHandle_t xImageSemaphore = NULL;
 
 volatile uint8_t g_capturing = 0;
 
+void OV7670_Reset(void){
+	HAL_GPIO_WritePin(RESTE_GPIO_Port, RESTE_Pin, GPIO_PIN_RESET);
+	HAL_Delay(10);
+	HAL_GPIO_WritePin(RESTE_GPIO_Port, RESTE_Pin, GPIO_PIN_SET);
+	HAL_Delay(10);
+}
+
 // 复位写指针
 void FIFO_ResetWPoint(void){
     HAL_GPIO_WritePin(WRST_GPIO_Port, WRST_Pin, GPIO_PIN_RESET);
-    vTaskDelay(pdMS_TO_TICKS(1)); 
     HAL_GPIO_WritePin(WRST_GPIO_Port, WRST_Pin, GPIO_PIN_SET);
-    vTaskDelay(pdMS_TO_TICKS(1)); 
 }
 // 复位读指针
 void FIFO_ResetRPoint(void){
-    HAL_GPIO_WritePin(RRST_GPIO_Port, RRST_Pin, 0);  
-    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 0);  
-    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 1);
-    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 0);
-    HAL_GPIO_WritePin(RRST_GPIO_Port, RRST_Pin, 1);
-    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 1);
+    HAL_GPIO_WritePin(RRST_GPIO_Port, RRST_Pin, GPIO_PIN_RESET);  
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_RESET);  
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(RRST_GPIO_Port, RRST_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_SET);
 }
 void FIFO_OpenReadData(void){
-    HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, 0);     // 允许写入
+    HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, GPIO_PIN_RESET);     // 允许写入
 }
 void FIFO_CloseReadData(void){
-    HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, 1);     // 禁止写入
+    HAL_GPIO_WritePin(OE_GPIO_Port, OE_Pin, GPIO_PIN_SET);     // 禁止写入
 }
 void FIFO_ReadData(uint8_t* cache, uint16_t len){
     FIFO_ResetRPoint();
     FIFO_OpenReadData();
+
     for(uint16_t index = 0; index < len; ++index){
-        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 1);
+        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_RESET);
         cache[index] = 
 		(HAL_GPIO_ReadPin(D0_GPIO_Port, D0_Pin)) |
 		(HAL_GPIO_ReadPin(D1_GPIO_Port, D1_Pin) << 1) |
@@ -65,7 +71,7 @@ void FIFO_ReadData(uint8_t* cache, uint16_t len){
 		(HAL_GPIO_ReadPin(D5_GPIO_Port, D5_Pin) << 5) |
 		(HAL_GPIO_ReadPin(D6_GPIO_Port, D6_Pin) << 6) |
 		(HAL_GPIO_ReadPin(D7_GPIO_Port, D7_Pin) << 7);
-        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, 0);
+        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_SET);
     }
     FIFO_CloseReadData();
 }
@@ -265,7 +271,7 @@ HAL_StatusTypeDef OV7670_Init(void) {
 	OV7670_WriteReg(0xc8, 0x30);
 	OV7670_WriteReg(0x79, 0x26); 
 	OV7670_WriteReg(0x09, 0x00);	
-    
+                                  
     xImageSemaphore = xSemaphoreCreateBinary();
     configASSERT(xImageSemaphore != NULL);  
 

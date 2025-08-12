@@ -71,6 +71,7 @@ lv_ui guider_ui;
 /* USER CODE BEGIN PV */
 volatile uint8_t gRX_BufF[1];
 volatile uint8_t g_MQTT_Data_Ready = 0;
+volatile uint8_t g_processing_frame = 0;
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 
 /* USER CODE END PV */
@@ -333,9 +334,14 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   {
     TouchPress = 1;
   }else if ((GPIO_Pin == VSYNC_Pin) && (g_capturing == 1)) {
-
-  }else if ((GPIO_Pin == HREF_Pin) && (g_capturing == 1)) {
-
+    if(g_processing_frame == 0){
+    FIFO_ResetWPoint();
+    FIFO_OpenReadData();
+    HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+    }
+  }else if ((GPIO_Pin == HREF_Pin) && (g_capturing == 1)){
+    g_processing_frame++;
+    xSemaphoreGiveFromISR(xImageSemaphore, NULL);
   }
 }
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)

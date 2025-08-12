@@ -23,6 +23,20 @@ static lv_obj_t *camera_ctrl_btn;  // 摄像头控制按钮
 static lv_obj_t *camera_back_btn;  // 返回按钮
 static lv_obj_t *camera_img;       // 摄像头图像控件
 
+static uint16_t camera_rgb565_buffer[CAMERA_WIDTH * CAMERA_HEIGHT];  // RGB565格式缓冲区
+extern lv_img_dsc_t camera_img_dsc;
+
+static void convert_gray_to_rgb565(uint8_t *gray_data, uint16_t *rgb565_data, uint32_t len) {
+    for (uint32_t i = 0; i < len; i++) {
+        uint8_t gray = gray_data[i];
+        // RGB565格式：高5位红，中6位绿，低5位蓝（灰度值均匀分配）
+        uint16_t r = (gray >> 3) & 0x1F;  // 红：5位（0-31）
+        uint16_t g = (gray >> 2) & 0x3F;  // 绿：6位（0-63）
+        uint16_t b = (gray >> 3) & 0x1F;  // 蓝：5位（0-31）
+        rgb565_data[i] = (r << 11) | (g << 5) | b;
+    }
+}
+
 // 按钮点击计数回调（原有功能）
 static void screen_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
@@ -71,13 +85,22 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
 
 // 摄像头画面刷新定时器（每30ms刷新一次）
 static void camera_refresh_timer(lv_timer_t *timer) {
-    if (g_image_ready) {
-        xSemaphoreTake(xImageMutex, portMAX_DELAY);  // 获取锁
+    if (g_image_ready) {  // 摄像头数据就绪标志
+        xSemaphoreTake(xImageMutex, portMAX_DELAY);  // 获取互斥锁（保护共享数据）
         
-        lv_img_set_src(camera_img, &camera_img_dsc);  // 读取图像缓冲区
-        g_image_ready = 0;
+        // 1. 将原始灰度数据转换为RGB565格式
+        convert_gray_to_rgb565(g_image_buffer, camera_rgb565_buffer, CAMERA_WIDTH * CAMERA_HEIGHT);
+              for(int i=0; i<5; i++) {
+        printf("g_image_buffer:%02X \n", g_image_buffer[i]);
+            }
+            for(int i=0; i<5; i++) {
+        printf("camera_rgb565_buffer:%02X \n", camera_rgb565_buffer[i]);
+            }
+        // 2. 更新LVGL图像控件（图像描述符已关联camera_rgb565_buffer）
+        lv_img_set_src(camera_img, &camera_img_dsc);
         
-        xSemaphoreGive(xImageMutex);  // 释放锁
+        g_image_ready = 0;  // 清除就绪标志
+        xSemaphoreGive(xImageMutex);  // 释放互斥锁
     }
 }
 
@@ -136,7 +159,7 @@ void setup_scr_screen(lv_ui *ui) {
 
     // 创建摄像头图像控件（初始隐藏）
     camera_img = lv_img_create(ui->screen_cont_1);
-    lv_img_set_src(camera_img, &camera_img_dsc);  // 关联图像描述符
+    lv_img_set_src(camera_img, &camera_img_dsc);  // 关联自定义的图像描述符
     lv_obj_set_pos(camera_img, 0, 0);             // 全屏显示
     lv_obj_set_size(camera_img, 320, 240);
     lv_obj_add_flag(camera_img, LV_OBJ_FLAG_HIDDEN);  // 初始隐藏
@@ -159,3 +182,4 @@ void setup_scr_screen(lv_ui *ui) {
     // 更新布局
     lv_obj_update_layout(ui->screen);
 }
+
