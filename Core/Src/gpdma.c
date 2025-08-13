@@ -21,8 +21,12 @@
 #include "gpdma.h"
 
 /* USER CODE BEGIN 0 */
-
 /* USER CODE END 0 */
+
+DMA_NodeTypeDef Node_GPDMA1_Channel12;
+DMA_QListTypeDef List_GPDMA1_Channel12;
+DMA_HandleTypeDef handle_GPDMA1_Channel12;
+DMA_QListTypeDef pQueueLinkList;
 
 /* GPDMA1 init function */
 void MX_GPDMA1_Init(void)
@@ -31,6 +35,8 @@ void MX_GPDMA1_Init(void)
   /* USER CODE BEGIN GPDMA1_Init 0 */
 
   /* USER CODE END GPDMA1_Init 0 */
+
+  DMA_NodeConfTypeDef NodeConfig = {0};
 
   /* Peripheral clock enable */
   __HAL_RCC_GPDMA1_CLK_ENABLE();
@@ -42,6 +48,62 @@ void MX_GPDMA1_Init(void)
   /* USER CODE BEGIN GPDMA1_Init 1 */
 
   /* USER CODE END GPDMA1_Init 1 */
+  NodeConfig.NodeType = DMA_GPDMA_2D_NODE;
+  NodeConfig.Init.Request = DMA_REQUEST_SW;
+  NodeConfig.Init.BlkHWRequest = DMA_BREQ_SINGLE_BURST;
+  NodeConfig.Init.Direction = DMA_MEMORY_TO_MEMORY;
+  NodeConfig.Init.SrcInc = DMA_SINC_FIXED;
+  NodeConfig.Init.DestInc = DMA_DINC_INCREMENTED;
+  NodeConfig.Init.SrcDataWidth = DMA_SRC_DATAWIDTH_BYTE;
+  NodeConfig.Init.DestDataWidth = DMA_DEST_DATAWIDTH_BYTE;
+  NodeConfig.Init.SrcBurstLength = 2;
+  NodeConfig.Init.DestBurstLength = 2;
+  NodeConfig.Init.TransferAllocatedPort = DMA_SRC_ALLOCATED_PORT0|DMA_DEST_ALLOCATED_PORT0;
+  NodeConfig.Init.TransferEventMode = DMA_TCEM_BLOCK_TRANSFER;
+  NodeConfig.Init.Mode = DMA_NORMAL;
+  NodeConfig.RepeatBlockConfig.RepeatCount = 1;
+  NodeConfig.RepeatBlockConfig.SrcAddrOffset = 0;
+  NodeConfig.RepeatBlockConfig.DestAddrOffset = 0;
+  NodeConfig.RepeatBlockConfig.BlkSrcAddrOffset = 0;
+  NodeConfig.RepeatBlockConfig.BlkDestAddrOffset = 0;
+  NodeConfig.TriggerConfig.TriggerMode = DMA_TRIGM_BLOCK_TRANSFER;
+  NodeConfig.TriggerConfig.TriggerPolarity = DMA_TRIG_POLARITY_FALLING;
+  NodeConfig.TriggerConfig.TriggerSelection = GPDMA1_TRIGGER_EXTI_LINE1;
+  NodeConfig.DataHandlingConfig.DataExchange = DMA_EXCHANGE_NONE;
+  NodeConfig.DataHandlingConfig.DataAlignment = DMA_DATA_RIGHTALIGN_ZEROPADDED;
+  NodeConfig.SrcAddress = (uint32_t)&GPIOC->IDR;
+  NodeConfig.DstAddress = 0;
+  NodeConfig.DataSize = 0;
+  if (HAL_DMAEx_List_BuildNode(&NodeConfig, &Node_GPDMA1_Channel12) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMAEx_List_InsertNode(&List_GPDMA1_Channel12, NULL, &Node_GPDMA1_Channel12) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMAEx_List_SetCircularMode(&List_GPDMA1_Channel12) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  handle_GPDMA1_Channel12.Instance = GPDMA1_Channel12;
+  handle_GPDMA1_Channel12.InitLinkedList.Priority = DMA_LOW_PRIORITY_LOW_WEIGHT;
+  handle_GPDMA1_Channel12.InitLinkedList.LinkStepMode = DMA_LSM_FULL_EXECUTION;
+  handle_GPDMA1_Channel12.InitLinkedList.LinkAllocatedPort = DMA_LINK_ALLOCATED_PORT0;
+  handle_GPDMA1_Channel12.InitLinkedList.TransferEventMode = DMA_TCEM_BLOCK_TRANSFER;
+  handle_GPDMA1_Channel12.InitLinkedList.LinkedListMode = DMA_LINKEDLIST_CIRCULAR;
+  if (HAL_DMAEx_List_Init(&handle_GPDMA1_Channel12) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMAEx_List_LinkQ(&handle_GPDMA1_Channel12, &List_GPDMA1_Channel12) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMA_ConfigChannelAttributes(&handle_GPDMA1_Channel12, DMA_CHANNEL_NPRIV) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN GPDMA1_Init 2 */
 
   /* USER CODE END GPDMA1_Init 2 */

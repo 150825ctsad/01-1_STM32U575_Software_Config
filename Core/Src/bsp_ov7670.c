@@ -3,12 +3,7 @@
 #include "spi.h"
 #include "i2c.h"
 #include "main.h"
-#include "FreeRTOS.h"
-#include "task.h"
-#include "stdio.h"
-
-#include "stm32u5xx_hal.h"
-
+#include "gpdma.h"
 
 // 使用I2C向OV7670发送配置指令
 HAL_StatusTypeDef OV7670_WriteReg(uint8_t reg, uint8_t value)
@@ -26,18 +21,7 @@ HAL_StatusTypeDef OV7670_ReadReg(uint8_t reg, uint8_t *value)
     status = HAL_I2C_Master_Receive(&hi2c2, OV7670_DEVICE_READ_ADDRESS, value, 1, 10);
     return status;
 }
-
-volatile uint8_t g_image_ready = 0;
-SemaphoreHandle_t xImageSemaphore = NULL;
-SemaphoreHandle_t xImageMutex = NULL;
-
 volatile uint8_t g_capturing = 0;
-
-// 定义图像缓冲区和队列
-uint8_t g_image_buffer1[CAMERA_FRAME_SIZE] = {0};
-uint8_t g_image_buffer2[CAMERA_FRAME_SIZE] = {0};
-volatile uint8_t g_current_buffer_idx = 0;  // 0: buffer1, 1: buffer2
-QueueHandle_t xFrameQueue = NULL;
 
 void OV7670_Reset(void){
 	HAL_GPIO_WritePin(RESTE_GPIO_Port, RESTE_Pin, GPIO_PIN_RESET);
@@ -70,23 +54,36 @@ void FIFO_ReadData(uint8_t* cache, uint16_t len){
     FIFO_ResetRPoint();
     FIFO_OpenReadData();
 
-    for(uint16_t index = 0; index < len; ++index){
-        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_RESET);
-        cache[index] = 
-		(HAL_GPIO_ReadPin(D0_GPIO_Port, D0_Pin)) |
-		(HAL_GPIO_ReadPin(D1_GPIO_Port, D1_Pin) << 1) |
-		(HAL_GPIO_ReadPin(D2_GPIO_Port, D2_Pin) << 2) |
-		(HAL_GPIO_ReadPin(D3_GPIO_Port, D3_Pin) << 3) |
-		(HAL_GPIO_ReadPin(D4_GPIO_Port, D4_Pin) << 4) |
-		(HAL_GPIO_ReadPin(D5_GPIO_Port, D5_Pin) << 5) |
-		(HAL_GPIO_ReadPin(D6_GPIO_Port, D6_Pin) << 6) |
-		(HAL_GPIO_ReadPin(D7_GPIO_Port, D7_Pin) << 7);
-        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_SET);
+    // 确保DMA通道空闲
+    if (HAL_DMA_GetState(&handle_GPDMA1_Channel12) == HAL_DMA_STATE_BUSY) {
+        HAL_DMA_Abort(&handle_GPDMA1_Channel12);
     }
+
+    // 启动DMA传输 (GPIOC->IDR到缓存区)
+    if (HAL_DMA_Start(&handle_GPDMA1_Channel12, (uint32_t)&GPIOC->IDR, (uint32_t)cache, len) != HAL_OK) {
+        Error_Handler();
+    }
+
+    // 等待DMA传输完成
+    HAL_DMA_PollForTransfer(&handle_GPDMA1_Channel12, HAL_DMA_FULL_TRANSFER, HAL_MAX_DELAY);
+
+//  	 for(uint16_t index = 0; index < len; ++index){
+//   	     HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_RESET);
+//   	     cache[index] = 
+//		(HAL_GPIO_ReadPin(D0_GPIO_Port, D0_Pin)) |
+//		(HAL_GPIO_ReadPin(D1_GPIO_Port, D1_Pin) << 1) |
+//		(HAL_GPIO_ReadPin(D2_GPIO_Port, D2_Pin) << 2) |
+//		(HAL_GPIO_ReadPin(D3_GPIO_Port, D3_Pin) << 3) |
+//		(HAL_GPIO_ReadPin(D4_GPIO_Port, D4_Pin) << 4) |
+//		(HAL_GPIO_ReadPin(D5_GPIO_Port, D5_Pin) << 5) |
+//		(HAL_GPIO_ReadPin(D6_GPIO_Port, D6_Pin) << 6) |
+//		(HAL_GPIO_ReadPin(D7_GPIO_Port, D7_Pin) << 7);
+//        HAL_GPIO_WritePin(RCK_GPIO_Port, RCK_Pin, GPIO_PIN_SET);
+//    }
     FIFO_CloseReadData();
 }
 
-HAL_StatusTypeDef OV7670_Init(void) {
+void OV7670_Init(void) {
 
     OV7670_WriteReg(0x3a, 0x04);
 	OV7670_WriteReg(0x40, 0xd0);
@@ -265,31 +262,5 @@ HAL_StatusTypeDef OV7670_Init(void) {
 	OV7670_WriteReg(0xc8, 0x30);
 	OV7670_WriteReg(0x79, 0x26); 
 	OV7670_WriteReg(0x09, 0x00);	
-                                  
-    xImageSemaphore = xSemaphoreCreateBinary();
-    if (xImageSemaphore == NULL) {
-      printf("xImageSemaphore 创建失败！\n");
-      return HAL_ERROR;
-    }
-
-    xFrameQueue = xQueueCreate(2, sizeof(uint16_t*));  // 创建可存储2帧的队列
-    if (xFrameQueue == NULL) {
-      printf("xFrameQueue 创建失败！\n");
-      return HAL_ERROR;
-    }
-
-    return HAL_OK;
-}
-
-void OV7670_CaptureDoneCallback(void) {
-    if (g_capturing) {
-        uint16_t *current_buffer = (uint16_t*)(g_current_buffer_idx ? g_image_buffer2 : g_image_buffer1);
-        FIFO_ReadData((uint8_t*)current_buffer, CAMERA_FRAME_SIZE);
-        if (xQueueSend(xFrameQueue, &current_buffer, pdMS_TO_TICKS(10)) != pdPASS) {
-  			// 队列满时直接丢弃当前帧，避免阻塞
-    		printf("Frame queue overflow! Dropping frame...\r\n");
-		}
-        // 切换缓冲区（乒乓操作，避免采集覆盖未显示的帧）
-        g_current_buffer_idx = !g_current_buffer_idx;
-    }
+                
 }

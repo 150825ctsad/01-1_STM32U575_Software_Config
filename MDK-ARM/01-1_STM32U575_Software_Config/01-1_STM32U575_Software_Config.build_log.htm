@@ -22,16 +22,23 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 F:\STM32U5\01-1_STM32U575_Software_Config\MDK-ARM\01-1_STM32U575_Software_Config.uvprojx
-Project File Date:  08/13/2025
+Project File Date:  08/14/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.22', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target '01-1_STM32U575_Software_Config'
+../Core/Src/app_freertos.c(267): warning: implicit conversion from 'int' to 'uint16_t' (aka 'unsigned short') changes value from 153600 to 22528 [-Wconstant-conversion]
+  267 |             FIFO_ReadData(g_current_buffer, CAMERA_FRAME_SIZE);
+      |             ~~~~~~~~~~~~~                   ^~~~~~~~~~~~~~~~~
+../Core/Inc\bsp_ov7670.h(16): note: expanded from macro 'CAMERA_FRAME_SIZE'
+   16 | #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
+      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+1 warning generated.
 compiling app_freertos.c...
 linking...
-Program Size: Code=283326 RO-data=35602 RW-data=224 ZI-data=555320  
+Program Size: Code=285166 RO-data=35602 RW-data=307432 ZI-data=248296  
 FromELF: creating hex file...
-"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 0 Warning(s).
+"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

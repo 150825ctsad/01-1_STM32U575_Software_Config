@@ -7,6 +7,8 @@
   */
 #include "bsp_ili9341_4line.h"
 #include "stm32u5xx_hal.h"
+#include <stdlib.h>
+#include <string.h>
 //
 extern SPI_HandleTypeDef hspi1;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel0;
@@ -398,14 +400,14 @@ void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* col
 {  
 	uint16_t rectWidth,rectHeight;	//缓冲区大小
 	uint16_t *pixels= (uint16_t *)color;  //帧缓冲地址
-  uint16_t pheight = 0,pWidth = 0,pBuffCnt = 0;
+  	uint16_t pheight = 0,pWidth = 0,pBuffCnt = 0;
 	//根据坐标计算缓冲区大小
 	rectWidth = ((ex - sx) > 0) ? (ex - sx + 1) : (sx - ex + 1);
 	rectHeight = ((ey - sy) > 0) ? (ey - sy + 1) : (sy - ey + 1);
 	//保存长度
-  uint32_t pTotalPixel = rectWidth * rectHeight * 2;
-  uint32_t pFull = pTotalPixel / 63488;	//62KB取整
-  uint32_t pRemain = pTotalPixel % 63488;	//62KB取余
+  	uint32_t pTotalPixel = rectWidth * rectHeight * 2;
+  	uint32_t pFull = pTotalPixel / 63488;	//62KB取整
+  	uint32_t pRemain = pTotalPixel % 63488;	//62KB取余
 	//设置显示区域
 	ILI9341_SetArea(sx, sy, ex, ey);
 	ILI9341_WriteRAM_Prepare();		//开始写入GRAM	
@@ -446,3 +448,44 @@ void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* col
 	hspi1.Instance->CFG1 &= (~0x1F);
 	hspi1.Instance->CFG1 |= SPI_DATASIZE_8BIT;	
 } 
+
+void LCD_Picture(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const uint16_t *image_data)
+{
+    uint32_t pixel_count = (ex - sx + 1) * (ey - sy + 1);
+    uint32_t data_size = pixel_count * sizeof(uint16_t);
+    
+    // 分配内存缓冲区
+    uint16_t *pixels = (uint16_t *)malloc(data_size);
+    if (pixels == NULL)
+    {
+        // 内存分配失败处理
+        return;
+    }
+    
+    // 复制图片数据到缓冲区
+    memcpy(pixels, image_data, data_size);
+    
+    // 设置显示区域并传输数据
+    ILI9341_SetArea(sx, sy, ex, ey);
+    ILI9341_WriteRAM_Prepare();
+    
+    // 使用DMA传输数据
+    hspi1.Instance->CFG1 &= (~0x1F);
+    hspi1.Instance->CFG1 |= SPI_DATASIZE_16BIT;
+    
+    if (HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)pixels, data_size) != HAL_OK)
+    {
+        HAL_SPI_Abort(&hspi1);
+    }
+    
+    // 等待传输完成
+    while (HAL_DMA_GetState(&handle_GPDMA1_Channel0) != HAL_DMA_STATE_READY);
+    HAL_SPI_Abort(&hspi1);
+    
+    // 恢复SPI设置
+    hspi1.Instance->CFG1 &= (~0x1F);
+    hspi1.Instance->CFG1 |= SPI_DATASIZE_8BIT;
+    
+    // 释放内存
+    free(pixels);
+}

@@ -71,7 +71,6 @@ lv_ui guider_ui;
 /* USER CODE BEGIN PV */
 volatile uint8_t gRX_BufF[1];
 volatile uint8_t g_MQTT_Data_Ready = 0;
-volatile uint8_t g_processing_frame = 0;
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 
 /* USER CODE END PV */
@@ -324,7 +323,9 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
   * @param  GPIO_Pin: Specifies the port pin connected to corresponding EXTI line.
   * @retval None
   */
-  uint8_t TouchPress = 0;
+  static uint8_t TouchPress = 0;
+  static uint8_t vs_flag = 0;
+  volatile uint8_t g_frame_ready;
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
@@ -334,23 +335,26 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   {
     TouchPress = 1;
   } else if (GPIO_Pin == VSYNC_Pin && g_capturing == 1) {
-    if (g_processing_frame == 0) {  // 仅在未处理帧时初始化FIFO
-      //printf("V:%d,%d\n",g_processing_frame,g_capturing);
-      FIFO_ResetWPoint();           // 复位FIFO写指针（准备写入新帧）
-      FIFO_OpenReadData();          // 允许FIFO数据读出
-      HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+        vs_flag++;
+        if (vs_flag == 1)
+        {
+            FIFO_ResetWPoint();
+            FIFO_OpenReadData();
+        }
+        else if (vs_flag == 2)
+        {
+            // 暂时关闭中断,防止读写冲突
+            HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+            // 等待数据读取完成
+            g_frame_ready = 1;
+        }
+    }else if (GPIO_Pin == HREF_Pin && g_capturing == 1) {
+      if (vs_flag == 240)
+      {            
+        vs_flag = 0;
+        HAL_NVIC_EnableIRQ(EXTI0_IRQn); // 重新开启中断
+      }
     }
-  }  else if (GPIO_Pin == HREF_Pin && g_capturing == 1) {
-    //printf("H:%d,%d\n",g_processing_frame,g_capturing);
-    g_processing_frame++;  // 行计数递增（用于判断一帧总行数是否完成）
-    
-    // 释放信号量通知任务处理一行数据，同时检查是否需要任务切换
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    if (xImageSemaphore != NULL) {  // 确保信号量已初始化
-      xSemaphoreGiveFromISR(xImageSemaphore, &xHigherPriorityTaskWoken);
-      portYIELD_FROM_ISR(xHigherPriorityTaskWoken);  // 必要时触发任务切换
-    }
-  }
 }
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
     UNUSED(GPIO_Pin);
@@ -358,12 +362,6 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == TP_INT_Pin && HAL_GPIO_ReadPin(TP_INT_GPIO_Port, TP_INT_Pin) && TouchPress) {
         FT6336_irq_fuc();
         TouchPress = 0;
-    }  else if (GPIO_Pin == VSYNC_Pin && g_capturing) {
-        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-        OV7670_CaptureDoneCallback();
-        g_processing_frame = 0; // 重置行计数
-        HAL_NVIC_EnableIRQ(EXTI0_IRQn); // 恢复VSYNC中断
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
     }
 }
 /* USER CODE END 4 */

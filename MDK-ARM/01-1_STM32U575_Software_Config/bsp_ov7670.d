@@ -44,4 +44,4 @@
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
-  ..\Core\Inc\bsp_ili9341_4line.h ..\Core\Inc\spi.h
+  ..\Core\Inc\bsp_ili9341_4line.h ..\Core\Inc\spi.h ..\Core\Inc\gpdma.h
