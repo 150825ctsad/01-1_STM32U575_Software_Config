@@ -46,6 +46,7 @@
   ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\i2c.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
+  ..\Core\Inc\bsp_ili9341_4line.h ..\Core\Inc\spi.h \
   ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_log.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \

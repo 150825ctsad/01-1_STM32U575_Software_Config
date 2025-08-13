@@ -388,32 +388,6 @@ void ILI9341_Clear(uint16_t color)
 }
 /*
 **********************************************************************
-* @fun     :_HW_DrawPoint 
-* @brief   :uGUI函数调用，画点函数
-* @param   :x,y:坐标，color:此点的颜色
-* @return  :None 
-**********************************************************************
-*/
-void _HW_DrawPoint(uint16_t x,uint16_t y,uint16_t color)
-{	
-	uint8_t TempBufferX[2] = {x >>8, x & 0XFF};
-	uint8_t TempBufferY[2] = {y >>8, y & 0XFF};
-	uint8_t TempBufferD[2] = {color >> 8, color};
-	//
-	ILI9341_WR_REG(ILI9341dev.setxcmd); 
-	//
-	HAL_SPI_Transmit(&hspi1, TempBufferX, 2, 1);		
-	//
-	ILI9341_WR_REG(ILI9341dev.setycmd); 
-	//
-	HAL_SPI_Transmit(&hspi1, TempBufferY, 2, 1);		
-	//
-	ILI9341_WR_REG(ILI9341dev.wramcmd); 
-	//
-	HAL_SPI_Transmit(&hspi1, TempBufferD, 2, 1);		
-}	
-/*
-**********************************************************************
 * @fun     :_HW_FillFrame 
 * @brief   :在指定区域内填充单个颜色
 * @param   :(sx,sy),(ex,ey):填充矩形对角坐标,区域大小为:(ex-sx+1)*(ey-sy+1),color:要填充的颜色
@@ -429,7 +403,7 @@ void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* col
 	rectWidth = ((ex - sx) > 0) ? (ex - sx + 1) : (sx - ex + 1);
 	rectHeight = ((ey - sy) > 0) ? (ey - sy + 1) : (sy - ey + 1);
 	//保存长度
-	uint32_t pTotalPixel = rectWidth * rectHeight * 2;
+  uint32_t pTotalPixel = rectWidth * rectHeight * 2;
   uint32_t pFull = pTotalPixel / 63488;	//62KB取整
   uint32_t pRemain = pTotalPixel % 63488;	//62KB取余
 	//设置显示区域
@@ -472,59 +446,3 @@ void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* col
 	hspi1.Instance->CFG1 &= (~0x1F);
 	hspi1.Instance->CFG1 |= SPI_DATASIZE_8BIT;	
 } 
-/*
-**********************************************************************
-* @fun     :_HW_DrawLine 
-* @brief   :画线
-* @param   :_usX1,_usY1:起点坐标,_usX2,_usY2:终点坐标,_usColor:要填充的颜色
-* @return  :None 
-**********************************************************************
-*/
-void _HW_DrawLine(uint16_t _usX1,uint16_t _usY1,uint16_t _usX2,uint16_t _usY2,uint16_t _usColor)
-{
-	int32_t dx,dy;
-	int32_t tx ,ty;
-	int32_t inc1,inc2;
-	int32_t d,iTag;
-	int32_t x,y;
-	/* 采用 Bresenham 算法，在2点间画一条直线 */
-	_HW_DrawPoint(_usX1,_usY1,_usColor);
-	/* 如果两点重合，结束后面的动作。*/
-	if (_usX1==_usX2 && _usY1==_usY2) {return;}
-
-	iTag =0;
-	/* dx = abs ( _usX2 - _usX1 ); */
-	if (_usX2 >=_usX1) {dx=_usX2-_usX1;}
-	else {dx =_usX1-_usX2;}
-
-	/* dy =abs (_usY2-_usY1); */
-	if (_usY2 >=_usY1) {dy = _usY2-_usY1;}
-	else {dy = _usY1-_usY2;}
-
-	if (dx < dy)   /*如果dy为计长方向，则交换纵横坐标。*/
-	{
-		uint16_t temp;
-		iTag = 1;
-		temp = _usX1; _usX1 = _usY1; _usY1 = temp;
-		temp = _usX2; _usX2 = _usY2; _usY2 = temp;
-		temp = dx; dx = dy; dy = temp;
-	}
-	
-	tx = _usX2 > _usX1 ? 1 : -1;    /* 确定是增1还是减1 */
-	ty = _usY2 > _usY1 ? 1 : -1;
-	x = _usX1;
-	y = _usY1;
-	inc1 = 2 * dy;
-	inc2 = 2 * (dy - dx);
-	d = inc1 - dx;
-	while (x != _usX2)     /* 循环画点 */
-	{
-		if (d < 0) {d += inc1;}
-		else {y += ty ; d += inc2 ;}
-		
-		if (iTag) { _HW_DrawPoint(y,x,_usColor);}
-		else {_HW_DrawPoint(x,y,_usColor);}
-		
-		x += tx ;
-	}	
-}   

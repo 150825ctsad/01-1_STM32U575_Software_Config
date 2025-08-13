@@ -1,9 +1,13 @@
 #include "bsp_ov7670.h"
+#include "bsp_ili9341_4line.h"
+#include "spi.h"
 #include "i2c.h"
 #include "main.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stdio.h"
+
+#include "stm32u5xx_hal.h"
 
 
 // 使用I2C向OV7670发送配置指令
@@ -23,11 +27,17 @@ HAL_StatusTypeDef OV7670_ReadReg(uint8_t reg, uint8_t *value)
     return status;
 }
 
-uint8_t g_image_buffer[CAMERA_FRAME_SIZE] = {0};
 volatile uint8_t g_image_ready = 0;
 SemaphoreHandle_t xImageSemaphore = NULL;
+SemaphoreHandle_t xImageMutex = NULL;
 
 volatile uint8_t g_capturing = 0;
+
+// 定义图像缓冲区和队列
+uint8_t g_image_buffer1[CAMERA_FRAME_SIZE] = {0};
+uint8_t g_image_buffer2[CAMERA_FRAME_SIZE] = {0};
+volatile uint8_t g_current_buffer_idx = 0;  // 0: buffer1, 1: buffer2
+QueueHandle_t xFrameQueue = NULL;
 
 void OV7670_Reset(void){
 	HAL_GPIO_WritePin(RESTE_GPIO_Port, RESTE_Pin, GPIO_PIN_RESET);
@@ -75,22 +85,6 @@ void FIFO_ReadData(uint8_t* cache, uint16_t len){
     }
     FIFO_CloseReadData();
 }
-
-// 启动采集
-void OV7670_StartCapture(void)
-{
-	g_capturing = 1;
-    FIFO_ResetWPoint();  // 清除FIFO旧数据
-}
-
-// 停止采集
-void OV7670_StopCapture(void)
-{
-	g_capturing = 0;
-}
-
-// 定义互斥锁
-SemaphoreHandle_t xImageMutex = NULL;
 
 HAL_StatusTypeDef OV7670_Init(void) {
 
@@ -273,8 +267,24 @@ HAL_StatusTypeDef OV7670_Init(void) {
 	OV7670_WriteReg(0x09, 0x00);	
                                   
     xImageSemaphore = xSemaphoreCreateBinary();
-    configASSERT(xImageSemaphore != NULL);  
+    if (xImageSemaphore == NULL) {
+      printf("xImageSemaphore 创建失败！\n");
+      return HAL_ERROR;
+    }
 
     return HAL_OK;
 }
 
+void OV7670_CaptureDoneCallback(void) {
+    if (g_capturing) {
+        uint16_t *current_buffer = (uint16_t*)(g_current_buffer_idx ? g_image_buffer2 : g_image_buffer1);
+        FIFO_ReadData((uint8_t*)current_buffer, CAMERA_FRAME_SIZE);
+        if (xQueueSend(xFrameQueue, &current_buffer, pdMS_TO_TICKS(100)) != pdPASS) {
+            // 队列满，可添加丢帧处理（如打印警告）
+            printf("Frame queue overflow!\r\n");
+        }
+        
+        // 切换缓冲区（乒乓操作，避免采集覆盖未显示的帧）
+        g_current_buffer_idx = !g_current_buffer_idx;
+    }
+}
