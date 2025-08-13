@@ -272,6 +272,12 @@ HAL_StatusTypeDef OV7670_Init(void) {
       return HAL_ERROR;
     }
 
+    xFrameQueue = xQueueCreate(2, sizeof(uint16_t*));  // 创建可存储2帧的队列
+    if (xFrameQueue == NULL) {
+      printf("xFrameQueue 创建失败！\n");
+      return HAL_ERROR;
+    }
+
     return HAL_OK;
 }
 
@@ -279,11 +285,10 @@ void OV7670_CaptureDoneCallback(void) {
     if (g_capturing) {
         uint16_t *current_buffer = (uint16_t*)(g_current_buffer_idx ? g_image_buffer2 : g_image_buffer1);
         FIFO_ReadData((uint8_t*)current_buffer, CAMERA_FRAME_SIZE);
-        if (xQueueSend(xFrameQueue, &current_buffer, pdMS_TO_TICKS(100)) != pdPASS) {
-            // 队列满，可添加丢帧处理（如打印警告）
-            printf("Frame queue overflow!\r\n");
-        }
-        
+        if (xQueueSend(xFrameQueue, &current_buffer, pdMS_TO_TICKS(10)) != pdPASS) {
+  			// 队列满时直接丢弃当前帧，避免阻塞
+    		printf("Frame queue overflow! Dropping frame...\r\n");
+		}
         // 切换缓冲区（乒乓操作，避免采集覆盖未显示的帧）
         g_current_buffer_idx = !g_current_buffer_idx;
     }

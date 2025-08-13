@@ -15,7 +15,6 @@
 #include "custom.h"
 #include "bsp_ov7670.h"
 
-
 // 声明屏幕组件
 static lv_obj_t *screen_label;
 static lv_obj_t *screen_btn;
@@ -55,6 +54,7 @@ static void camera_ctrl_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
 
         g_capturing = 1;
+        //printf("%d\n",g_capturing);
     }
 }
 
@@ -73,6 +73,7 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
         
         // 停止摄像头采集
         g_capturing = 0;
+        //printf("%d\n",g_capturing);
     }
 }
 
