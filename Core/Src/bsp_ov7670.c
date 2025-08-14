@@ -1,13 +1,6 @@
 #include "bsp_ov7670.h"
 #include "i2c.h"
 #include "main.h"
-<<<<<<< Updated upstream
-#include "FreeRTOS.h"
-#include "task.h"
-#include "stdio.h"
-
-=======
->>>>>>> Stashed changes
 
 // 使用I2C向OV7670发送配置指令
 HAL_StatusTypeDef OV7670_WriteReg(uint8_t reg, uint8_t value)
@@ -25,23 +18,6 @@ HAL_StatusTypeDef OV7670_ReadReg(uint8_t reg, uint8_t *value)
     status = HAL_I2C_Master_Receive(&hi2c2, OV7670_DEVICE_READ_ADDRESS, value, 1, 10);
     return status;
 }
-
-<<<<<<< Updated upstream
-uint8_t g_image_buffer[CAMERA_FRAME_SIZE] = {0};
-volatile uint8_t g_image_ready = 0;
-SemaphoreHandle_t xImageSemaphore = NULL;
-
-volatile uint8_t g_capturing = 0;
-
-void OV7670_Reset(void){
-	HAL_GPIO_WritePin(RESTE_GPIO_Port, RESTE_Pin, GPIO_PIN_RESET);
-	HAL_Delay(10);
-	HAL_GPIO_WritePin(RESTE_GPIO_Port, RESTE_Pin, GPIO_PIN_SET);
-	HAL_Delay(10);
-}
-=======
-uint16_t image[CAMERA_FRAME_SIZE]; 
->>>>>>> Stashed changes
 
 // 复位写指针
 void FIFO_ResetWPoint(void){
@@ -84,25 +60,6 @@ void FIFO_ReadData(uint8_t* cache, uint16_t len){
     FIFO_CloseWriteData();
 }
 
-<<<<<<< Updated upstream
-// 启动采集
-void OV7670_StartCapture(void)
-{
-	g_capturing = 1;
-    FIFO_ResetWPoint();  // 清除FIFO旧数据
-}
-
-// 停止采集
-void OV7670_StopCapture(void)
-{
-	g_capturing = 0;
-}
-
-// 定义互斥锁
-SemaphoreHandle_t xImageMutex = NULL;
-
-HAL_StatusTypeDef OV7670_Init(void) {
-=======
 void OV7670_Init(void) {
 
 	// OV7670_WriteReg(0x11, 0x00); // 输入时钟分频
@@ -126,7 +83,6 @@ void OV7670_Init(void) {
 
 	// OV7670_WriteReg(0x72, 0x11); // DCW 控制,默认值0x11
 	// OV7670_WriteReg(0x73, 0x00); // DSP缩放时钟,默认值0x00
->>>>>>> Stashed changes
 
     OV7670_WriteReg(0x3a, 0x04);
 	OV7670_WriteReg(0x40, 0xd0);
@@ -310,15 +266,6 @@ void OV7670_Init(void) {
 	OV7670_WriteReg(0x79, 0x26); 
 	OV7670_WriteReg(0x09, 0x00);		
                                   
-<<<<<<< Updated upstream
-    xImageSemaphore = xSemaphoreCreateBinary();
-    configASSERT(xImageSemaphore != NULL);  
-
-    return HAL_OK;
-}
-<<<<<<< HEAD
-
-=======
 }
 
 uint8_t OV_Data_Cache[38400] = { /* 0X10,0X10,0X00,0X78,0X00,0XA0,0X01,0X1B, */

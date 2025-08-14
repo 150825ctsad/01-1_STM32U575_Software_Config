@@ -336,14 +336,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
   {
     TouchPress = 1;
-<<<<<<< Updated upstream
-  }else if ((GPIO_Pin == VSYNC_Pin) && (g_capturing == 1)) {
-    if(g_processing_frame == 0){
-    FIFO_ResetWPoint();
-    FIFO_OpenReadData();
-    HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-=======
-  } else if(GPIO_Pin == VSYNC_Pin){
+  }else if(GPIO_Pin == VSYNC_Pin){
     vsync++;
     if(vsync == 1){
       FIFO_ResetWPoint();
@@ -354,28 +347,9 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
       image_ready = 1;
       HAL_NVIC_EnableIRQ(EXTI0_IRQn);
       vsync = 0;
->>>>>>> Stashed changes
     }
-  }else if ((GPIO_Pin == HREF_Pin) && (g_capturing == 1)){
-    UBaseType_t uxSavedInterruptStatus;
-    uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();
-    g_processing_frame++;
-    taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);
-    xSemaphoreGiveFromISR(xImageSemaphore, NULL);
   }
 }
-<<<<<<< Updated upstream
-void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
-{
-  /* Prevent unused argument(s) compilation warning */
-	UNUSED(GPIO_Pin);
-	//触摸释放事件
-	if(HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin) && TouchPress)
-	{
-		FT6336_irq_fuc();	//触摸中断产生
-    TouchPress = 0;	//清除触摸标志
-	}
-=======
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
     UNUSED(GPIO_Pin);
     
@@ -383,7 +357,6 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
         FT6336_irq_fuc();
         TouchPress = 0;
     }
->>>>>>> Stashed changes
 }
 /* USER CODE END 4 */
 
