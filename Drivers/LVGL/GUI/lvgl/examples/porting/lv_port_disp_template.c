@@ -171,7 +171,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 //            }
 //        }
 				///LCD 驱动函数,在指定区域内填充指定颜色块 
-				_HW_FillFrame(area->x1,area->y1,area->x2,area->y2,(uint16_t*)(color_p));
+				_HW_FillFrame(area->x1,area->y1,area->x2,area->y2,(uint16_t)(color_p));
     }
 
     /*IMPORTANT!!!

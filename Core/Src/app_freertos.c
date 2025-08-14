@@ -200,8 +200,8 @@ void vTask2(void *argument)
   for( ; ; )
   {
       //LCD 刷新
-      //lv_task_handler();
-      osDelay(1);
+      lv_task_handler();
+      osDelay(30);
   }
 }
 void vTask3(void *argument)
@@ -230,10 +230,7 @@ void vTask3(void *argument)
 void vCameraCaptureTask(void *argument)
 {
     for(;;){
-
-      _HW_FillFrame(0,0,240,240,(uint16_t *)OV_Data_Cache);
       osDelay(1000);
-
     }
 }
 /* USER CODE END Application */
