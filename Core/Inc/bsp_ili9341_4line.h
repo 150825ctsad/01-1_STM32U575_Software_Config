@@ -77,6 +77,5 @@ void ILI9341_WriteRAM(uint16_t RGB_Code);
 void ILI9341_Display_Dir(Screen_ShowDIR ShowDIR);	//设置屏幕显示方向
 //
 void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* color);
-void LCD_Picture(uint16_t sx, uint16_t sy, uint16_t ex, uint16_t ey, const uint16_t *image_data);
 
 #endif /* __BSP_ILI9341_4LINE_H__ */

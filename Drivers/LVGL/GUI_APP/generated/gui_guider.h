@@ -15,13 +15,15 @@ extern "C" {
 
 #include "lvgl.h"
 
-typedef struct
-{
-  
-	lv_obj_t *screen;
-	bool screen_del;
-	lv_obj_t *screen_cont_1;
-}lv_ui;
+typedef struct {
+    lv_obj_t *screen;
+    lv_obj_t *screen_cont_1;
+    lv_obj_t *screen_btn;
+    lv_obj_t *camera_ctrl_btn;
+    lv_obj_t *camera_back_btn;
+    lv_obj_t *canvas;
+    bool screen_del;
+} lv_ui;
 
 typedef void (*ui_setup_scr_t)(lv_ui * ui);
 

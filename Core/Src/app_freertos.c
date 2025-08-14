@@ -54,15 +54,6 @@
 /* USER CODE BEGIN PM */
 extern volatile uint8_t g_MQTT_Data_Ready; // MQTT数据就绪标志
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
-
-extern osThreadId_t cameraTaskHandle;
-SemaphoreHandle_t xImageSemaphore;
-uint8_t g_static_buffer1[CAMERA_FRAME_SIZE] __attribute__((section(".ccmram")));
-uint8_t g_static_buffer2[CAMERA_FRAME_SIZE] __attribute__((section(".ccmram")));
-uint8_t *g_current_buffer = g_static_buffer1;
-uint8_t *g_prev_buffer = g_static_buffer2;
-
-QueueHandle_t xFrameQueue = NULL;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -104,7 +95,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 16
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -116,7 +107,7 @@ osThreadId_t cameraTaskHandle;
 const osThreadAttr_t cameraTask_attributes = {
     .name = "cameraTask",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 16  
+    .stack_size = 1024 * 1  
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -154,12 +145,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-    xFrameQueue = xQueueCreate(3, sizeof(uint16_t *));
-    if(xFrameQueue == NULL)
-    {
-        // 队列创建失败处理
-        Error_Handler();
-    }
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
@@ -212,21 +197,10 @@ void vTask1(void *argument)
 }
 void vTask2(void *argument)
 {
-    uint16_t *pxReceivedBuffer;
   for( ; ; )
   {
-    //printf("vTask2\n");
-    if(g_capturing)
-    {
-      if(xQueueReceive(xFrameQueue, &pxReceivedBuffer, portMAX_DELAY) == pdTRUE)
-      {
-        vTaskDelay(pdMS_TO_TICKS(33));
-      // 显示图像
-      _HW_FillFrame(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT, pxReceivedBuffer);
-      }
-    }
       //LCD 刷新
-      lv_task_handler();
+      //lv_task_handler();
       osDelay(1);
   }
 }
@@ -255,37 +229,11 @@ void vTask3(void *argument)
 }
 void vCameraCaptureTask(void *argument)
 {
-    BaseType_t xStatus;
-    extern volatile uint8_t g_frame_ready;
-    
-    while(1)
-    {
-        if (g_frame_ready)
-        {
-            //printf("g_frame_ready:%d\n",g_frame_ready);
-            // 直接使用静态缓冲区（无动态分配）
-            FIFO_ReadData(g_current_buffer, CAMERA_FRAME_SIZE);
-            
-            //printf("g_current_buffer:%d\n",g_current_buffer);
+    for(;;){
 
-            // 发送缓冲区指针到队列
-            xStatus = xQueueSend(xFrameQueue, &g_current_buffer, 0);
-            if(xStatus == pdPASS)
-            {
-                // 交换缓冲区（双缓冲机制）
-                uint8_t *temp = g_current_buffer;
-                g_current_buffer = g_prev_buffer;
-                g_prev_buffer = temp;
-            }
-            else
-            {
-                printf("队列满，丢弃一帧数据\r\n");
-            }
-            g_frame_ready = 0;
-            FIFO_CloseReadData();
-            //printf("vTask4\n");
-        }
-        vTaskDelay(pdMS_TO_TICKS(10));
+      _HW_FillFrame(0,0,240,240,(uint16_t *)OV_Data_Cache);
+      osDelay(1000);
+
     }
 }
 /* USER CODE END Application */

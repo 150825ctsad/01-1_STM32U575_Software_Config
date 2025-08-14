@@ -60,7 +60,8 @@
     "i2c.h": "c",
     "lvgl.h": "c",
     "stm32u5xx_hal.h": "c",
-    "gpdma.h": "c"
+    "gpdma.h": "c",
+    "algorithm": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

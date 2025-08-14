@@ -53,7 +53,6 @@ static void camera_ctrl_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(camera_img, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
 
-        g_capturing = 1;
         //printf("%d\n",g_capturing);
     }
 }
@@ -72,7 +71,6 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(camera_ctrl_btn, LV_OBJ_FLAG_HIDDEN);
         
         // 停止摄像头采集
-        g_capturing = 0;
         //printf("%d\n",g_capturing);
     }
 }

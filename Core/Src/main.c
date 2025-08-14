@@ -196,7 +196,7 @@ int main(void)
   //HAL_Delay(1000);
   //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
-  OV7670_Init();
+  //OV7670_Init();
 
   Update_Backlight(80); //设置背光亮度
   
@@ -334,27 +334,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
   {
     TouchPress = 1;
-  } else if (GPIO_Pin == VSYNC_Pin && g_capturing == 1) {
-        vs_flag++;
-        if (vs_flag == 1)
-        {
-            FIFO_ResetWPoint();
-            FIFO_OpenReadData();
-        }
-        else if (vs_flag == 2)
-        {
-            // 暂时关闭中断,防止读写冲突
-            HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-            // 等待数据读取完成
-            g_frame_ready = 1;
-        }
-    }else if (GPIO_Pin == HREF_Pin && g_capturing == 1) {
-      if (vs_flag == 240)
-      {            
-        vs_flag = 0;
-        HAL_NVIC_EnableIRQ(EXTI0_IRQn); // 重新开启中断
-      }
-    }
+  } 
 }
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
     UNUSED(GPIO_Pin);

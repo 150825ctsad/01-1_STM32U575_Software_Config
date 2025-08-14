@@ -27,16 +27,13 @@ Project File Date:  08/14/2025
 <h2>Output:</h2>
 *** Using Compiler 'V6.22', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target '01-1_STM32U575_Software_Config'
-../Core/Src/app_freertos.c(267): warning: implicit conversion from 'int' to 'uint16_t' (aka 'unsigned short') changes value from 153600 to 22528 [-Wconstant-conversion]
-  267 |             FIFO_ReadData(g_current_buffer, CAMERA_FRAME_SIZE);
-      |             ~~~~~~~~~~~~~                   ^~~~~~~~~~~~~~~~~
-../Core/Inc\bsp_ov7670.h(16): note: expanded from macro 'CAMERA_FRAME_SIZE'
-   16 | #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
-      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+../Core/Src/bsp_ov7670.c(2659): warning: excess elements in array initializer [-Wexcess-initializers]
+ 2659 | 0x94,0xb1,0x94,0xb1,0x94,0xb2,0x94,0xb1,0x8c,0x91,0x94,0xb1,0x6b,0x6d,0x21,0x24,
+      |                                                                            ^~~~
 1 warning generated.
-compiling app_freertos.c...
+compiling bsp_ov7670.c...
 linking...
-Program Size: Code=285166 RO-data=35602 RW-data=307432 ZI-data=248296  
+Program Size: Code=278366 RO-data=35602 RW-data=38624 ZI-data=248304  
 FromELF: creating hex file...
 "01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 1 Warning(s).
 
@@ -61,7 +58,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

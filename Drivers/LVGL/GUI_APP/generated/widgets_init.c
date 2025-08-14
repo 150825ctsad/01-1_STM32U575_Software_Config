@@ -75,5 +75,3 @@ void clock_count(int *hour, int *min, int *sec)
     }
 }
 #endif
-
-

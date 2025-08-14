@@ -16,8 +16,8 @@
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
 
 extern volatile uint8_t g_capturing;  
+extern uint8_t OV_Data_Cache[38400];
 
-void OV7670_Reset(void);
 
 void OV7670_Init(void);
 
