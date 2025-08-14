@@ -79,43 +79,43 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
 
 
 void setup_scr_screen(lv_ui *ui) {
-    // 创建主屏幕（保留）
+    // 创建主屏幕
     ui->screen = lv_obj_create(NULL);
     lv_obj_set_size(ui->screen, 320, 240);
     lv_obj_set_scrollbar_mode(ui->screen, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_bg_color(ui->screen, lv_color_hex(0x003a6e), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // 创建容器（保留）
+    // 创建容器
     ui->screen_cont_1 = lv_obj_create(ui->screen);
     lv_obj_set_pos(ui->screen_cont_1, 0, 0);
     lv_obj_set_size(ui->screen_cont_1, 320, 240);
     lv_obj_set_scrollbar_mode(ui->screen_cont_1, LV_SCROLLBAR_MODE_OFF);
     
-    // 设置容器样式（保留）
+    // 设置容器样式
     lv_obj_set_style_border_width(ui->screen_cont_1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui->screen_cont_1, lv_color_hex(0x0055a5), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui->screen_cont_1, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // 创建标题标签（保留）
+    // 创建标题标签
     lv_obj_t *title_label = lv_label_create(ui->screen_cont_1);
     lv_label_set_text(title_label, "Camera Control");
     lv_obj_set_pos(title_label, 100, 10);
     lv_obj_set_style_text_color(title_label, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(title_label, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // 创建状态标签（原有，保留）
+    // 创建状态标签
     screen_label = lv_label_create(ui->screen_cont_1);
     lv_label_set_text(screen_label, "Click the button!");
     lv_obj_set_pos(screen_label, 80, 80);
     lv_obj_set_style_text_color(screen_label, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // 创建交互按钮（原有，保留）
+    // 创建交互按钮
     screen_btn = lv_btn_create(ui->screen_cont_1);
     lv_obj_set_pos(screen_btn, 110, 130);
     lv_obj_set_size(screen_btn, 80, 40);
     lv_obj_add_event_cb(screen_btn, screen_btn_event_cb, LV_EVENT_ALL, NULL);
     
-    // 按钮文本（原有，保留）
+    // 按钮文本
     lv_obj_t *btn_label = lv_label_create(screen_btn);
     lv_label_set_text(btn_label, "Click Me");
     lv_obj_center(btn_label);
@@ -126,7 +126,7 @@ void setup_scr_screen(lv_ui *ui) {
     lv_obj_set_size(camera_ctrl_btn, 100, 30);
     lv_obj_add_event_cb(camera_ctrl_btn, camera_ctrl_btn_event_cb, LV_EVENT_CLICKED, NULL);
     
-    // 摄像头按钮文本（保留）
+    // 摄像头按钮文本
     lv_obj_t *camera_btn_label = lv_label_create(camera_ctrl_btn);
     lv_label_set_text(camera_btn_label, "Start Camera");
     lv_obj_center(camera_btn_label);
@@ -138,7 +138,7 @@ void setup_scr_screen(lv_ui *ui) {
     lv_obj_set_size(camera_img, 320, 240);
     lv_obj_add_flag(camera_img, LV_OBJ_FLAG_HIDDEN);  // 初始隐藏
 
-    // 创建返回按钮（初始隐藏，保留）
+    // 创建返回按钮
     camera_back_btn = lv_btn_create(ui->screen_cont_1);
     lv_obj_set_pos(camera_back_btn, 10, 100);  // 左上角
     lv_obj_set_size(camera_back_btn, 60, 25);
@@ -150,6 +150,6 @@ void setup_scr_screen(lv_ui *ui) {
     lv_label_set_text(back_btn_label, "Back");
     lv_obj_center(back_btn_label);
 
-    // 更新布局（保留）
+    // 更新布局
     lv_obj_update_layout(ui->screen);
 }
