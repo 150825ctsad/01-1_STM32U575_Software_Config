@@ -258,4 +258,7 @@
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Drivers\LVGL\GUI_APP\custom\..\..\GUI\lvgl\src\draw\lv_img_buf.h \
+  ..\Drivers\LVGL\GUI_APP\custom\..\..\GUI\lvgl\src\widgets\lv_img.h \
+  ..\Drivers\LVGL\GUI_APP\custom\..\..\GUI\lvgl\src\misc\lv_mem.h

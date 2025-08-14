@@ -1,32 +1,17 @@
-/*
-* Copyright 2025 NXP
-* NXP Proprietary. This software is owned or controlled by NXP and may only be used strictly in
-* accordance with the applicable license terms. By expressly accepting such terms or by downloading, installing,
-* activating and/or otherwise using the software, you are agreeing that you have read, and that you agree to
-* comply with and are bound by, such license terms.  If you do not agree to be bound by the applicable license
-* terms, then you may not retain, install, activate or otherwise use the software.
-*/
-
 #include "lvgl.h"
 #include <stdio.h>
 #include "gui_guider.h"
-#include "events_init.h"
 #include "widgets_init.h"
 #include "custom.h"
 #include "bsp_ov7670.h"  // 摄像头驱动头文件
-
 
 // 声明屏幕组件
 static lv_obj_t *screen_label;
 static lv_obj_t *screen_btn;
 static lv_obj_t *camera_ctrl_btn;  // 摄像头控制按钮
 static lv_obj_t *camera_back_btn;  // 返回按钮
-static lv_obj_t *camera_img;       // 摄像头图像控件
 
-lv_img_dsc_t camera_img_dsc = {
-    .header.w = 320,                  // 与摄像头分辨率一致
-    .header.h = 240,
-};
+lv_obj_t *camera_img;       // 摄像头图像控件
 
 // 按钮点击计数回调（原有功能）
 static void screen_btn_event_cb(lv_event_t *e) {
@@ -39,6 +24,7 @@ static void screen_btn_event_cb(lv_event_t *e) {
         lv_label_set_text(screen_label, buf);
     }
 }
+
 // 摄像头控制按钮回调（核心功能）
 static void camera_ctrl_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
@@ -52,6 +38,8 @@ static void camera_ctrl_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(camera_img, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
         
+        // 启动摄像头预览
+        custom_start_camera_preview(&camera_img_dsc);
     }
 }
 
@@ -59,6 +47,9 @@ static void camera_ctrl_btn_event_cb(lv_event_t *e) {
 static void camera_back_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
+        // 停止摄像头预览
+        custom_stop_camera_preview();
+        
         // 隐藏摄像头相关控件
         lv_obj_add_flag(camera_img, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
@@ -67,7 +58,6 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(screen_label, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(screen_btn, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_ctrl_btn, LV_OBJ_FLAG_HIDDEN);
-        
     }
 }
 

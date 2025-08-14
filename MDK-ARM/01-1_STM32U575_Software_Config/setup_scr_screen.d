@@ -213,7 +213,6 @@
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\lv_span.h \
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\..\..\..\lvgl.h \
   ..\Drivers\LVGL\GUI_APP\generated\gui_guider.h \
-  ..\Drivers\LVGL\GUI_APP\generated\events_init.h \
   ..\Drivers\LVGL\GUI_APP\generated\widgets_init.h \
   ..\Drivers\LVGL\GUI_APP\custom\custom.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \

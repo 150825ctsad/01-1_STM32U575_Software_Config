@@ -16,8 +16,7 @@
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
 
 extern volatile uint8_t g_capturing;  
-extern uint8_t OV_Data_Cache[38400];
-
+extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 
 void OV7670_Init(void);
 
@@ -25,6 +24,6 @@ void FIFO_ResetWPoint(void);
 void FIFO_ResetRPoint(void);
 void FIFO_OpenReadData(void);
 void FIFO_CloseReadData(void);
-void FIFO_ReadData(uint8_t* cache, uint16_t len);
+void FIFO_ReadData(uint8_t* cache, uint32_t len);
 
 #endif /* __BSP_OV7670_H */

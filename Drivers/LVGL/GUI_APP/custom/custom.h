@@ -19,6 +19,10 @@ extern "C" {
 extern lv_img_dsc_t camera_img_dsc;
 
 void custom_init(lv_ui *ui);
+// 摄像头控制函数声明
+void custom_start_camera_preview(lv_img_dsc_t *img_dsc);
+void custom_stop_camera_preview(void);
+
 
 #ifdef __cplusplus
 }
