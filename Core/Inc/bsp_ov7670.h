@@ -14,8 +14,12 @@
 #define CAMERA_HEIGHT   240
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];  // 图像缓冲区
+=======
+extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE] __attribute__((section(".ccmram")));  // 图像缓冲区
+>>>>>>> 54d4d86a0cf79a715b5acf696e9fd06fe5e64aca
 extern volatile uint8_t g_image_ready;             // 一帧数据就绪标志（0：未就绪，1：就绪）
 extern SemaphoreHandle_t xImageSemaphore;  
 

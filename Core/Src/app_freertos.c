@@ -93,7 +93,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 1024 * 16
+  .stack_size = 1024 * 8
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -104,8 +104,8 @@ const osThreadAttr_t Task3_attributes = {
 osThreadId_t cameraTaskHandle;
 const osThreadAttr_t cameraTask_attributes = {
     .name = "cameraTask",
-    .priority = (osPriority_t)osPriorityLow,  
-    .stack_size = 1024 * 16  
+    .priority = (osPriority_t)osPriorityHigh,  
+    .stack_size = 1024 * 8  
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -237,6 +237,7 @@ void vCameraCaptureTask(void *argument) {
     uint8_t *current_buffer = g_image_buffer1;  // 当前缓冲区指针
 
     for (;;) {
+<<<<<<< HEAD
           printf("vCameraCaptureTask start\n");
         // 仅在采集标志激活时处理（由LVGL按钮控制）
         if (g_capturing) {
@@ -279,6 +280,22 @@ void vCameraCaptureTask(void *argument) {
             // 采集未激活时挂起任务，降低CPU占用
             vTaskSuspend(NULL);
         }
+=======
+      vPrintString("");
+    if (xSemaphoreTake(xImageSemaphore, portMAX_DELAY) == pdPASS) {  // 等待信号量
+      FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
+      g_processing_frame = 0;
+      vTaskDelay(pdMS_TO_TICKS(1));
+      g_image_ready = 1;
+      HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
+      printf("%d",g_image_ready);
+      //for(int i=0; i<5; i++) {
+      //  printf("%02X ",g_image_buffer[i]);
+      //} 
+    }
+      osDelay(10);
+>>>>>>> 54d4d86a0cf79a715b5acf696e9fd06fe5e64aca
     }
 }
 /* USER CODE END Application */

@@ -357,7 +357,10 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 >>>>>>> Stashed changes
     }
   }else if ((GPIO_Pin == HREF_Pin) && (g_capturing == 1)){
+    UBaseType_t uxSavedInterruptStatus;
+    uxSavedInterruptStatus = taskENTER_CRITICAL_FROM_ISR();
     g_processing_frame++;
+    taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus);
     xSemaphoreGiveFromISR(xImageSemaphore, NULL);
   }
 }

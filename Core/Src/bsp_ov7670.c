@@ -316,6 +316,7 @@ void OV7670_Init(void) {
 
     return HAL_OK;
 }
+<<<<<<< HEAD
 
 =======
 }
@@ -7524,3 +7525,5 @@ uint8_t OV_Data_Cache[38400] = { /* 0X10,0X10,0X00,0X78,0X00,0XA0,0X01,0X1B, */
 };
 
 >>>>>>> Stashed changes
+=======
+>>>>>>> 54d4d86a0cf79a715b5acf696e9fd06fe5e64aca
