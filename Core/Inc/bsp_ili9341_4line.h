@@ -80,7 +80,7 @@ void LCD_DrawCircle(uint16_t _usX, uint16_t _usY, uint16_t _usRadius, uint16_t _
 void LCD_Picture(void);
 
 void _HW_DrawPoint(uint16_t x,uint16_t y,uint16_t color);
-void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t color);
+void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* color);
 void _HW_DrawLine(uint16_t _usX1,uint16_t _usY1,uint16_t _usX2,uint16_t _usY2,uint16_t _usColor);
 
 

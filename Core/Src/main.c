@@ -196,9 +196,11 @@ int main(void)
   //HAL_Delay(1000);
   //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
-  //OV7670_Init();
+  OV7670_Init();
 
   Update_Backlight(80); //设置背光亮度
+
+  //LCD_DrawRect(0, 0, 240, 240,(uint16_t) OV_Data_Cache);
   
   /* USER CODE END 2 */
 

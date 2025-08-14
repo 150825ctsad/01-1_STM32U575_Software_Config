@@ -13,7 +13,8 @@
 #include "events_init.h"
 #include "widgets_init.h"
 #include "custom.h"
-#include "bsp_ov7670.h"
+#include "bsp_ov7670.h"  // 摄像头驱动头文件
+
 
 // 声明屏幕组件
 static lv_obj_t *screen_label;
@@ -22,13 +23,12 @@ static lv_obj_t *camera_ctrl_btn;  // 摄像头控制按钮
 static lv_obj_t *camera_back_btn;  // 返回按钮
 static lv_obj_t *camera_img;       // 摄像头图像控件
 
-// 图像描述符（保留，用于占位）
 lv_img_dsc_t camera_img_dsc = {
     .header.w = 320,                  // 与摄像头分辨率一致
     .header.h = 240,
 };
 
-// 按钮点击计数回调（原有功能，保留）
+// 按钮点击计数回调（原有功能）
 static void screen_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
@@ -39,8 +39,7 @@ static void screen_btn_event_cb(lv_event_t *e) {
         lv_label_set_text(screen_label, buf);
     }
 }
-
-// 摄像头控制按钮回调（核心功能，保留）
+// 摄像头控制按钮回调（核心功能）
 static void camera_ctrl_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
@@ -52,12 +51,11 @@ static void camera_ctrl_btn_event_cb(lv_event_t *e) {
         // 显示摄像头画面和返回按钮
         lv_obj_clear_flag(camera_img, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
-
-        //printf("%d\n",g_capturing);
+        
     }
 }
 
-// 摄像头画面返回按钮回调（保留）
+// 摄像头画面返回按钮回调
 static void camera_back_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
@@ -70,11 +68,8 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(screen_btn, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_ctrl_btn, LV_OBJ_FLAG_HIDDEN);
         
-        // 停止摄像头采集
-        //printf("%d\n",g_capturing);
     }
 }
-
 
 void setup_scr_screen(lv_ui *ui) {
     // 创建主屏幕
@@ -101,49 +96,49 @@ void setup_scr_screen(lv_ui *ui) {
     lv_obj_set_style_text_color(title_label, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(title_label, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // 创建状态标签
+    // 创建状态标签（原有）
     screen_label = lv_label_create(ui->screen_cont_1);
     lv_label_set_text(screen_label, "Click the button!");
     lv_obj_set_pos(screen_label, 80, 80);
     lv_obj_set_style_text_color(screen_label, lv_color_hex(0xffffff), LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    // 创建交互按钮
+    // 创建交互按钮（原有）
     screen_btn = lv_btn_create(ui->screen_cont_1);
     lv_obj_set_pos(screen_btn, 110, 130);
     lv_obj_set_size(screen_btn, 80, 40);
     lv_obj_add_event_cb(screen_btn, screen_btn_event_cb, LV_EVENT_ALL, NULL);
     
-    // 按钮文本
+    // 按钮文本（原有）
     lv_obj_t *btn_label = lv_label_create(screen_btn);
     lv_label_set_text(btn_label, "Click Me");
     lv_obj_center(btn_label);
 
-    // 创建摄像头控制按钮
+    // 创建摄像头控制按钮（新增）
     camera_ctrl_btn = lv_btn_create(ui->screen_cont_1);
     lv_obj_set_pos(camera_ctrl_btn, 110, 190);  // 底部位置
     lv_obj_set_size(camera_ctrl_btn, 100, 30);
-    lv_obj_add_event_cb(camera_ctrl_btn, camera_ctrl_btn_event_cb, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(camera_ctrl_btn, camera_ctrl_btn_event_cb, LV_EVENT_ALL, NULL);
     
     // 摄像头按钮文本
     lv_obj_t *camera_btn_label = lv_label_create(camera_ctrl_btn);
     lv_label_set_text(camera_btn_label, "Start Camera");
     lv_obj_center(camera_btn_label);
 
-    // 创建摄像头图像控件（初始隐藏，保留）
+    // 创建摄像头图像控件（初始隐藏）
     camera_img = lv_img_create(ui->screen_cont_1);
-    lv_img_set_src(camera_img, &camera_img_dsc);  // 关联图像描述符（占位）
+    lv_img_set_src(camera_img, &camera_img_dsc);  // 关联图像描述符
     lv_obj_set_pos(camera_img, 0, 0);             // 全屏显示
     lv_obj_set_size(camera_img, 320, 240);
     lv_obj_add_flag(camera_img, LV_OBJ_FLAG_HIDDEN);  // 初始隐藏
 
-    // 创建返回按钮
+    // 创建返回按钮（初始隐藏）
     camera_back_btn = lv_btn_create(ui->screen_cont_1);
-    lv_obj_set_pos(camera_back_btn, 10, 100);  // 左上角
+    lv_obj_set_pos(camera_back_btn, 10, 10);  // 左上角
     lv_obj_set_size(camera_back_btn, 60, 25);
-    lv_obj_add_event_cb(camera_back_btn, camera_back_btn_event_cb, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(camera_back_btn, camera_back_btn_event_cb, LV_EVENT_ALL, NULL);
     lv_obj_add_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);  // 初始隐藏
     
-    // 返回按钮文本（保留）
+    // 返回按钮文本
     lv_obj_t *back_btn_label = lv_label_create(camera_back_btn);
     lv_label_set_text(back_btn_label, "Back");
     lv_obj_center(back_btn_label);

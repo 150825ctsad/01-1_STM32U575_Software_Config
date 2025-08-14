@@ -27,7 +27,4 @@ void FIFO_OpenReadData(void);
 void FIFO_CloseReadData(void);
 void FIFO_ReadData(uint8_t* cache, uint16_t len);
 
-void OV7670_StartCapture(void);
-void OV7670_StopCapture(void);
-
 #endif /* __BSP_OV7670_H */
