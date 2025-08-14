@@ -55,7 +55,18 @@
     "stm32u5xx_hal_gpio_ex.h": "c",
     "freertos.h": "c",
     "semphr.h": "c",
+<<<<<<< Updated upstream
     "gpio.h": "c"
+=======
+    "gpio.h": "c",
+    "spi.h": "c",
+    "i2c.h": "c",
+    "lvgl.h": "c",
+    "xmemory": "c",
+    "app_freertos.h": "c",
+    "vector": "c",
+    "xstring": "c"
+>>>>>>> Stashed changes
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

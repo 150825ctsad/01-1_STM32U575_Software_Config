@@ -45,6 +45,8 @@
 #include "../gui_guider.h"
 #include "../events_init.h"
 
+#include "app_freertos.h"
+
 lv_ui guider_ui;
 /* USER CODE END Includes */
 
@@ -71,7 +73,6 @@ lv_ui guider_ui;
 /* USER CODE BEGIN PV */
 volatile uint8_t gRX_BufF[1];
 volatile uint8_t g_MQTT_Data_Ready = 0;
-volatile uint8_t g_processing_frame = 0;
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 
 /* USER CODE END PV */
@@ -325,6 +326,8 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
   * @retval None
   */
   uint8_t TouchPress = 0;
+  uint8_t vsync = 0;
+  
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
@@ -333,17 +336,32 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
   {
     TouchPress = 1;
+<<<<<<< Updated upstream
   }else if ((GPIO_Pin == VSYNC_Pin) && (g_capturing == 1)) {
     if(g_processing_frame == 0){
     FIFO_ResetWPoint();
     FIFO_OpenReadData();
     HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+=======
+  } else if(GPIO_Pin == VSYNC_Pin){
+    vsync++;
+    if(vsync == 1){
+      FIFO_ResetWPoint();
+      FIFO_CloseWriteData();
+    }else if(vsync == 2){
+      HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+      FIFO_OpenWriteData();
+      image_ready = 1;
+      HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+      vsync = 0;
+>>>>>>> Stashed changes
     }
   }else if ((GPIO_Pin == HREF_Pin) && (g_capturing == 1)){
     g_processing_frame++;
     xSemaphoreGiveFromISR(xImageSemaphore, NULL);
   }
 }
+<<<<<<< Updated upstream
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
@@ -354,6 +372,15 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 		FT6336_irq_fuc();	//触摸中断产生
     TouchPress = 0;	//清除触摸标志
 	}
+=======
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
+    UNUSED(GPIO_Pin);
+    
+    if (GPIO_Pin == TP_INT_Pin && HAL_GPIO_ReadPin(TP_INT_GPIO_Port, TP_INT_Pin) && TouchPress) {
+        FT6336_irq_fuc();
+        TouchPress = 0;
+    }
+>>>>>>> Stashed changes
 }
 /* USER CODE END 4 */
 

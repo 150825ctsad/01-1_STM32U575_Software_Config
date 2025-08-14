@@ -35,6 +35,7 @@
 #include "lv_port_disp_template.h"
 #include "../gui_guider.h"
 #include "../events_init.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,13 +45,13 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 extern volatile uint8_t g_MQTT_Data_Ready; // MQTT数据就绪标志
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
+uint8_t image_ready = 0;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -142,7 +143,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
@@ -201,6 +202,8 @@ void vTask2(void *argument)
       vTaskDelay(pdMS_TO_TICKS(100));
       //LCD 刷新
       lv_task_handler();
+
+      osDelay(1);
   }
 }
 void vTask3(void *argument)
@@ -226,16 +229,56 @@ void vTask3(void *argument)
       }
   }
 }
- void vCameraCaptureTask(void *argument) {
+void vCameraCaptureTask(void *argument) {
+
+    #define LINE_BYTES     (CAMERA_WIDTH * 2)  // 每行字节数（RGB565格式）
+
+    uint32_t line_index = 0;  // 当前行索引（0 ~ CAMERA_HEIGHT-1）
+    uint8_t *current_buffer = g_image_buffer1;  // 当前缓冲区指针
+
     for (;;) {
-      vPrintString("");
-    if (xSemaphoreTake(xImageSemaphore, portMAX_DELAY) == pdPASS) {  // 等待信号量
-      FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
-      g_processing_frame = 0;
-      g_image_ready = 1;
-      HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-    }
-      osDelay(10);
+          printf("vCameraCaptureTask start\n");
+        // 仅在采集标志激活时处理（由LVGL按钮控制）
+        if (g_capturing) {
+          printf("vCameraCaptureTask \n");
+            // 等待行同步信号量（HREF中断触发，每行数据就绪）
+            if (xSemaphoreTake(xImageSemaphore, pdMS_TO_TICKS(100)) == pdTRUE) {
+                // 计算当前行在缓冲区中的偏移量
+                uint32_t buffer_offset = line_index * LINE_BYTES;
+                // 读取一行FIFO数据到当前缓冲区（RGB565格式，2字节/像素）
+                FIFO_ReadData(&current_buffer[buffer_offset], LINE_BYTES);
+                // 行索引递增，判断是否完成一帧
+                line_index++;
+                
+                printf("line_index:%d\n",line_index);
+
+                if (line_index >= CAMERA_HEIGHT) {
+                    // 一帧完成：切换缓冲区并触发帧处理回调
+                    OV7670_CaptureDoneCallback();
+
+                    taskENTER_CRITICAL();  // 进入临界区，避免打印被中断
+                    printf("Frame completed (buffer %d). First 32 bytes: ", g_current_buffer_idx);
+                    for (int i = 0; i < 10; i++) { 
+                        printf("%02X ", current_buffer[i]);  // 十六进制格式打印
+                    }
+                    printf("\r\n");  // 换行
+                    taskEXIT_CRITICAL();   // 退出临界区
+
+                    // 重置行索引，切换双缓冲区
+                    line_index = 0;
+                    current_buffer = (g_current_buffer_idx == 0) ? g_image_buffer1 : g_image_buffer2;
+                }
+            } else {
+                // 信号量超时（可能是采集停止或错误）
+                if (!g_capturing) {
+                    line_index = 0;  // 重置行索引
+                    current_buffer = g_image_buffer1;  // 重置缓冲区
+                }
+            }
+        } else {
+            // 采集未激活时挂起任务，降低CPU占用
+            vTaskSuspend(NULL);
+        }
     }
 }
 /* USER CODE END Application */

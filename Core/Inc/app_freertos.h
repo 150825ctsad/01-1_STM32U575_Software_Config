@@ -32,7 +32,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "semphr.h" 
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -52,7 +52,7 @@ extern "C" {
 
 /* Exported macro -------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+extern uint8_t image_ready;
 /* USER CODE END EM */
 extern osThreadId_t defaultTaskHandle;
 

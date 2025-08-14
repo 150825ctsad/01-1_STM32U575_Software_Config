@@ -60,8 +60,12 @@ static void camera_ctrl_btn_event_cb(lv_event_t *e) {
         // 显示摄像头画面和返回按钮
         lv_obj_clear_flag(camera_img, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
+<<<<<<< Updated upstream
         
         OV7670_StartCapture();  // 开始采集数据
+=======
+
+>>>>>>> Stashed changes
     }
 }
 
@@ -78,8 +82,11 @@ static void camera_back_btn_event_cb(lv_event_t *e) {
         lv_obj_clear_flag(screen_btn, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_ctrl_btn, LV_OBJ_FLAG_HIDDEN);
         
+<<<<<<< Updated upstream
         // 停止摄像头采集
         OV7670_StopCapture();
+=======
+>>>>>>> Stashed changes
     }
 }
 

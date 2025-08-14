@@ -14,6 +14,7 @@
 #define CAMERA_HEIGHT   240
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
 
+<<<<<<< Updated upstream
 extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];  // 图像缓冲区
 extern volatile uint8_t g_image_ready;             // 一帧数据就绪标志（0：未就绪，1：就绪）
 extern SemaphoreHandle_t xImageSemaphore;  
@@ -27,12 +28,21 @@ void OV7670_Reset(void);
 HAL_StatusTypeDef OV7670_Init(void);
 
 void FIFO_ResetWPoint(void);
+=======
+extern uint16_t image[CAMERA_FRAME_SIZE];
+extern uint8_t OV_Data_Cache[38400];
+
+>>>>>>> Stashed changes
 void FIFO_ResetRPoint(void);
-void FIFO_OpenReadData(void);
-void FIFO_CloseReadData(void);
+void FIFO_ResetWPoint(void);
+void FIFO_OpenWriteData(void);
+void FIFO_CloseWriteData(void);
 void FIFO_ReadData(uint8_t* cache, uint16_t len);
 
-void OV7670_StartCapture(void);
-void OV7670_StopCapture(void);
+void OV7670_Init(void);
 
+<<<<<<< Updated upstream
 #endif /* __BSP_OV7670_H */
+=======
+#endif
+>>>>>>> Stashed changes

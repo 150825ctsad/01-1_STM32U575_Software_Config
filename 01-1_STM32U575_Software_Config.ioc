@@ -16,8 +16,14 @@ GPDMA1.SRCINC_GPDMACH0=DMA_SINC_INCREMENTED
 GPIO.groupedBy=Group By Peripherals
 I2C1.I2C_Speed_Mode=I2C_Standard
 I2C1.IPParameters=Timing,I2C_Speed_Mode
+<<<<<<< Updated upstream
 I2C1.Timing=0x30909DEC
 I2C2.IPParameters=Timing
+=======
+I2C1.Timing=0x00F07BFF
+I2C2.I2C_Speed_Mode=I2C_Standard
+I2C2.IPParameters=Timing,I2C_Speed_Mode
+>>>>>>> Stashed changes
 I2C2.Timing=0x30909DEC
 KeepUserPlacement=false
 Mcu.CPN=STM32U575RIT6
