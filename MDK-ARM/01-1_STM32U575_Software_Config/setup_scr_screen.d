@@ -213,6 +213,7 @@
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\lv_span.h \
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\..\..\..\lvgl.h \
   ..\Drivers\LVGL\GUI_APP\generated\gui_guider.h \
+  ..\Drivers\LVGL\GUI_APP\generated\events_init.h \
   ..\Drivers\LVGL\GUI_APP\generated\widgets_init.h \
   ..\Drivers\LVGL\GUI_APP\custom\custom.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
@@ -260,4 +261,6 @@
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Core\Inc\app_freertos.h \
+  ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h

@@ -14,14 +14,11 @@ extern "C" {
 #endif
 
 #include "../gui_guider.h"
-#include "bsp_ov7670.h"
 
 extern lv_img_dsc_t camera_img_dsc;
+extern lv_obj_t *camera_img;
 
 void custom_init(lv_ui *ui);
-// 摄像头控制函数声明
-void custom_start_camera_preview(lv_img_dsc_t *img_dsc);
-void custom_stop_camera_preview(void);
 
 #ifdef __cplusplus
 }
