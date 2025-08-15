@@ -54,6 +54,11 @@
 /* USER CODE BEGIN PM */
 extern volatile uint8_t g_MQTT_Data_Ready; // MQTT数据就绪标志
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
+
+extern volatile uint8_t vs_flag;
+extern lv_obj_t *camera_img;
+extern lv_img_dsc_t camera_img_dsc;
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -94,8 +99,8 @@ const osThreadAttr_t Task1_attributes = {
 osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
-  .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 16
+  .priority = (osPriority_t) osPriorityAboveNormal,
+  .stack_size = 1024 * 8 
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -107,7 +112,7 @@ osThreadId_t cameraTaskHandle;
 const osThreadAttr_t cameraTask_attributes = {
     .name = "cameraTask",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 1  
+    .stack_size = 1024 * 8  
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -152,9 +157,9 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-    Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
+  // Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
     Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
-    Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
+  // Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
     cameraTaskHandle = osThreadNew(vCameraCaptureTask, NULL, &cameraTask_attributes);
 
   /* USER CODE END RTOS_THREADS */
@@ -229,8 +234,21 @@ void vTask3(void *argument)
 }
 void vCameraCaptureTask(void *argument)
 {
-    for(;;){
-      osDelay(1000);
+    for(;;) {
+        // 检查是否有新帧（vs_flag=2表示一帧采集完成）
+        if(vs_flag == 2) {
+            FIFO_ReadData(camera_img_dsc.data, CAMERA_FRAME_SIZE);  // 读取一帧数据
+            FIFO_CloseReadData();
+              //  printf("%d\n",vs_flag);
+              //      for(int i = 0;i<100;i++)
+              //      printf("%02X",camera_img_dsc.data[i]);
+            vs_flag = 0;  // 重置标志位，避免重复处理
+            HAL_NVIC_EnableIRQ(EXTI0_IRQn);    // 开启中断
+            // 通知LVGL刷新图像（线程安全方式）
+            lv_obj_invalidate(camera_img);  // 标记图像控件为无效，触发重绘
+        }
+
+        osDelay(10);  // 短延时，提高标志位检测响应速度
     }
 }
 /* USER CODE END Application */

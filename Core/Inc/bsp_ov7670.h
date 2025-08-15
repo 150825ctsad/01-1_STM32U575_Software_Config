@@ -24,6 +24,6 @@ void FIFO_ResetWPoint(void);
 void FIFO_ResetRPoint(void);
 void FIFO_OpenReadData(void);
 void FIFO_CloseReadData(void);
-void FIFO_ReadData(uint8_t* cache, uint32_t len);
+void FIFO_ReadData(uint8_t* cache, uint16_t len);
 
 #endif /* __BSP_OV7670_H */

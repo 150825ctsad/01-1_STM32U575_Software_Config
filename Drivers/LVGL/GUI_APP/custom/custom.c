@@ -46,14 +46,14 @@ static lv_img_dsc_t *current_img_dsc = NULL;
 static TaskHandle_t camera_task_handle = NULL;
 static SemaphoreHandle_t camera_mutex;
 
-volatile uint8_t g_capturing = 0;  // 使用0/1代替false/true，匹配uint8_t类型
+volatile uint8_t g_capturing = 0; 
 
-lv_img_dsc_t camera_img_dsc = {  // 全局定义，去掉 static（如果有的话）
-    .header.w = 320,
-    .header.h = 240,
-    .header.cf = LV_IMG_CF_RGB565,  // 补充图像格式，与摄像头输出匹配
-    .data_size = 320 * 240 * 2,     // 补充数据大小（320x240 RGB565）
-    .data = NULL                    // 运行时动态分配
+lv_img_dsc_t camera_img_dsc = { 
+    .header.w = CAMERA_WIDTH,
+    .header.h = CAMERA_HEIGHT,
+    .header.cf = LV_IMG_CF_RGB565,
+    .data_size = CAMERA_FRAME_SIZE,    
+    .data = g_image_buffer,                  
 };
 
 /**********************
@@ -76,7 +76,6 @@ void custom_start_camera_preview(lv_img_dsc_t *img_dsc)
         camera_inited = true;
     }
     
-    // 修正3：current_img_dsc->data需要可写，去掉const限定（强制转换）
     img_dsc->data = (uint8_t *)lv_mem_alloc(CAMERA_FRAME_SIZE);
     img_dsc->data_size = CAMERA_FRAME_SIZE;
     img_dsc->header.cf = LV_IMG_CF_RGB565;
@@ -93,12 +92,11 @@ void custom_start_camera_preview(lv_img_dsc_t *img_dsc)
 
 void custom_stop_camera_preview(void)
 {
-    g_capturing = 0;  // 使用0表示false
+    g_capturing = 0;  
     
     if(current_img_dsc) {
         if(xSemaphoreTake(camera_mutex, pdMS_TO_TICKS(100)) == pdTRUE) {
             if(current_img_dsc->data) {
-                // 修正4：释放时去掉const限定（强制转换）
                 lv_mem_free((void *)current_img_dsc->data);
                 current_img_dsc->data = NULL;
                 current_img_dsc->data_size = 0;
@@ -127,17 +125,18 @@ static void vCameraTask(void *argument)
 {
     while(1) {
         if(current_img_dsc && g_capturing) {
-            FIFO_ResetWPoint();
-            FIFO_ResetRPoint();
-            FIFO_OpenReadData();
+
             FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
-            FIFO_CloseReadData();
-            
+           
             if(xSemaphoreTake(camera_mutex, portMAX_DELAY) == pdTRUE) {
                 ov7670_to_lvgl_format(g_image_buffer, (uint8_t *)current_img_dsc->data, CAMERA_FRAME_SIZE);
-                
-                extern lv_obj_t *camera_img;  // 从生成的UI代码中引用
-                lv_obj_invalidate(camera_img);  // 现在已包含lv_img.h，函数声明有效
+                for (int i = 0; i < 320; i++)
+                {
+                    printf("%02X", g_image_buffer[0]);
+                }
+
+                extern lv_obj_t *camera_img; 
+                lv_obj_invalidate(camera_img);  
                 
                 xSemaphoreGive(camera_mutex);
             }
