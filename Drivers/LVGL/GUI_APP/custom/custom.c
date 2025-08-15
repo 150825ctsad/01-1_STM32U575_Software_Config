@@ -84,10 +84,6 @@ void custom_start_camera_preview(lv_img_dsc_t *img_dsc)
     
     current_img_dsc = img_dsc;
     g_capturing = 1;  // 使用1表示true
-    
-    if(camera_task_handle == NULL) {
-        xTaskCreate(vCameraTask, "CameraTask", 512, NULL, 5, &camera_task_handle);
-    }
 }
 
 void custom_stop_camera_preview(void)
@@ -115,33 +111,3 @@ void custom_stop_camera_preview(void)
 /**********************
  *   STATIC FUNCTIONS
  **********************/
-
-static void ov7670_to_lvgl_format(uint8_t *src, uint8_t *dest, uint32_t len)
-{
-    memcpy(dest, src, len);
-}
-
-static void vCameraTask(void *argument)
-{
-    while(1) {
-        if(current_img_dsc && g_capturing) {
-
-            FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
-           
-            if(xSemaphoreTake(camera_mutex, portMAX_DELAY) == pdTRUE) {
-                ov7670_to_lvgl_format(g_image_buffer, (uint8_t *)current_img_dsc->data, CAMERA_FRAME_SIZE);
-                for (int i = 0; i < 320; i++)
-                {
-                    printf("%02X", g_image_buffer[0]);
-                }
-
-                extern lv_obj_t *camera_img; 
-                lv_obj_invalidate(camera_img);  
-                
-                xSemaphoreGive(camera_mutex);
-            }
-        }
-        
-        vTaskDelay(pdMS_TO_TICKS(33));
-    }
-}

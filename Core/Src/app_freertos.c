@@ -204,6 +204,9 @@ void vTask2(void *argument)
 {
   for( ; ; )
   {
+      if(g_capturing){
+      
+      }
       //LCD 刷新
       lv_task_handler();
       osDelay(30);
@@ -239,9 +242,11 @@ void vCameraCaptureTask(void *argument)
         if(vs_flag == 2) {
             FIFO_ReadData(camera_img_dsc.data, CAMERA_FRAME_SIZE);  // 读取一帧数据
             FIFO_CloseReadData();
-              //  printf("%d\n",vs_flag);
-              //      for(int i = 0;i<100;i++)
-              //      printf("%02X",camera_img_dsc.data[i]);
+            ov7670_to_lvgl_format(g_image_buffer, temp_buf, CAMERA_FRAME_SIZE);
+          //printf("%d\n",vs_flag);
+          //      for(int i = 0;i<320;i++)
+          // printf("%02X",camera_img_dsc.data[i]);
+          // printf("\n");
             vs_flag = 0;  // 重置标志位，避免重复处理
             HAL_NVIC_EnableIRQ(EXTI0_IRQn);    // 开启中断
             // 通知LVGL刷新图像（线程安全方式）

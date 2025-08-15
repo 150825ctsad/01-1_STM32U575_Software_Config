@@ -29,13 +29,14 @@ static void screen_btn_event_cb(lv_event_t *e) {
 static void camera_ctrl_btn_event_cb(lv_event_t *e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
-        // 只切换控件显示状态，不执行耗时操作
         lv_obj_add_flag(screen_label, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(screen_btn, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(camera_ctrl_btn, LV_OBJ_FLAG_HIDDEN);
         
         lv_obj_clear_flag(camera_img, LV_OBJ_FLAG_HIDDEN);
         lv_obj_clear_flag(camera_back_btn, LV_OBJ_FLAG_HIDDEN);
+
+        custom_start_camera_preview(&camera_img_dsc);
     }
 }
 

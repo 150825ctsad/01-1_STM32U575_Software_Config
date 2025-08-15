@@ -23,7 +23,6 @@ void custom_init(lv_ui *ui);
 void custom_start_camera_preview(lv_img_dsc_t *img_dsc);
 void custom_stop_camera_preview(void);
 
-
 #ifdef __cplusplus
 }
 #endif

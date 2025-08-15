@@ -27,24 +27,30 @@ Project File Date:  08/15/2025
 <h2>Output:</h2>
 *** Using Compiler 'V6.23', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target '01-1_STM32U575_Software_Config'
-../Core/Src/app_freertos.c(240): warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'uint8_t *' (aka 'unsigned char *') discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-  240 |                 FIFO_ReadData(camera_img_dsc.data, CAMERA_FRAME_SIZE);  // 读取一帧数据
-      |                               ^~~~~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(208): warning: incompatible pointer types passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'uint16_t *' (aka 'unsigned short *') [-Wincompatible-pointer-types]
+  208 |         _HW_FillFrame(0,0,320-1,240-1,camera_img_dsc.data);
+      |                                       ^~~~~~~~~~~~~~~~~~~
+../Core/Inc\bsp_ili9341_4line.h(83): note: passing argument to parameter 'color' here
+   83 | void _HW_FillFrame(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint16_t* color);
+      |                                                                              ^
+../Core/Src/app_freertos.c(243): warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'uint8_t *' (aka 'unsigned char *') discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+  243 |             FIFO_ReadData(camera_img_dsc.data, CAMERA_FRAME_SIZE);  // 读取一帧数据
+      |                           ^~~~~~~~~~~~~~~~~~~
 ../Core/Inc\bsp_ov7670.h(27): note: passing argument to parameter 'cache' here
    27 | void FIFO_ReadData(uint8_t* cache, uint16_t len);
       |                             ^
-../Core/Src/app_freertos.c(240): warning: implicit conversion from 'int' to 'uint16_t' (aka 'unsigned short') changes value from 153600 to 22528 [-Wconstant-conversion]
-  240 |                 FIFO_ReadData(camera_img_dsc.data, CAMERA_FRAME_SIZE);  // 读取一帧数据
-      |                 ~~~~~~~~~~~~~                      ^~~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(243): warning: implicit conversion from 'int' to 'uint16_t' (aka 'unsigned short') changes value from 153600 to 22528 [-Wconstant-conversion]
+  243 |             FIFO_ReadData(camera_img_dsc.data, CAMERA_FRAME_SIZE);  // 读取一帧数据
+      |             ~~~~~~~~~~~~~                      ^~~~~~~~~~~~~~~~~
 ../Core/Inc\bsp_ov7670.h(16): note: expanded from macro 'CAMERA_FRAME_SIZE'
    16 | #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 153600字节
       |                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
-2 warnings generated.
+3 warnings generated.
 compiling app_freertos.c...
 linking...
-Program Size: Code=270800 RO-data=34868 RW-data=153808 ZI-data=248304  
+Program Size: Code=270704 RO-data=34868 RW-data=153808 ZI-data=403944  
 FromELF: creating hex file...
-"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 2 Warning(s).
+"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,7 +73,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:09
+Build Time Elapsed:  00:00:10
 </pre>
 </body>
 </html>

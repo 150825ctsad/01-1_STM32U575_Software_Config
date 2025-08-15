@@ -63,7 +63,8 @@
     "gpdma.h": "c",
     "algorithm": "c",
     "lv_obj.h": "c",
-    "lv_img.h": "c"
+    "lv_img.h": "c",
+    "queue.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
