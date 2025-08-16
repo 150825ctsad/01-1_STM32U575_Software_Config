@@ -15,19 +15,8 @@
 #include "custom.h"
 
 #include "bsp_ov7670.h"
-#include "app_freertos.h"
 
-//extern uint8_t *camera_frame_buffer;
-
-lv_img_dsc_t camera_img_dsc = {
-        .header.always_zero = 0,
-        .header.w = CAMERA_WIDTH,
-        .header.h = CAMERA_HEIGHT,
-        .data_size = CAMERA_FRAME_SIZE,
-        .header.cf = LV_IMG_CF_TRUE_COLOR, // 根据你的数据格式选择
-        .data = g_image_buffer,
-    };
-lv_obj_t *camera_img = NULL;
+lv_obj_t *camera_img = NULL; 
 
 void setup_scr_screen(lv_ui *ui)
 {
@@ -40,13 +29,14 @@ void setup_scr_screen(lv_ui *ui)
     lv_obj_set_style_bg_opa(ui->screen, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
     //Write codes screen_img_1
+    camera_img = lv_img_create(ui->screen);
     ui->screen_img_1 = lv_img_create(ui->screen);
     lv_obj_add_flag(ui->screen_img_1, LV_OBJ_FLAG_CLICKABLE);
-    lv_img_set_pivot(ui->screen_img_1, 50,50);
+    lv_img_set_pivot(ui->screen_img_1, CAMERA_WIDTH,CAMERA_HEIGHT);
     lv_img_set_angle(ui->screen_img_1, 0);
     lv_img_set_src(ui->screen_img_1, &camera_img_dsc); // 设置图片源为g_image_buffer
     lv_obj_set_pos(ui->screen_img_1, 0, 0);
-    lv_obj_set_size(ui->screen_img_1, 160, 120);
+    lv_obj_set_size(ui->screen_img_1, CAMERA_WIDTH, CAMERA_HEIGHT);
 
     //Write style for screen_img_1, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
     lv_obj_set_style_img_recolor_opa(ui->screen_img_1, 0, LV_PART_MAIN|LV_STATE_DEFAULT);

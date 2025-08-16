@@ -327,6 +327,7 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
   */
   static uint8_t TouchPress = 0;
   volatile uint8_t vs_flag = 0;
+  volatile uint8_t g_capturing = 0;
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
@@ -339,9 +340,17 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     vs_flag++;
     if(vs_flag == 1){
         FIFO_ResetWPoint();
-        FIFO_OpenReadData();
+        FIFO_OpenWriteData();
+        //printf("%d",vs_flag);
     }else if(vs_flag == 2){
         HAL_NVIC_DisableIRQ(EXTI0_IRQn);   // 暂时关闭中断,防止读和写冲突
+        FIFO_CloseWriteData();
+        FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
+        g_capturing = 1;
+        //printf("%d",g_capturing);
+    }else if(vs_flag > 2){
+        vs_flag =0;
+        //printf("%d",vs_flag);
     }
   }
 }

@@ -68,7 +68,7 @@ extern lv_img_dsc_t camera_img_dsc;
 void vTask1(void *argument);
 void vTask2(void *argument);
 void vTask3(void *argument);
-void vCameraCaptureTask(void *argument);
+void vTask4(void *argument);
 
 void vPrintString( const char *pcString )
 {
@@ -102,7 +102,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 4
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -110,9 +110,9 @@ const osThreadAttr_t Task3_attributes = {
   .priority = (osPriority_t) osPriorityLow,
   .stack_size = 1024 * 1
 };
-osThreadId_t cameraTaskHandle;
-const osThreadAttr_t cameraTask_attributes = {
-    .name = "cameraTask",
+osThreadId_t Task4Handle;
+const osThreadAttr_t Task4_attributes = {
+    .name = "Task4",
     .priority = (osPriority_t) osPriorityLow,  
     .stack_size = 1024 * 8  
 };
@@ -163,7 +163,7 @@ void MX_FREERTOS_Init(void) {
   // Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
     Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
   // Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
-    cameraTaskHandle = osThreadNew(vCameraCaptureTask, NULL, &cameraTask_attributes);
+    Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
 
 
   /* USER CODE END RTOS_THREADS */
@@ -211,7 +211,7 @@ void vTask2(void *argument)
   {
     //LCD 刷新
     lv_task_handler();
-    vTaskDelay(pdMS_TO_TICKS(30));
+    vTaskDelay(pdMS_TO_TICKS(5));
   }
 }
 void vTask3(void *argument)
@@ -238,25 +238,31 @@ void vTask3(void *argument)
   }
 }
 
-void vCameraCaptureTask(void *argument)
+void vTask4(void *argument)
 {
     for(;;) {
+      //vPrintString("vTask4");
         // 检查是否有新帧（vs_flag=2表示一帧采集完成）
-        if(vs_flag == 2) {
-
-          //FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);  // 读取一帧数据到新缓冲区
-          //g_image_buffer[0] = 0xFF;
-          FIFO_CloseReadData();
-
+        if(g_capturing == 1) {
+          
+	        taskENTER_CRITICAL();
+          g_capturing = 0;
           vs_flag = 0;  // 重置标志位，避免重复处理
           HAL_NVIC_EnableIRQ(EXTI0_IRQn);    // 开启中断
-          //printf("%d\n",vs_flag);
-          for(int i = 0;i<32;i++)
-          printf("%02X",g_image_buffer[i]);
-          printf("\n");
+          // 读取一帧数据到新缓冲区
+          //g_image_buffer[0] = 0xFF;
+          taskEXIT_CRITICAL();
+
+          //_HW_FillFrame(0,0,160,120,g_image_buffer);
+          lv_img_set_src(camera_img,camera_img_dsc.data);
+          lv_obj_invalidate(camera_img);
+
+          printf("%d\n",vs_flag);
+          //for(int i = 0;i<32;i++)
+          //printf("%02X",camera_img_dsc.data[i]);
+          //printf("\n");
+          
         }
-        vTaskDelay(pdMS_TO_TICKS(30));
+        osDelay(30);
     }
 }
-/* USER CODE END Application */
-
