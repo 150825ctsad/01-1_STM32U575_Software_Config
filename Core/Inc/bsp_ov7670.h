@@ -17,7 +17,7 @@
 
 
 extern volatile uint8_t g_capturing;  
-//extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
+extern const uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 
 void OV7670_Init(void);
 

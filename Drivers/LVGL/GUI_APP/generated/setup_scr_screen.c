@@ -25,7 +25,7 @@ lv_img_dsc_t camera_img_dsc = {
         .header.h = CAMERA_HEIGHT,
         .data_size = CAMERA_FRAME_SIZE,
         .header.cf = LV_IMG_CF_TRUE_COLOR, // 根据你的数据格式选择
-        .data = NULL,
+        .data = g_image_buffer,
     };
 lv_obj_t *camera_img = NULL;
 

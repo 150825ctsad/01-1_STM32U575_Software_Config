@@ -39,8 +39,6 @@
 #include "../gui_guider.h"
 #include "../events_init.h"
 
-// 摄像头数据消息队列
-#include "cmsis_os2.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,11 +60,6 @@ extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 extern volatile uint8_t vs_flag;
 extern lv_obj_t *camera_img;
 extern lv_img_dsc_t camera_img_dsc;
-
-osSemaphoreId_t cameraFrameReadySemHandle = NULL;
-osMessageQueueId_t cameraMsgQueueHandle = NULL;
-osMutexId_t cameraFrameMutexHandle = NULL;
-uint8_t *camera_frame_buffer = NULL;
 
 /* USER CODE END PM */
 
@@ -144,23 +137,15 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, char *pcTaskName)
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-    // 动态分配摄像头帧缓冲区内存
-  camera_frame_buffer = (uint8_t *)pvPortMalloc(CAMERA_FRAME_SIZE);
-  if(camera_frame_buffer == NULL) {
-    printf("camera_frame_buffer malloc failed!\n");
-    // 可根据实际需求处理错误
-  }
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
-  cameraFrameMutexHandle = osMutexNew(NULL);
-
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
-  cameraFrameReadySemHandle = osSemaphoreNew(1, 0, NULL);
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -168,8 +153,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-    // 创建摄像头数据消息队列
-  cameraMsgQueueHandle = osMessageQueueNew(CAMERA_MSG_QUEUE_LENGTH, CAMERA_MSG_ITEM_SIZE, NULL);
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
@@ -229,22 +212,6 @@ void vTask2(void *argument)
     //LCD 刷新
     lv_task_handler();
     vTaskDelay(pdMS_TO_TICKS(30));
-    if (osSemaphoreAcquire(cameraFrameReadySemHandle, 100) == osOK) {
-    // 消费摄像头消息队列
-    if (cameraMsgQueueHandle != NULL) {
-      osStatus_t status = osMessageQueueGet(cameraMsgQueueHandle, &frame_ptr, NULL, 0);
-      if (status == osOK && frame_ptr != NULL) {
-        // 可在此处进行图像处理或刷新LVGL图片
-        camera_img_dsc.data = frame_ptr;
-        printf("vTask6\n");
-        lv_img_set_src(camera_img, &camera_img_dsc);
-        for(int i = 0;i<32;i++)
-          printf("%02X",camera_img_dsc.data[i]);
-          printf("\n");
-        osMutexRelease(cameraFrameMutexHandle);
-        }
-      }
-    }
   }
 }
 void vTask3(void *argument)
@@ -275,26 +242,19 @@ void vCameraCaptureTask(void *argument)
 {
     for(;;) {
         // 检查是否有新帧（vs_flag=2表示一帧采集完成）
-        printf("vs_flag:%d\n",vs_flag);
-        if(vs_flag == 2 && camera_frame_buffer != NULL) {
+        if(vs_flag == 2) {
 
-          FIFO_ReadData(camera_frame_buffer, CAMERA_FRAME_SIZE);  // 读取一帧数据到新缓冲区
-          camera_frame_buffer[0] = 0xFF;
+          //FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);  // 读取一帧数据到新缓冲区
+          //g_image_buffer[0] = 0xFF;
           FIFO_CloseReadData();
 
           vs_flag = 0;  // 重置标志位，避免重复处理
           HAL_NVIC_EnableIRQ(EXTI0_IRQn);    // 开启中断
           //printf("%d\n",vs_flag);
           for(int i = 0;i<32;i++)
-          printf("%02X",camera_frame_buffer[i]);
+          printf("%02X",g_image_buffer[i]);
           printf("\n");
-
-           // 将新采集到的帧地址发送到消息队列
-           uint8_t *frame_ptr = camera_frame_buffer;
-           osMessageQueuePut(cameraMsgQueueHandle, &frame_ptr, 0, 0);
-           osSemaphoreRelease(cameraFrameReadySemHandle);
         }
-        printf("vs_flag:%d\n",vs_flag);
         vTaskDelay(pdMS_TO_TICKS(30));
     }
 }

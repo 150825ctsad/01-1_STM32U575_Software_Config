@@ -340,10 +340,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     if(vs_flag == 1){
         FIFO_ResetWPoint();
         FIFO_OpenReadData();
-        printf("exti1:%d\n",vs_flag);
     }else if(vs_flag == 2){
         HAL_NVIC_DisableIRQ(EXTI0_IRQn);   // 暂时关闭中断,防止读和写冲突
-        printf("exti2:%d\n",vs_flag);
     }
   }
 }
