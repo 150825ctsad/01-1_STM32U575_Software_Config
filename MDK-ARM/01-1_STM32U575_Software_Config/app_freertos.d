@@ -261,4 +261,5 @@
   ..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_indev_template.h \
   ..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_disp_template.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
-  ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\events_init.h
+  ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\events_init.h \
+  ..\Drivers\LVGL\GUI_APP\custom\custom.h

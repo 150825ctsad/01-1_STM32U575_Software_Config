@@ -38,6 +38,7 @@
 #include "lv_port_disp_template.h"
 #include "../gui_guider.h"
 #include "../events_init.h"
+#include "custom.h"
 
 /* USER CODE END Includes */
 
@@ -254,10 +255,9 @@ void vTask4(void *argument)
           taskEXIT_CRITICAL();
 
           //_HW_FillFrame(0,0,160,120,g_image_buffer);
-          lv_img_set_src(camera_img,camera_img_dsc.data);
-          lv_obj_invalidate(camera_img);
-
-          printf("%d\n",vs_flag);
+          //lv_img_set_src(camera_img,camera_img_dsc.data);
+          
+          
           //for(int i = 0;i<32;i++)
           //printf("%02X",camera_img_dsc.data[i]);
           //printf("\n");

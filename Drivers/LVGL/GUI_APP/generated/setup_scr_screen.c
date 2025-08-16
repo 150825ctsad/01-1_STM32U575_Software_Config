@@ -16,7 +16,6 @@
 
 #include "bsp_ov7670.h"
 
-lv_obj_t *camera_img = NULL; 
 
 void setup_scr_screen(lv_ui *ui)
 {
@@ -29,23 +28,12 @@ void setup_scr_screen(lv_ui *ui)
     lv_obj_set_style_bg_opa(ui->screen, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
     //Write codes screen_img_1
-    camera_img = lv_img_create(ui->screen);
-    ui->screen_img_1 = lv_img_create(ui->screen);
-    lv_obj_add_flag(ui->screen_img_1, LV_OBJ_FLAG_CLICKABLE);
-    lv_img_set_pivot(ui->screen_img_1, CAMERA_WIDTH,CAMERA_HEIGHT);
-    lv_img_set_angle(ui->screen_img_1, 0);
-    lv_img_set_src(ui->screen_img_1, &camera_img_dsc); // 设置图片源为g_image_buffer
-    lv_obj_set_pos(ui->screen_img_1, 0, 0);
-    lv_obj_set_size(ui->screen_img_1, CAMERA_WIDTH, CAMERA_HEIGHT);
-
-    //Write style for screen_img_1, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
-    lv_obj_set_style_img_recolor_opa(ui->screen_img_1, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_img_opa(ui->screen_img_1, 255, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_radius(ui->screen_img_1, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
-    lv_obj_set_style_clip_corner(ui->screen_img_1, true, LV_PART_MAIN|LV_STATE_DEFAULT);
-
-    //The custom code of screen.
-
+    static lv_color_t canvas_buf[CAMERA_FRAME_SIZE]; // 使用宏定义缓冲区大小
+    ui->screen_canvas = lv_canvas_create(ui->screen);
+    lv_obj_set_pos(ui->screen_canvas, 0, 0);
+    lv_obj_set_size(ui->screen_canvas, 160, 120);
+    lv_canvas_set_buffer(ui->screen_canvas, canvas_buf, 160, 120, LV_IMG_CF_TRUE_COLOR);
+    lv_obj_clear_flag(ui->screen_canvas, LV_OBJ_FLAG_CLICKABLE);
 
     //Update current screen layout.
     lv_obj_update_layout(ui->screen);

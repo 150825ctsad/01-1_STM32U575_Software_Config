@@ -345,7 +345,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     }else if(vs_flag == 2){
         HAL_NVIC_DisableIRQ(EXTI0_IRQn);   // 暂时关闭中断,防止读和写冲突
         FIFO_CloseWriteData();
-        FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
+        //FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
         g_capturing = 1;
         //printf("%d",g_capturing);
     }else if(vs_flag > 2){

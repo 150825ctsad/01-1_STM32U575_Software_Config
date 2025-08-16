@@ -14,6 +14,9 @@
 #include <stdio.h>
 #include "lvgl.h"
 #include "custom.h"
+#include <stdint.h>
+#include <stddef.h>
+#include <string.h>
 
 /*********************
  *      DEFINES
@@ -46,4 +49,3 @@ void custom_init(lv_ui *ui)
 {
     /* Add your codes here */
 }
-
