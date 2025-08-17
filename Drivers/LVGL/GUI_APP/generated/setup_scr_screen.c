@@ -28,11 +28,10 @@ void setup_scr_screen(lv_ui *ui)
     lv_obj_set_style_bg_opa(ui->screen, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
     //Write codes screen_img_1
-    static lv_color_t canvas_buf[CAMERA_FRAME_SIZE]; // 使用宏定义缓冲区大小
     ui->screen_canvas = lv_canvas_create(ui->screen);
     lv_obj_set_pos(ui->screen_canvas, 0, 0);
-    lv_obj_set_size(ui->screen_canvas, 160, 120);
-    lv_canvas_set_buffer(ui->screen_canvas, canvas_buf, 160, 120, LV_IMG_CF_TRUE_COLOR);
+    lv_obj_set_size(ui->screen_canvas, CAMERA_WIDTH, CAMERA_HEIGHT);
+    lv_canvas_set_buffer(ui->screen_canvas, g_image_buffer, CAMERA_WIDTH, CAMERA_HEIGHT, LV_IMG_CF_);
     lv_obj_clear_flag(ui->screen_canvas, LV_OBJ_FLAG_CLICKABLE);
 
     //Update current screen layout.

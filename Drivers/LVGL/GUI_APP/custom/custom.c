@@ -21,18 +21,11 @@
 /*********************
  *      DEFINES
  *********************/
-extern lv_obj_t *camera_img;
+
 /**********************
  *      TYPEDEFS
  **********************/
-lv_img_dsc_t camera_img_dsc = {
-        .header.always_zero = 0,
-        .header.w = CAMERA_WIDTH,
-        .header.h = CAMERA_HEIGHT,
-        .data_size = CAMERA_FRAME_SIZE,
-        .header.cf = LV_IMG_CF_TRUE_COLOR,
-        .data = g_image_buffer,
-    };
+
 /**********************
  *  STATIC PROTOTYPES
  **********************/
@@ -49,3 +42,4 @@ void custom_init(lv_ui *ui)
 {
     /* Add your codes here */
 }
+

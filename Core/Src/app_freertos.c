@@ -51,6 +51,8 @@
 /* USER CODE BEGIN PD */
 #define CAMERA_MSG_QUEUE_LENGTH 4
 #define CAMERA_MSG_ITEM_SIZE sizeof(uint8_t*)
+osMutexId_t screen_access_mutex;
+osMessageQueueId_t camera_msg_queue;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -103,7 +105,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 4
+  .stack_size = 1024 * 8
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -115,7 +117,7 @@ osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 8  
+    .stack_size = 1024 * 16  
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -142,6 +144,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
+  screen_access_mutex = osMutexNew(NULL);
+if(screen_access_mutex == NULL) {
+  Error_Handler();
+}
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
@@ -154,6 +160,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
+  camera_msg_queue = osMessageQueueNew(CAMERA_MSG_QUEUE_LENGTH, CAMERA_MSG_ITEM_SIZE, NULL);
+if(camera_msg_queue == NULL) {
+  Error_Handler();
+}
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
@@ -207,9 +217,16 @@ void vTask1(void *argument)
 }
 void vTask2(void *argument)
 {
-  uint8_t *frame_ptr = NULL;
+  uint8_t *received_buffer = NULL;
   for( ; ; )
   {
+    if(osMessageQueueGet(camera_msg_queue, &received_buffer, NULL, 0) == osOK) {
+            osMutexAcquire(screen_access_mutex, osWaitForever);
+            lv_obj_invalidate(guider_ui.screen_canvas);
+            vTaskDelay(pdMS_TO_TICKS(30));
+            osMutexRelease(screen_access_mutex);
+        }
+
     //LCD 刷新
     lv_task_handler();
     vTaskDelay(pdMS_TO_TICKS(5));
@@ -246,23 +263,30 @@ void vTask4(void *argument)
         // 检查是否有新帧（vs_flag=2表示一帧采集完成）
         if(g_capturing == 1) {
           
-	        taskENTER_CRITICAL();
-          g_capturing = 0;
-          vs_flag = 0;  // 重置标志位，避免重复处理
-          HAL_NVIC_EnableIRQ(EXTI0_IRQn);    // 开启中断
-          // 读取一帧数据到新缓冲区
-          //g_image_buffer[0] = 0xFF;
-          taskEXIT_CRITICAL();
-
+	          osMutexAcquire(screen_access_mutex, osWaitForever);
+            
+            taskENTER_CRITICAL();
+            FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
+            
+            g_capturing = 0;
+            vs_flag = 0;  
+            HAL_NVIC_EnableIRQ(EXTI0_IRQn);    
+            taskEXIT_CRITICAL();
+            
+            // Send image buffer pointer to queue
+            osMessageQueuePut(camera_msg_queue, &g_image_buffer, 0, osWaitForever);
+            
+            osMutexRelease(screen_access_mutex);
+          
           //_HW_FillFrame(0,0,160,120,g_image_buffer);
           //lv_img_set_src(camera_img,camera_img_dsc.data);
           
-          
-          //for(int i = 0;i<32;i++)
-          //printf("%02X",camera_img_dsc.data[i]);
-          //printf("\n");
-          
+          for(int i = 0;i<32;i++)
+          printf("%02X",g_image_buffer[i]);
+          printf("\n");
         }
-        osDelay(30);
+        osDelay(50);
     }
 }
+/* USER CODE END Application */
+
