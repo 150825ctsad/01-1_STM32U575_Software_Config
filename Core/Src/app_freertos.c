@@ -83,7 +83,6 @@ void vPrintString( const char *pcString )
 	//退出临近段保护
 	taskEXIT_CRITICAL();
 }
-
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -222,7 +221,7 @@ void vTask2(void *argument)
   {
     if(osMessageQueueGet(camera_msg_queue, &received_buffer, NULL, 0) == osOK) {
             osMutexAcquire(screen_access_mutex, osWaitForever);
-            lv_obj_invalidate(guider_ui.screen_canvas);
+            lv_obj_invalidate(guider_ui.image);
             vTaskDelay(pdMS_TO_TICKS(30));
             osMutexRelease(screen_access_mutex);
         }
@@ -267,25 +266,26 @@ void vTask4(void *argument)
             
             taskENTER_CRITICAL();
             FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
-            
+
             g_capturing = 0;
-            vs_flag = 0;  
-            HAL_NVIC_EnableIRQ(EXTI0_IRQn);    
+            vs_flag = 0;   
             taskEXIT_CRITICAL();
             
             // Send image buffer pointer to queue
             osMessageQueuePut(camera_msg_queue, &g_image_buffer, 0, osWaitForever);
-            
+            osDelay(30);
+            HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
             osMutexRelease(screen_access_mutex);
+            
           
           //_HW_FillFrame(0,0,160,120,g_image_buffer);
           //lv_img_set_src(camera_img,camera_img_dsc.data);
           
-          for(int i = 0;i<32;i++)
-          printf("%02X",g_image_buffer[i]);
-          printf("\n");
+          //for(int i = 0;i<32;i++)
+          //printf("%02X",g_image_buffer[i]);
+          //printf("\n");
         }
-        osDelay(50);
+        osDelay(30);
     }
 }
 /* USER CODE END Application */

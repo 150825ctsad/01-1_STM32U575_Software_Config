@@ -14,13 +14,14 @@ extern "C" {
 #endif
 
 #include "lvgl.h"
+#include "bsp_ov7670.h"
 
 typedef struct
 {
   
 	lv_obj_t *screen;
 	bool screen_del;
-    lv_obj_t *screen_canvas;
+    lv_obj_t *image;
 }lv_ui;
 
 typedef void (*ui_setup_scr_t)(lv_ui * ui);
@@ -42,7 +43,6 @@ void setup_ui(lv_ui *ui);
 void init_keyboard(lv_ui *ui);
 
 extern lv_ui guider_ui;
-
 
 void setup_scr_screen(lv_ui *ui);
 

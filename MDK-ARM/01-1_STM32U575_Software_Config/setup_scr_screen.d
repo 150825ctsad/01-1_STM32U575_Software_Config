@@ -213,10 +213,6 @@
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\lv_span.h \
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\..\..\..\lvgl.h \
   ..\Drivers\LVGL\GUI_APP\generated\gui_guider.h \
-  ..\Drivers\LVGL\GUI_APP\generated\events_init.h \
-  ..\Drivers\LVGL\GUI_APP\generated\widgets_init.h \
-  ..\Drivers\LVGL\GUI_APP\custom\custom.h \
-  ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
   ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\main.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
   ..\Core\Inc\stm32u5xx_hal_conf.h \
@@ -261,4 +257,8 @@
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Drivers\LVGL\GUI_APP\generated\events_init.h \
+  ..\Drivers\LVGL\GUI_APP\generated\widgets_init.h \
+  ..\Drivers\LVGL\GUI_APP\custom\custom.h \
+  ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h
