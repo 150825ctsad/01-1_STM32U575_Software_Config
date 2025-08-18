@@ -1,5 +1,5 @@
-01-1_stm32u575_software_config/stm32u5xx_hal_msp.o: \
-  ..\Core\Src\stm32u5xx_hal_msp.c ..\Core\Inc\main.h \
+01-1_stm32u575_software_config/bsp_ov2640.o: ..\Core\Src\bsp_ov2640.c \
+  ..\Core\Inc\OV2640_config.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
   ..\Core\Inc\stm32u5xx_hal_conf.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h \
@@ -31,4 +31,7 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dcmi.h \
-  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
+  ..\Core\Inc\bsp_ov2640.h \
+  ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
+  ..\Core\Inc\usart.h ..\Core\Inc\main.h ..\Core\Inc\i2c.h

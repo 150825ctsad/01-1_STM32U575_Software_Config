@@ -46,6 +46,7 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_tim_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dcmi.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
   ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h

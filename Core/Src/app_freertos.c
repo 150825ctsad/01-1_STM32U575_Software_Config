@@ -22,16 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "main.h"
 #include <stdio.h>
 #include "usart.h"
-#include "task.h"
 #include "queue.h"
-
-#include "bsp_sht20.h"
-#include "bsp_esp8266.h"
-#include "bsp_ov7670.h"
-#include "bsp_ili9341_4line.h"
 
 #include "lvgl.h"
 #include "lv_port_indev_template.h"
@@ -49,10 +42,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define CAMERA_MSG_QUEUE_LENGTH 4
-#define CAMERA_MSG_ITEM_SIZE sizeof(uint8_t*)
-osMutexId_t screen_access_mutex;
-osMessageQueueId_t camera_msg_queue;
+osThreadId_t ov2640TaskHandle;
+osSemaphoreId_t sem_TakePhoto;
+osSemaphoreId_t sem_GetPhoto;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -104,7 +96,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 1
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -115,8 +107,8 @@ const osThreadAttr_t Task3_attributes = {
 osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
-    .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 16  
+    .priority = (osPriority_t) osPriorityAboveNormal,  
+    .stack_size = 1024 * 24  
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -143,10 +135,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
-  screen_access_mutex = osMutexNew(NULL);
-if(screen_access_mutex == NULL) {
-  Error_Handler();
-}
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
@@ -159,10 +147,6 @@ if(screen_access_mutex == NULL) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  camera_msg_queue = osMessageQueueNew(CAMERA_MSG_QUEUE_LENGTH, CAMERA_MSG_ITEM_SIZE, NULL);
-if(camera_msg_queue == NULL) {
-  Error_Handler();
-}
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
@@ -171,7 +155,7 @@ if(camera_msg_queue == NULL) {
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   // Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
-    Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
+  //  Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
   // Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
     Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
 
@@ -219,13 +203,6 @@ void vTask2(void *argument)
   uint8_t *received_buffer = NULL;
   for( ; ; )
   {
-    if(osMessageQueueGet(camera_msg_queue, &received_buffer, NULL, 0) == osOK) {
-            osMutexAcquire(screen_access_mutex, osWaitForever);
-            lv_obj_invalidate(guider_ui.image);
-            vTaskDelay(pdMS_TO_TICKS(30));
-            osMutexRelease(screen_access_mutex);
-        }
-
     //LCD 刷新
     lv_task_handler();
     vTaskDelay(pdMS_TO_TICKS(5));
@@ -255,37 +232,15 @@ void vTask3(void *argument)
   }
 }
 
-void vTask4(void *argument)
-{
-    for(;;) {
-      //vPrintString("vTask4");
-        // 检查是否有新帧（vs_flag=2表示一帧采集完成）
-        if(g_capturing == 1) {
-          
-	          osMutexAcquire(screen_access_mutex, osWaitForever);
-            
-            taskENTER_CRITICAL();
-            FIFO_ReadData(g_image_buffer, CAMERA_FRAME_SIZE);
+void vTask4(void *argument) {
 
-            g_capturing = 0;
-            vs_flag = 0;   
-            taskEXIT_CRITICAL();
-            
-            // Send image buffer pointer to queue
-            osMessageQueuePut(camera_msg_queue, &g_image_buffer, 0, osWaitForever);
-            osDelay(30);
-            HAL_NVIC_EnableIRQ(EXTI0_IRQn); 
-            osMutexRelease(screen_access_mutex);
-            
-          
-          //_HW_FillFrame(0,0,160,120,g_image_buffer);
-          //lv_img_set_src(camera_img,camera_img_dsc.data);
-          
-          //for(int i = 0;i<32;i++)
-          //printf("%02X",g_image_buffer[i]);
-          //printf("\n");
-        }
-        osDelay(30);
+    for(;;) {
+        //printf("vTask4\n");
+        HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)Camera_Frame_Buffer,CAMERA_FRAME_SIZE);
+        for(int i=0;i<32;i++)
+        {printf("%02x",Camera_Frame_Buffer[i]);}
+        printf("\n");
+        osDelay(10); // 降低CPU占用
     }
 }
 /* USER CODE END Application */

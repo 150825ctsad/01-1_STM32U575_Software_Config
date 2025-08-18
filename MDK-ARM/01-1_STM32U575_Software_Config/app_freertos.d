@@ -40,13 +40,14 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_tim_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dcmi.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
   ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
-  ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\i2c.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
+  ..\Core\Inc\bsp_sht20.h ..\Core\Inc\bsp_esp8266.h \
+  ..\Core\Inc\bsp_ov2640.h ..\Core\Inc\bsp_ili9341_4line.h \
+  ..\Core\Inc\dcmi.h ..\Core\Inc\usart.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  ..\Core\Inc\usart.h ..\Core\Inc\bsp_sht20.h ..\Core\Inc\bsp_esp8266.h \
-  ..\Core\Inc\bsp_ili9341_4line.h ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
+  ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_log.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_kconfig.h \
@@ -261,5 +262,7 @@
   ..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_indev_template.h \
   ..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_disp_template.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
+  ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\i2c.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\events_init.h \
   ..\Drivers\LVGL\GUI_APP\custom\custom.h

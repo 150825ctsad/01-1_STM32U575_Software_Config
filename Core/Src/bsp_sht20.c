@@ -27,9 +27,9 @@ uint16_t BSP_SHT20_Read(uint8_t sht20_cmd)
 {
 		uint16_t sht20_reg_val = 0;
 		uint8_t sht20_reg_buff[2]={0x00,0x00};
-		HAL_I2C_Master_Transmit(&hi2c1,SHT20_ADDR_WRITE,&sht20_cmd,1,100);    //发送控制指令
+		HAL_I2C_Master_Transmit(&hi2c2,SHT20_ADDR_WRITE,&sht20_cmd,1,100);    //发送控制指令
 		vTaskDelay(pdMS_TO_TICKS(10));   
-		HAL_I2C_Master_Receive(&hi2c1,SHT20_ADDR_READ,sht20_reg_buff,2,100);      //读取数据，两个字节
+		HAL_I2C_Master_Receive(&hi2c2,SHT20_ADDR_READ,sht20_reg_buff,2,100);      //读取数据，两个字节
 		vTaskDelay(pdMS_TO_TICKS(10));   
 		sht20_reg_val=(sht20_reg_buff[0]<<8)|sht20_reg_buff[1];										//合并数据
 	

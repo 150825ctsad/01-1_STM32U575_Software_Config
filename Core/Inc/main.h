@@ -57,55 +57,18 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define BLUE_LED_Pin GPIO_PIN_13
 #define BLUE_LED_GPIO_Port GPIOC
-#define VSYNC_Pin GPIO_PIN_0
-#define VSYNC_GPIO_Port GPIOA
-#define VSYNC_EXTI_IRQn EXTI0_IRQn
-#define HREF_Pin GPIO_PIN_1
-#define HREF_GPIO_Port GPIOA
-#define HREF_EXTI_IRQn EXTI1_IRQn
-#define LCD_DXC_Pin GPIO_PIN_4
-#define LCD_DXC_GPIO_Port GPIOA
-#define D0_Pin GPIO_PIN_4
-#define D0_GPIO_Port GPIOC
-#define D1_Pin GPIO_PIN_5
-#define D1_GPIO_Port GPIOC
-#define RRST_Pin GPIO_PIN_0
-#define RRST_GPIO_Port GPIOB
-#define WRST_Pin GPIO_PIN_1
-#define WRST_GPIO_Port GPIOB
-#define OE_Pin GPIO_PIN_2
-#define OE_GPIO_Port GPIOB
-#define STROBE_Pin GPIO_PIN_12
-#define STROBE_GPIO_Port GPIOB
-#define D2_Pin GPIO_PIN_6
-#define D2_GPIO_Port GPIOC
-#define D3_Pin GPIO_PIN_7
-#define D3_GPIO_Port GPIOC
-#define D4_Pin GPIO_PIN_8
-#define D4_GPIO_Port GPIOC
-#define D5_Pin GPIO_PIN_9
-#define D5_GPIO_Port GPIOC
+#define RST_Pin GPIO_PIN_5
+#define RST_GPIO_Port GPIOA
+#define TP_INT_Pin GPIO_PIN_12
+#define TP_INT_GPIO_Port GPIOB
 #define LCD_RST_Pin GPIO_PIN_8
 #define LCD_RST_GPIO_Port GPIOA
 #define USER_KEY_Pin GPIO_PIN_12
 #define USER_KEY_GPIO_Port GPIOA
 #define RUN_BEEP_Pin GPIO_PIN_15
 #define RUN_BEEP_GPIO_Port GPIOA
-#define D6_Pin GPIO_PIN_10
-#define D6_GPIO_Port GPIOC
-#define D7_Pin GPIO_PIN_11
-#define D7_GPIO_Port GPIOC
-#define WR_CTR_Pin GPIO_PIN_3
-#define WR_CTR_GPIO_Port GPIOB
-#define RCK_Pin GPIO_PIN_4
-#define RCK_GPIO_Port GPIOB
-#define TP_INT_Pin GPIO_PIN_5
-#define TP_INT_GPIO_Port GPIOB
-#define TP_INT_EXTI_IRQn EXTI5_IRQn
-#define PWDN_Pin GPIO_PIN_8
-#define PWDN_GPIO_Port GPIOB
-#define RESTE_Pin GPIO_PIN_9
-#define RESTE_GPIO_Port GPIOB
+#define PWDN_Pin GPIO_PIN_10
+#define PWDN_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
 #define LCD_RST_Pin GPIO_PIN_8
@@ -114,6 +77,12 @@ void Error_Handler(void);
 #define LCD_DCX_GPIO_Port GPIOA
 #define TP_RST_Pin GPIO_PIN_11
 #define TP_RST_GPIO_Port GPIOA
+
+#define CAMERA_WIDTH    320
+#define CAMERA_HEIGHT   240
+#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
+
+static uint8_t Camera_Frame_Buffer[CAMERA_FRAME_SIZE];
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -40,11 +40,11 @@ uint8_t FT6336_readByte(uint8_t addr)
 {
     uint8_t data;
 		//发送控制指令
-		HAL_I2C_Master_Transmit(&hi2c1,FT6336_ADDR_WRITE,&addr,1,100);
+		HAL_I2C_Master_Transmit(&hi2c2,FT6336_ADDR_WRITE,&addr,1,100);
 		//适当增加延时，等待设置完成
 		HAL_Delay(1);
 		//读取坐标数据，一个字节
-		HAL_I2C_Master_Receive(&hi2c1,FT6336_ADDR_READ,&data,1,100);	  
+		HAL_I2C_Master_Receive(&hi2c2,FT6336_ADDR_READ,&data,1,100);	  
     return data;
 }
 /*
@@ -57,7 +57,7 @@ uint8_t FT6336_readByte(uint8_t addr)
 */
 void FT6336_writeByte(uint8_t addr, uint8_t data)
 {
-		HAL_I2C_Master_Transmit(&hi2c1,FT6336_ADDR_WRITE,&data,1,100);
+		HAL_I2C_Master_Transmit(&hi2c2,FT6336_ADDR_WRITE,&data,1,100);
 }
 /*
 **********************************************************************

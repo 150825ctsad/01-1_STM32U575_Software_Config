@@ -32,13 +32,17 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "bsp_ov7670.h"
+#include "bsp_sht20.h"
+#include "bsp_esp8266.h"
+#include "bsp_ov2640.h"
+#include "bsp_ili9341_4line.h"
+
+#include "dcmi.h"
 
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os2.h"
+#include "dcmi.h"
 #include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
@@ -35,7 +36,7 @@
 #include "bsp_ili9341_4line.h"
 #include "bsp_ft6336.h"
 #include "bsp_ospi_w25q128.h"
-#include "bsp_ov7670.h"
+#include "bsp_ov2640.h"
 
 #include <string.h>
 
@@ -175,10 +176,10 @@ int main(void)
   MX_UART5_Init();
   MX_USART1_UART_Init();
   MX_SPI1_Init();
-  MX_I2C1_Init();
   MX_TIM2_Init();
   MX_I2C2_Init();
   MX_OCTOSPI1_Init();
+  MX_DCMI_Init();
   /* USER CODE BEGIN 2 */
   
   OSPI_W25Qxx_Init();	//初始化W25Q128
@@ -196,9 +197,9 @@ int main(void)
   //HAL_Delay(1000);
   //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
-  OV7670_Init();
-
   Update_Backlight(80); //设置背光亮度
+
+  OV2640_Init();
 
   //LCD_DrawRect(0, 0, 240, 240,(uint16_t) OV_Data_Cache);
   
@@ -328,6 +329,7 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
   static uint8_t TouchPress = 0;
   volatile uint8_t vs_flag = 0;
   volatile uint8_t g_capturing = 0;
+
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   /* Prevent unused argument(s) compilation warning */
@@ -336,21 +338,6 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   if((!HAL_GPIO_ReadPin(TP_INT_GPIO_Port,TP_INT_Pin)) && (GPIO_Pin == TP_INT_Pin))
   {
     TouchPress = 1;
-  } else if (GPIO_Pin == VSYNC_Pin){
-    vs_flag++;
-    if(vs_flag == 1){
-        FIFO_ResetWPoint();
-        FIFO_OpenWriteData();
-        //printf("%d",vs_flag);
-    }else if(vs_flag == 2){
-        HAL_NVIC_DisableIRQ(EXTI0_IRQn);   // 暂时关闭中断,防止读和写冲突
-        FIFO_CloseWriteData();
-        g_capturing = 1;
-        //printf("%d",g_capturing);
-    }else if(vs_flag > 2){
-        vs_flag =0;
-        //printf("%d",vs_flag);
-    }
   }
 }
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {

@@ -29,26 +29,15 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_tim_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dcmi.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
   ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
-  ..\Core\Inc\gpdma.h ..\Core\Inc\i2c.h ..\Core\Inc\icache.h \
-  ..\Core\Inc\octospi.h ..\Core\Inc\spi.h ..\Core\Inc\tim.h \
-  ..\Core\Inc\usart.h ..\Core\Inc\gpio.h ..\Core\Inc\bsp_esp8266.h \
-  ..\Core\Inc\bsp_sht20.h ..\Core\Inc\bsp_ili9341_4line.h \
-  ..\Core\Inc\bsp_ft6336.h ..\Core\Inc\bsp_ospi_w25q128.h \
-  ..\Core\Inc\bsp_ov7670.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  ..\Core\Inc\FreeRTOSConfig.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacrocommon.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Core\Inc\dcmi.h ..\Core\Inc\gpdma.h ..\Core\Inc\i2c.h \
+  ..\Core\Inc\icache.h ..\Core\Inc\octospi.h ..\Core\Inc\spi.h \
+  ..\Core\Inc\tim.h ..\Core\Inc\usart.h ..\Core\Inc\gpio.h \
+  ..\Core\Inc\bsp_esp8266.h ..\Core\Inc\bsp_sht20.h \
+  ..\Core\Inc\bsp_ili9341_4line.h ..\Core\Inc\bsp_ft6336.h \
+  ..\Core\Inc\bsp_ospi_w25q128.h ..\Core\Inc\bsp_ov2640.h \
   ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_log.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \
@@ -264,4 +253,17 @@
   ..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_indev_template.h \
   ..\Drivers\LVGL\GUI\lvgl\examples\porting\lv_port_disp_template.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
+  ..\Core\Inc\bsp_ov7670.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM33_NTZ\non_secure\portmacrocommon.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\events_init.h

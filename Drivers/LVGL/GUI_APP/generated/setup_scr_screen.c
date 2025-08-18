@@ -37,7 +37,7 @@ void setup_scr_screen(lv_ui *ui)
         .header.w = CAMERA_WIDTH,
         .header.h = CAMERA_HEIGHT,
         .header.cf = LV_IMG_CF_TRUE_COLOR,
-        .data = g_image_buffer,
+        .data = NULL,
         .data_size = CAMERA_FRAME_SIZE
     };
     lv_img_set_src(ui->image, &img_dsc);
