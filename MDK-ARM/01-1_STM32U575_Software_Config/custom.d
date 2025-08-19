@@ -214,8 +214,7 @@
   ..\Drivers\LVGL\GUI\lvgl\src\extra\widgets\span\..\..\..\lvgl.h \
   ..\Drivers\LVGL\GUI_APP\custom\custom.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
-  ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\main.h \
-  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
+  ..\Core\Inc\main.h ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
   ..\Core\Inc\stm32u5xx_hal_conf.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_def.h \
@@ -247,7 +246,7 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_uart_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dcmi.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
-  ..\Core\Inc\i2c.h \
+  ..\Core\Inc\bsp_ov7670.h ..\Core\Inc\i2c.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \

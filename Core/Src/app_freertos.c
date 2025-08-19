@@ -96,7 +96,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 1
+  .stack_size = 1024 * 8
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -107,8 +107,8 @@ const osThreadAttr_t Task3_attributes = {
 osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
-    .priority = (osPriority_t) osPriorityAboveNormal,  
-    .stack_size = 1024 * 24  
+    .priority = (osPriority_t) osPriorityLow,  
+    .stack_size = 1024 * 16 
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -139,6 +139,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
+  sem_TakePhoto = osSemaphoreNew(1, 0, NULL);
+  sem_GetPhoto = osSemaphoreNew(1, 0, NULL);
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
@@ -154,10 +156,10 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  // Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
-  //  Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
-  // Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
-    Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
+  //Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
+  Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
+  //Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
+  Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
 
 
   /* USER CODE END RTOS_THREADS */
@@ -200,9 +202,11 @@ void vTask1(void *argument)
 }
 void vTask2(void *argument)
 {
-  uint8_t *received_buffer = NULL;
   for( ; ; )
   {
+    printf("vTask2");
+
+    osSemaphoreRelease(sem_TakePhoto);
     //LCD 刷新
     lv_task_handler();
     vTaskDelay(pdMS_TO_TICKS(5));
@@ -232,33 +236,29 @@ void vTask3(void *argument)
   }
 }
 
-#define pictureBufferLength 1024*10
-static uint32_t JpegBuffer[pictureBufferLength];
+void vTask4(void *argument)
+{
+  for(;;)
+  {
+    if (osSemaphoreAcquire(sem_TakePhoto, osWaitForever) == osOK) // 等待拍照信号量
+    {
+      __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME); // 使能帧中断
+      memset((void *)g_image_buffer, 0, CAMERA_FRAME_SIZE); // 清空接收缓冲区
+      printf("vTask4\n");
+      HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, (uint32_t)g_image_buffer, CAMERA_FRAME_SIZE);
+        if (osSemaphoreAcquire(sem_GetPhoto, osWaitForever) == osOK) // 等待图像捕获完成
+        {
+          HAL_DCMI_Suspend(&hdcmi); // 挂起DCMI
+          HAL_DCMI_Stop(&hdcmi); // 停止DCMI传输
+          for(int i=0;i<CAMERA_FRAME_SIZE;i++)
+          {
+            printf("%02X", g_image_buffer[i]);
+          }
+          printf("\n\n\n\n\n\n\n\n\n\n\n");
 
-void vTask4(void *argument) {
-    for(;;) {
-			__HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);//使用帧中断
-			memset((void *)JpegBuffer,0,sizeof(JpegBuffer));//把接收BUF清空
-			HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);//启动拍照
-      osDelay(1000);
-
-				HAL_DCMI_Suspend(&hdcmi);//拍照完成，挂起DCMI
-				HAL_DCMI_Stop(&hdcmi);//拍照完成，停止DMA传输
-				int pictureLength =pictureBufferLength;
-				while(pictureLength > 0)//循环计算出接收的JPEG的大小
-				{
-					if(JpegBuffer[pictureLength-1] != 0x00000000)
-					{
-						break;
-					}
-					pictureLength--;
-				}
-				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
-				for(int i=0; i<16; i++)
-        printf("%02X ", JpegBuffer[i]);
-        printf("\n");
-			}
-		
+        }
+      }
+  }
 }
 
 /* USER CODE END Application */

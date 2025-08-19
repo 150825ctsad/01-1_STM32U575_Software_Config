@@ -11,13 +11,13 @@
 #define OV7670_DEVICE_WRITE_ADDRESS    0x42
 #define OV7670_DEVICE_READ_ADDRESS     0x43
 
-#define CAMERA_WIDTH    320
-#define CAMERA_HEIGHT   240
-#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 38400字节
+//#define CAMERA_WIDTH    320
+//#define CAMERA_HEIGHT   240
+//#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)  // 38400字节
 
 
 extern volatile uint8_t g_capturing;  
-extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
+//extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 
 void OV7670_Init(void);
 

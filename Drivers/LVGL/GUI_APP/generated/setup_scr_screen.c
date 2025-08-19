@@ -14,7 +14,7 @@
 #include "widgets_init.h"
 #include "custom.h"
 
-#include "bsp_ov7670.h"
+#include "main.h"
 
 
 void setup_scr_screen(lv_ui *ui)
@@ -37,7 +37,7 @@ void setup_scr_screen(lv_ui *ui)
         .header.w = CAMERA_WIDTH,
         .header.h = CAMERA_HEIGHT,
         .header.cf = LV_IMG_CF_TRUE_COLOR,
-        .data = NULL,
+        .data = g_image_buffer,
         .data_size = CAMERA_FRAME_SIZE
     };
     lv_img_set_src(ui->image, &img_dsc);

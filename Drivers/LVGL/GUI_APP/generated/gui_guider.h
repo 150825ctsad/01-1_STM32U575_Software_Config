@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 #include "lvgl.h"
-#include "bsp_ov7670.h"
+#include "main.h"
 
 typedef struct
 {

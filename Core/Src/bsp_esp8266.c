@@ -14,8 +14,10 @@
 #include <string.h>
 
 #include "cJSON.h"
+#include "cmsis_os2.h"
 
 struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct = { 0 };  //定义了一个数据帧结构体
+extern osSemaphoreId_t sem_TakePhoto; 
 //初始化波特率
 void ESP8266_Init(UART_HandleTypeDef *huart, uint8_t *DataBuf,uint32_t bound)
 {
@@ -350,11 +352,6 @@ void ESP8266_Json_Parse(char *pData)
 
         printf("解析成功: LED1=%s\r\n", led1_val?"ON":"OFF");
     }
-    else
-    {
-        printf("JSON字段缺失或类型错误\r\n");
-    }
-    
     // 释放cJSON内存
     cJSON_Delete(root);
     root = NULL; // 避免悬空指针

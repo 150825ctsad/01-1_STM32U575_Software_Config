@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "main.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -45,7 +45,6 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -59,10 +58,14 @@ void Error_Handler(void);
 #define BLUE_LED_GPIO_Port GPIOC
 #define RST_Pin GPIO_PIN_5
 #define RST_GPIO_Port GPIOA
+#define LCD_DCX_Pin GPIO_PIN_1
+#define LCD_DCX_GPIO_Port GPIOB
+#define LCD_RST_Pin GPIO_PIN_2
+#define LCD_RST_GPIO_Port GPIOB
 #define TP_INT_Pin GPIO_PIN_12
 #define TP_INT_GPIO_Port GPIOB
-#define LCD_RST_Pin GPIO_PIN_8
-#define LCD_RST_GPIO_Port GPIOA
+#define LCD_RSTA8_Pin GPIO_PIN_8
+#define LCD_RSTA8_GPIO_Port GPIOA
 #define USER_KEY_Pin GPIO_PIN_12
 #define USER_KEY_GPIO_Port GPIOA
 #define RUN_BEEP_Pin GPIO_PIN_15
@@ -71,17 +74,14 @@ void Error_Handler(void);
 #define PWDN_GPIO_Port GPIOC
 
 /* USER CODE BEGIN Private defines */
-#define LCD_RST_Pin GPIO_PIN_8
-#define LCD_RST_GPIO_Port GPIOA
-#define LCD_DCX_Pin GPIO_PIN_4
-#define LCD_DCX_GPIO_Port GPIOA
 #define TP_RST_Pin GPIO_PIN_11
 #define TP_RST_GPIO_Port GPIOA
 
-#define CAMERA_WIDTH    320
-#define CAMERA_HEIGHT   240
+#define CAMERA_WIDTH    160
+#define CAMERA_HEIGHT   120
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
 
+static uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
