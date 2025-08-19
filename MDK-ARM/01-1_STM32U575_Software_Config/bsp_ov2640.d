@@ -1,5 +1,5 @@
 01-1_stm32u575_software_config/bsp_ov2640.o: ..\Core\Src\bsp_ov2640.c \
-  ..\Core\Inc\OV2640_config.h \
+  ..\Core\Inc\bsp_ov2640_config.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
   ..\Core\Inc\stm32u5xx_hal_conf.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h \

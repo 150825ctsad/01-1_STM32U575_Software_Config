@@ -184,6 +184,8 @@ int main(void)
   
   OSPI_W25Qxx_Init();	//初始化W25Q128
   OSPI_W25Qxx_mmap();
+	
+	OV2640_Init();
 
   lv_init(); /* lvgl 系统初始化 */
 	lv_port_disp_init();
@@ -198,8 +200,6 @@ int main(void)
   //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
   Update_Backlight(80); //设置背光亮度
-
-  OV2640_Init();
 
   //LCD_DrawRect(0, 0, 240, 240,(uint16_t) OV_Data_Cache);
   

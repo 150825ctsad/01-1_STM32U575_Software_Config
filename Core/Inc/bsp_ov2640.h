@@ -87,6 +87,8 @@
 #define OV2640_SENSOR_HISTO_HIGH 0x62
 /* Image Sizes enumeration */
 
+
+
 const static uint8_t OV2640_AUTOEXPOSURE_LEVEL0[]=
 {
 	0xFF,	0x01,	0xff,

@@ -233,15 +233,12 @@ void vTask3(void *argument)
 }
 
 void vTask4(void *argument) {
-
     for(;;) {
-        //printf("vTask4\n");
-        HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)Camera_Frame_Buffer,CAMERA_FRAME_SIZE);
-        for(int i=0;i<32;i++)
-        {printf("%02x",Camera_Frame_Buffer[i]);}
-        printf("\n");
-        osDelay(10); // 降低CPU占用
+            //for(int i=0; i<64; i++)
+                //printf("%02X ", Camera_Frame_Buffer[i]);
+            //printf("\n");
     }
 }
+
 /* USER CODE END Application */
 

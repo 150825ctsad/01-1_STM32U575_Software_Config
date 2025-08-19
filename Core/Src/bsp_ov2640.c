@@ -1,4 +1,4 @@
-#include "OV2640_config.h"
+#include "bsp_ov2640_config.h"
 #include "bsp_ov2640.h"
 #include "string.h"
 #include "stdio.h"
@@ -19,7 +19,6 @@ static void OV2640_AutoExposure(uint8_t level);
 static void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat);
 static void OV2640_BrightnessConfig(uint8_t Brightness);
 static void  ov2640_config(void);
-static void StartOV2640Task(void const * argument);
 
 void OV2640_Init()
 {
@@ -67,7 +66,7 @@ uint8_t i2c_receive(uint8_t sub_address)
 
 void ov2640_config(void)
 {
-	OV2640_JPEGConfig(JPEG_800x600);
+	OV2640_JPEGConfig(JPEG_320x240);
 	OV2640_BrightnessConfig(0x20);
 	OV2640_AutoExposure(0);
 
@@ -208,9 +207,7 @@ void SCCB_WriteRegs(const uint8_t* pbuf)
 		}
 		else
 		{
-			uint8_t byte1 = *pbuf++;  // 先取第一个字节，指针+1
-            uint8_t byte2 = *pbuf++;  // 再取第二个字节，指针+1
-            i2c_sent(byte1, byte2); 
+    i2c_sent((uint8_t)*pbuf++, (uint8_t)*pbuf++);
 		}
 	}
 }
