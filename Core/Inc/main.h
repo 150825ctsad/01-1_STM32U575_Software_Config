@@ -82,7 +82,6 @@ void Error_Handler(void);
 #define CAMERA_HEIGHT   240
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
 
-static uint8_t Camera_Frame_Buffer[CAMERA_FRAME_SIZE];
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

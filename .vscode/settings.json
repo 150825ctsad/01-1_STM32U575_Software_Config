@@ -76,7 +76,9 @@
     "clocale": "c",
     "cstddef": "c",
     "cwctype": "c",
-    "task.h": "c"
+    "task.h": "c",
+    "xmemory": "c",
+    "xstring": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

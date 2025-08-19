@@ -196,7 +196,6 @@ int main(void)
 
   //ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,115200);	//ESP8266初始化
   //ESP8266_STA_MQTTClient();
-  //HAL_Delay(1000);
   //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
   Update_Backlight(80); //设置背光亮度

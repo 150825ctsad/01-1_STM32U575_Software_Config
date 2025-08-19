@@ -135,7 +135,7 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* dcmiHandle)
     NodeConfig.Init.Direction = DMA_PERIPH_TO_MEMORY;
     NodeConfig.Init.SrcInc = DMA_SINC_FIXED;
     NodeConfig.Init.DestInc = DMA_DINC_INCREMENTED;
-    NodeConfig.Init.SrcDataWidth = DMA_SRC_DATAWIDTH_WORD;
+    NodeConfig.Init.SrcDataWidth = DMA_SRC_DATAWIDTH_BYTE;
     NodeConfig.Init.DestDataWidth = DMA_DEST_DATAWIDTH_BYTE;
     NodeConfig.Init.SrcBurstLength = 1;
     NodeConfig.Init.DestBurstLength = 1;
@@ -187,7 +187,6 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* dcmiHandle)
     HAL_NVIC_SetPriority(DCMI_PSSI_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(DCMI_PSSI_IRQn);
   /* USER CODE BEGIN DCMI_MspInit 1 */
-  HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, (uint32_t)Camera_Frame_Buffer,CAMERA_FRAME_SIZE);
   /* USER CODE END DCMI_MspInit 1 */
   }
 }
@@ -229,21 +228,28 @@ void HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* dcmiHandle)
     /* DCMI interrupt Deinit */
     HAL_NVIC_DisableIRQ(DCMI_PSSI_IRQn);
   /* USER CODE BEGIN DCMI_MspDeInit 1 */
-  HAL_GPIO_WritePin(PWDN_GPIO_Port,PWDN_Pin,GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(PWDN_GPIO_Port,PWDN_Pin,GPIO_PIN_RESET);
   /* USER CODE END DCMI_MspDeInit 1 */
   }
 }
 
 /* USER CODE BEGIN 1 */
+  uint8_t frame_sem;
 
-void HAL_DMA_XferCpltCallback(DMA_HandleTypeDef *hdma)
+void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
 {
-    if(hdma == &handle_GPDMA1_Channel1)
-    {
-        printf("DMA传输完成！\n");
-        // 可以在这里添加传输完成后的处理逻辑
-        // 例如设置标志位、发送信号量等
-    }
+      frame_sem = 1;  //帧中断完成标志置位
+}
+
+void ov2640_dcmi_start(uint32_t dts_addr,uint32_t len)
+{
+	    frame_sem = 0;
+	    __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
+	    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_CONTINUOUS, dts_addr, len);
+
+	    /* 等待传输完成 */
+	    while (frame_sem == 0);
+	    HAL_DCMI_Stop(&hdcmi);
 }
 
 /* USER CODE END 1 */

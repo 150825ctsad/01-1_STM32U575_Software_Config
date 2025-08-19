@@ -41,6 +41,7 @@ extern DCMI_HandleTypeDef hdcmi;
 void MX_DCMI_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void ov2640_dcmi_start(uint32_t dts_addr,uint32_t len);
 
 /* USER CODE END Prototypes */
 

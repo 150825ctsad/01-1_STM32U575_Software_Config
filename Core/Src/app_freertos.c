@@ -232,12 +232,33 @@ void vTask3(void *argument)
   }
 }
 
+#define pictureBufferLength 1024*10
+static uint32_t JpegBuffer[pictureBufferLength];
+
 void vTask4(void *argument) {
     for(;;) {
-            //for(int i=0; i<64; i++)
-                //printf("%02X ", Camera_Frame_Buffer[i]);
-            //printf("\n");
-    }
+			__HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);//使用帧中断
+			memset((void *)JpegBuffer,0,sizeof(JpegBuffer));//把接收BUF清空
+			HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);//启动拍照
+      osDelay(1000);
+
+				HAL_DCMI_Suspend(&hdcmi);//拍照完成，挂起DCMI
+				HAL_DCMI_Stop(&hdcmi);//拍照完成，停止DMA传输
+				int pictureLength =pictureBufferLength;
+				while(pictureLength > 0)//循环计算出接收的JPEG的大小
+				{
+					if(JpegBuffer[pictureLength-1] != 0x00000000)
+					{
+						break;
+					}
+					pictureLength--;
+				}
+				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
+				for(int i=0; i<16; i++)
+        printf("%02X ", JpegBuffer[i]);
+        printf("\n");
+			}
+		
 }
 
 /* USER CODE END Application */
