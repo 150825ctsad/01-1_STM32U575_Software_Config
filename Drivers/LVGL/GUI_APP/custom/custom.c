@@ -11,12 +11,8 @@
 /*********************
  *      INCLUDES
  *********************/
-#include <stdio.h>
 #include "lvgl.h"
 #include "custom.h"
-#include <stdint.h>
-#include <stddef.h>
-#include <string.h>
 
 /*********************
  *      DEFINES
@@ -25,7 +21,16 @@
 /**********************
  *      TYPEDEFS
  **********************/
+lv_img_dsc_t camera_img_dsc = {
+    .header.always_zero = 0,
+    .header.w = CAMERA_WIDTH,
+    .header.h = CAMERA_HEIGHT,
+    .header.cf = LV_IMG_CF_RGB565,
+    .data_size = CAMERA_FRAME_SIZE,
+    .data = NULL // Will be set dynamically
+};
 
+lv_obj_t *camera_img;
 /**********************
  *  STATIC PROTOTYPES
  **********************/
@@ -40,6 +45,7 @@
 
 void custom_init(lv_ui *ui)
 {
-    /* Add your codes here */
+    camera_img = lv_img_create(ui->screen);
+    lv_img_set_src(camera_img, &camera_img_dsc);
 }
 

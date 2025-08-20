@@ -49,7 +49,7 @@ void MX_DCMI_Init(void)
   hdcmi.Init.HSPolarity = DCMI_HSPOLARITY_LOW;
   hdcmi.Init.CaptureRate = DCMI_CR_ALL_FRAME;
   hdcmi.Init.ExtendedDataMode = DCMI_EXTEND_DATA_8B;
-  hdcmi.Init.JPEGMode = DCMI_JPEG_ENABLE;
+  hdcmi.Init.JPEGMode = DCMI_JPEG_DISABLE;
   hdcmi.Init.ByteSelectMode = DCMI_BSM_ALL;
   hdcmi.Init.ByteSelectStart = DCMI_OEBS_ODD;
   hdcmi.Init.LineSelectMode = DCMI_LSM_ALL;
@@ -243,7 +243,7 @@ void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
   {
     osSemaphoreRelease(sem_GetPhoto); // 释放图像完成信号量 
     __HAL_DCMI_DISABLE_IT(hdcmi, DCMI_IT_FRAME); // 关闭帧中断
-    printf("DCMI FrameEventCallback\n");
+    //printf("DCMI FrameEventCallback\n");
   }
 }
 
@@ -253,7 +253,6 @@ void HAL_DCMI_ErrorCallback(DCMI_HandleTypeDef *hdcmi)
   {
     printf("DCMI ErrorCallback\n");
     HAL_DCMI_Stop(hdcmi);
-    
   }
 }
 /* USER CODE END 1 */

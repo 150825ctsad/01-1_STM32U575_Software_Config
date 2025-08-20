@@ -31,16 +31,7 @@ void setup_scr_screen(lv_ui *ui)
     ui->image = lv_img_create(ui->screen);
     lv_obj_set_pos(ui->image, 0, 0);
     lv_obj_set_size(ui->image, CAMERA_WIDTH, CAMERA_HEIGHT);
-    
-    // 创建图片描述符并关联缓冲区
-    static lv_img_dsc_t img_dsc = {
-        .header.w = CAMERA_WIDTH,
-        .header.h = CAMERA_HEIGHT,
-        .header.cf = LV_IMG_CF_TRUE_COLOR,
-        .data = g_image_buffer,
-        .data_size = CAMERA_FRAME_SIZE
-    };
-    lv_img_set_src(ui->image, &img_dsc);
+    lv_img_set_src(ui->image, &camera_img_dsc);
     
     lv_obj_clear_flag(ui->image, LV_OBJ_FLAG_CLICKABLE);
 

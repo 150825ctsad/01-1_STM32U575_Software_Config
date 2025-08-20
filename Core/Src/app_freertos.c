@@ -37,14 +37,11 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-osThreadId_t ov2640TaskHandle;
-osSemaphoreId_t sem_TakePhoto;
-osSemaphoreId_t sem_GetPhoto;
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -56,6 +53,13 @@ extern volatile uint8_t vs_flag;
 extern lv_obj_t *camera_img;
 extern lv_img_dsc_t camera_img_dsc;
 
+osSemaphoreId_t sem_TakePhoto;
+osSemaphoreId_t sem_GetPhoto;
+QueueHandle_t xImageDataQueue;
+
+uint8_t Buffer1[CAMERA_FRAME_SIZE];
+uint8_t Buffer2[CAMERA_FRAME_SIZE];
+uint8_t *currentBuffer = Buffer1;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -149,7 +153,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+  xImageDataQueue = xQueueCreate(3, sizeof(uint8_t*));
+  if(xImageDataQueue == NULL) {
+    Error_Handler();
+  }
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
@@ -202,15 +209,33 @@ void vTask1(void *argument)
 }
 void vTask2(void *argument)
 {
+  uint8_t *receivedBuffer;
   for( ; ; )
   {
-    //printf("vTask2");
+    // 从队列接收完整缓冲区
+    if(xQueueReceive(xImageDataQueue, &receivedBuffer, 10) == pdPASS)
+    {
+      // 将接收到的缓冲区数据复制到JpegBuffer
+      memcpy(JpegBuffer, receivedBuffer, CAMERA_FRAME_SIZE);
+      
+      //for(int i = 0; i < CAMERA_FRAME_SIZE; i++)
+      //{
+      //  printf("%02X", JpegBuffer[i]);
+      //}
+      //printf("\n");
 
-    //LCD 刷新
+      // 更新LCD显示
+      camera_img_dsc.data = JpegBuffer;
+      lv_img_set_src(camera_img, &camera_img_dsc);
+      lv_obj_invalidate(guider_ui.image);
+    }
+
+    // LCD刷新
     lv_task_handler();
     osDelay(5);
   }
 }
+
 void vTask3(void *argument)
 {
   for( ; ; )
@@ -236,35 +261,41 @@ void vTask3(void *argument)
 
 void vTask4(void *argument)
 {
+  size_t remainingBytes = CAMERA_FRAME_SIZE;
+  uint8_t *currentPosition = currentBuffer;
+  const uint8_t totalChunks = (CAMERA_FRAME_SIZE + pictureBufferLength - 1) / pictureBufferLength;
+  uint8_t chunkNumber = 0;
+
   for(;;)
   {
-    __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
-    memset((void *)g_image_buffer,0,sizeof(g_image_buffer));
-    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)g_image_buffer, CAMERA_FRAME_SIZE);
-    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
+    __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
+    size_t transferSize = (remainingBytes > pictureBufferLength) ? pictureBufferLength : remainingBytes;
+    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, (uint32_t)currentPosition, transferSize / 4);
+
+    if(osSemaphoreAcquire(sem_GetPhoto, osWaitForever) == osOK)
     {
       HAL_DCMI_Suspend(&hdcmi);
       HAL_DCMI_Stop(&hdcmi);
-      int pictureLength =CAMERA_FRAME_SIZE;
-				while(pictureLength > 0)//循环计算出接收的JPEG的大小
-				{
-					if(g_image_buffer[pictureLength-1] != 0x00000000)
-					{
-            printf("pictureLength:%d\n\n",pictureLength);
-            for(int i = 0;i < 16;i ++)
-            printf("%02x ",g_image_buffer[i]);
-            printf("\n\n\n");
-						break;
-					}
-					pictureLength--;
-				}
-				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
-      lv_img_set_src(guider_ui.image,g_image_buffer);
-      lv_obj_invalidate(guider_ui.image);
+
+      remainingBytes -= transferSize;
+      currentPosition += transferSize;
+      chunkNumber++;
+
+      // 当缓冲区填满或达到最后一个chunk时
+      if(remainingBytes == 0 || chunkNumber == totalChunks)
+      {
+        // 将完整缓冲区指针发送到队列
+        xQueueSend(xImageDataQueue, &currentBuffer, 0);
+
+        // 切换到另一个缓冲区
+        currentBuffer = (currentBuffer == Buffer1) ? Buffer2 : Buffer1;
+        remainingBytes = CAMERA_FRAME_SIZE;
+        currentPosition = currentBuffer;
+        chunkNumber = 0;
       }
+    }
     osDelay(30);
   }
 }
-
 /* USER CODE END Application */
 

@@ -14,10 +14,12 @@ extern "C" {
 #endif
 
 #include "../gui_guider.h"
-#include "bsp_ov7670.h"
+#include "bsp_ov2640.h"
 
 extern lv_img_dsc_t camera_img_dsc;
 extern lv_obj_t *camera_img;
+
+//extern lv_img_dsc_t img_dsc;
 
 void custom_init(lv_ui *ui);
 
