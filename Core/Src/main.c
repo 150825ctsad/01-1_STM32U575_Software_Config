@@ -138,6 +138,7 @@ void Update_Backlight(uint8_t pDutyRatio)
 	//启动PWM信号
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
 }
+
 /* USER CODE END 0 */
 
 /**
@@ -200,7 +201,6 @@ int main(void)
   //ESP8266_MQTTSUB(User_ESP8266_MQTTServer_Topic);
 
   Update_Backlight(80); //设置背光亮度
-
   /* USER CODE END 2 */
 
   /* Init scheduler */

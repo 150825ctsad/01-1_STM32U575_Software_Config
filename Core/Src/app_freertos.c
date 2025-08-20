@@ -96,7 +96,7 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 4
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -108,7 +108,7 @@ osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 24 
+    .stack_size = 1024 * 16 
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -157,7 +157,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   //Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
-  //Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
+  Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
   //Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
   Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
 
@@ -196,7 +196,7 @@ void vTask1(void *argument)
   {
       vPrintString("");
       /* 延时一会 */
-      vTaskDelay(pdMS_TO_TICKS(300));
+      osDelay(300);
       //BSP_SHT20_GetData();
   }
 }
@@ -204,11 +204,11 @@ void vTask2(void *argument)
 {
   for( ; ; )
   {
-    printf("vTask2");
+    //printf("vTask2");
 
     //LCD 刷新
     lv_task_handler();
-    vTaskDelay(pdMS_TO_TICKS(5));
+    osDelay(5);
   }
 }
 void vTask3(void *argument)
@@ -216,8 +216,6 @@ void vTask3(void *argument)
   for( ; ; )
   {
       vPrintString("");
-      //ESP8266 处理
-      vTaskDelay(pdMS_TO_TICKS(100));
       //printf("g_MQTT_Data_Ready:%d\n",g_MQTT_Data_Ready);
     if (g_MQTT_Data_Ready)
       {
@@ -232,36 +230,37 @@ void vTask3(void *argument)
         // 清除标志位
         g_MQTT_Data_Ready = 0;
       }
+      osDelay(200);
   }
 }
-#define pictureBufferLength 1024*10
-static uint32_t JpegBuffer[pictureBufferLength];
 
 void vTask4(void *argument)
 {
   for(;;)
   {
     __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
-    memset((void *)JpegBuffer,0,sizeof(JpegBuffer));
-    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
+    memset((void *)g_image_buffer,0,sizeof(g_image_buffer));
+    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)g_image_buffer, CAMERA_FRAME_SIZE);
+    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
     {
       HAL_DCMI_Suspend(&hdcmi);
       HAL_DCMI_Stop(&hdcmi);
-      int pictureLength =pictureBufferLength;
+      int pictureLength =CAMERA_FRAME_SIZE;
 				while(pictureLength > 0)//循环计算出接收的JPEG的大小
 				{
-					if(JpegBuffer[pictureLength-1] != 0x00000000)
+					if(g_image_buffer[pictureLength-1] != 0x00000000)
 					{
-          //  printf("pictureLength:%d\n\n",pictureLength);
-          //  for(int i = 0;i < pictureLength;i ++)
-          //  printf("%08x",JpegBuffer[i]);
-          //  printf("\n\n\n");
+            printf("pictureLength:%d\n\n",pictureLength);
+            for(int i = 0;i < 16;i ++)
+            printf("%02x ",g_image_buffer[i]);
+            printf("\n\n\n");
 						break;
 					}
 					pictureLength--;
 				}
 				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
-      //lv_img_set_src(guider_ui.image,JpegBuffer);
+      lv_img_set_src(guider_ui.image,g_image_buffer);
+      lv_obj_invalidate(guider_ui.image);
       }
     osDelay(30);
   }

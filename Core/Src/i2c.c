@@ -21,7 +21,7 @@
 #include "i2c.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "stdio.h"
 /* USER CODE END 0 */
 
 I2C_HandleTypeDef hi2c2;
@@ -136,5 +136,27 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* i2cHandle)
 }
 
 /* USER CODE BEGIN 1 */
+//i2c找地址
+uint8_t I2C_ScanDevices(I2C_HandleTypeDef *hi2c)
+{
+    uint8_t devAddr;
+    uint8_t deviceCount = 0;
+    uint32_t timeout = 100;
 
+    printf("I2C address scanning...\r\n");
+
+    // 扫描7位I2C地址（0x08~0x77）
+    for (devAddr = 0x08; devAddr < 0x78; devAddr++)
+    {
+        // 发送地址并检查ACK
+        if (HAL_I2C_IsDeviceReady(hi2c, (devAddr << 1), 3, timeout) == HAL_OK)
+        {
+            printf("Found I2C device at address: 0x%02X\r\n", devAddr);
+            deviceCount++;
+        }
+    }
+
+    printf("Scan completed. Total devices found: %d\r\n", deviceCount);
+    return deviceCount;
+}
 /* USER CODE END 1 */

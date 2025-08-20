@@ -1,13 +1,13 @@
 01-1_stm32u575_software_config/bsp_ov2640.o: ..\Core\Src\bsp_ov2640.c \
   ..\Core\Inc\bsp_ov2640_config.h \
-  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
-  ..\Core\Inc\stm32u5xx_hal_conf.h \
-  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h \
-  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_def.h \
   ..\Drivers\CMSIS\Device\ST\STM32U5xx\Include\stm32u5xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32U5xx\Include\stm32u575xx.h \
   ..\Drivers\CMSIS\Include\core_cm33.h \
   ..\Drivers\CMSIS\Device\ST\STM32U5xx\Include\system_stm32u5xx.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal.h \
+  ..\Core\Inc\stm32u5xx_hal_conf.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_def.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_rcc_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_gpio.h \

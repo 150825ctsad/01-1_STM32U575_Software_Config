@@ -104,6 +104,16 @@ void OV2640_AutoExposure(uint8_t level)
 	}
 
 }
+void OV2640_QVGAConfig(void)
+{
+  uint8_t i;
+
+  for(i=0; i<(sizeof(OV2640_QVGA)/2); i++)
+  {
+    i2c_sent(OV2640_QVGA[i][0], OV2640_QVGA[i][1]);
+		//delay_ms(1);
+  }
+}
 
 void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
 {
@@ -196,7 +206,8 @@ void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
 
 void OV2640_Config(void)
 {
-	OV2640_JPEGConfig(JPEG_800x600);
+  OV2640_QVGAConfig();
+	//OV2640_JPEGConfig(JPEG_800x600);
 
 	OV2640_BrightnessConfig(0x20);
 	OV2640_AutoExposure(0);
