@@ -91,7 +91,7 @@
 #define CAMERA_HEIGHT   240
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
 
-extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
+static uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 
 const static uint8_t OV2640_AUTOEXPOSURE_LEVEL0[]=
 {

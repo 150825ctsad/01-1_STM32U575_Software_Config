@@ -80,7 +80,8 @@
     "xmemory": "c",
     "xstring": "c",
     "bsp_ov2640_config.h": "c",
-    "cmsis_os.h": "c"
+    "cmsis_os.h": "c",
+    "utility": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

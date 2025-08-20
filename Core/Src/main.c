@@ -184,8 +184,6 @@ int main(void)
   
   OSPI_W25Qxx_Init();	//初始化W25Q128
   OSPI_W25Qxx_mmap();
-	
-	OV2640_Init();
 
   lv_init(); /* lvgl 系统初始化 */
 	lv_port_disp_init();
@@ -194,6 +192,8 @@ int main(void)
 	setup_ui(&guider_ui);
 	events_init(&guider_ui);
 
+	OV2640_Init();
+
   //ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,115200);	//ESP8266初始化
   //ESP8266_STA_MQTTClient();
   //osDelay(1000);
@@ -201,8 +201,6 @@ int main(void)
 
   Update_Backlight(80); //设置背光亮度
 
-  //LCD_DrawRect(0, 0, 240, 240,(uint16_t) OV_Data_Cache);
-  
   /* USER CODE END 2 */
 
   /* Init scheduler */

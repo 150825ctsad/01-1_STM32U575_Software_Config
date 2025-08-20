@@ -234,27 +234,36 @@ void vTask3(void *argument)
       }
   }
 }
+#define pictureBufferLength 1024*10
+static uint32_t JpegBuffer[pictureBufferLength];
 
 void vTask4(void *argument)
 {
   for(;;)
   {
-    printf("1");
     __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
-    memset(g_image_buffer,0,CAMERA_FRAME_SIZE);
-    osDelay(1);
-    HAL_DCMI_Start_DMA(&hdcmi,DCMI_MODE_CONTINUOUS,(uint32_t)g_image_buffer,CAMERA_FRAME_SIZE);
-    printf("vTask4");
-    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
+    memset((void *)JpegBuffer,0,sizeof(JpegBuffer));
+    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
     {
-      printf("123");
-
-      lv_obj_invalidate(guider_ui.image);
-      for(int i=0;i<16;i++)
-      {
-        printf("%02X",g_image_buffer[i]);
+      HAL_DCMI_Suspend(&hdcmi);
+      HAL_DCMI_Stop(&hdcmi);
+      int pictureLength =pictureBufferLength;
+				while(pictureLength > 0)//循环计算出接收的JPEG的大小
+				{
+					if(JpegBuffer[pictureLength-1] != 0x00000000)
+					{
+          //  printf("pictureLength:%d\n\n",pictureLength);
+          //  for(int i = 0;i < pictureLength;i ++)
+          //  printf("%08x",JpegBuffer[i]);
+          //  printf("\n\n\n");
+						break;
+					}
+					pictureLength--;
+				}
+				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
+      //lv_img_set_src(guider_ui.image,JpegBuffer);
       }
-    }
+    osDelay(30);
   }
 }
 
