@@ -261,4 +261,6 @@
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Core\Inc\bsp_ov2640.h \
+  ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h

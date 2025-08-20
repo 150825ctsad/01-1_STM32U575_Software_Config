@@ -14,7 +14,7 @@
 #include "widgets_init.h"
 #include "custom.h"
 
-#include "main.h"
+#include "bsp_ov2640.h"
 
 
 void setup_scr_screen(lv_ui *ui)

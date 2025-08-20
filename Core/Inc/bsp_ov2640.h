@@ -87,7 +87,11 @@
 #define OV2640_SENSOR_HISTO_HIGH 0x62
 /* Image Sizes enumeration */
 
+#define CAMERA_WIDTH    320
+#define CAMERA_HEIGHT   240
+#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
 
+extern uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 
 const static uint8_t OV2640_AUTOEXPOSURE_LEVEL0[]=
 {
@@ -154,9 +158,10 @@ void OV2640_Init();
 void ov2640_realseTakePhotoSem();
 
 void OV2640_QQVGAConfig(void);
-uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height);
-uint8_t OV2640_ImageSize_Set(uint16_t width,uint16_t height);
-void OV2640_Window_Set(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height);
-uint8_t OV2640_ImageWin_Set(uint16_t offx,uint16_t offy,uint16_t width,uint16_t height);
 void OV2640_UXGAConfig(void);
+
+uint8_t OV2640_ImageSize_Set(uint16_t width,uint16_t height);
+uint8_t OV2640_ImageWin_Set(uint16_t offx,uint16_t offy,uint16_t width,uint16_t height);
+uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height);
+void OV2640_Window_Set(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height);
 #endif

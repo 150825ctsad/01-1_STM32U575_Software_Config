@@ -108,7 +108,7 @@ osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 16 
+    .stack_size = 1024 * 24 
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -157,7 +157,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   //Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
-  Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
+  //Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
   //Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
   Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
 
@@ -206,7 +206,6 @@ void vTask2(void *argument)
   {
     printf("vTask2");
 
-    osSemaphoreRelease(sem_TakePhoto);
     //LCD 刷新
     lv_task_handler();
     vTaskDelay(pdMS_TO_TICKS(5));
@@ -240,24 +239,22 @@ void vTask4(void *argument)
 {
   for(;;)
   {
-    if (osSemaphoreAcquire(sem_TakePhoto, osWaitForever) == osOK) // 等待拍照信号量
+    printf("1");
+    __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
+    memset(g_image_buffer,0,CAMERA_FRAME_SIZE);
+    osDelay(1);
+    HAL_DCMI_Start_DMA(&hdcmi,DCMI_MODE_CONTINUOUS,(uint32_t)g_image_buffer,CAMERA_FRAME_SIZE);
+    printf("vTask4");
+    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
     {
-      __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME); // 使能帧中断
-      memset((void *)g_image_buffer, 0, CAMERA_FRAME_SIZE); // 清空接收缓冲区
-      printf("vTask4\n");
-      HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, (uint32_t)g_image_buffer, CAMERA_FRAME_SIZE);
-        if (osSemaphoreAcquire(sem_GetPhoto, osWaitForever) == osOK) // 等待图像捕获完成
-        {
-          HAL_DCMI_Suspend(&hdcmi); // 挂起DCMI
-          HAL_DCMI_Stop(&hdcmi); // 停止DCMI传输
-          for(int i=0;i<CAMERA_FRAME_SIZE;i++)
-          {
-            printf("%02X", g_image_buffer[i]);
-          }
-          printf("\n\n\n\n\n\n\n\n\n\n\n");
+      printf("123");
 
-        }
+      lv_obj_invalidate(guider_ui.image);
+      for(int i=0;i<16;i++)
+      {
+        printf("%02X",g_image_buffer[i]);
       }
+    }
   }
 }
 

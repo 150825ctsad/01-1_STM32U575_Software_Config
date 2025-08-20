@@ -241,8 +241,8 @@ void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
 {
   if(hdcmi->Instance == DCMI)
   {
-    __HAL_DCMI_DISABLE_IT(hdcmi, DCMI_IT_FRAME); // 关闭帧中断
     osSemaphoreRelease(sem_GetPhoto); // 释放图像完成信号量 
+    __HAL_DCMI_DISABLE_IT(hdcmi, DCMI_IT_FRAME); // 关闭帧中断
     printf("DCMI FrameEventCallback\n");
   }
 }

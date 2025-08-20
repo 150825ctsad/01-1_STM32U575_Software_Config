@@ -77,11 +77,6 @@ void Error_Handler(void);
 #define TP_RST_Pin GPIO_PIN_11
 #define TP_RST_GPIO_Port GPIOA
 
-#define CAMERA_WIDTH    160
-#define CAMERA_HEIGHT   120
-#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
-
-static uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
