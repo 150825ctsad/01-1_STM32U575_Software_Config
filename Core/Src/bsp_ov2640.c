@@ -108,6 +108,12 @@ void OV2640_QVGAConfig(void)
 {
   uint8_t i;
 
+  for(i=0; i<(sizeof(OV2640_RGB565)/2); i++)
+  {
+    i2c_sent(OV2640_RGB565[i][0], OV2640_RGB565[i][1]);
+		//delay_ms(1);
+  }
+
   for(i=0; i<(sizeof(OV2640_QVGA)/2); i++)
   {
     i2c_sent(OV2640_QVGA[i][0], OV2640_QVGA[i][1]);

@@ -91,10 +91,6 @@
 #define CAMERA_HEIGHT   240
 #define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT)
 
-#define pictureBufferLength 65000
-
-static uint8_t JpegBuffer[CAMERA_FRAME_SIZE];
-
 const static uint8_t OV2640_AUTOEXPOSURE_LEVEL0[]=
 {
 	0xFF,	0x01,	0xff,

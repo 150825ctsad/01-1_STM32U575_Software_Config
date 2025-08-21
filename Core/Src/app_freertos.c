@@ -52,14 +52,6 @@ extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 extern volatile uint8_t vs_flag;
 extern lv_obj_t *camera_img;
 extern lv_img_dsc_t camera_img_dsc;
-
-osSemaphoreId_t sem_TakePhoto;
-osSemaphoreId_t sem_GetPhoto;
-QueueHandle_t xImageDataQueue;
-
-uint8_t Buffer1[CAMERA_FRAME_SIZE];
-uint8_t Buffer2[CAMERA_FRAME_SIZE];
-uint8_t *currentBuffer = Buffer1;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -99,8 +91,8 @@ const osThreadAttr_t Task1_attributes = {
 osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
-  .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 4
+  .priority = (osPriority_t) osPriorityAboveNormal,
+  .stack_size = 1024 * 8
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
@@ -112,7 +104,7 @@ osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 16 
+    .stack_size = 1024 * 24 
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -143,8 +135,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  sem_TakePhoto = osSemaphoreNew(1, 0, NULL);
-  sem_GetPhoto = osSemaphoreNew(1, 0, NULL);
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
@@ -153,10 +143,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  xImageDataQueue = xQueueCreate(3, sizeof(uint8_t*));
-  if(xImageDataQueue == NULL) {
-    Error_Handler();
-  }
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
@@ -209,31 +195,12 @@ void vTask1(void *argument)
 }
 void vTask2(void *argument)
 {
-  uint8_t *receivedBuffer;
-  for( ; ; )
-  {
-    // 从队列接收完整缓冲区
-    if(xQueueReceive(xImageDataQueue, &receivedBuffer, 10) == pdPASS)
+    for(;;)
     {
-      // 将接收到的缓冲区数据复制到JpegBuffer
-      memcpy(JpegBuffer, receivedBuffer, CAMERA_FRAME_SIZE);
-      
-      //for(int i = 0; i < CAMERA_FRAME_SIZE; i++)
-      //{
-      //  printf("%02X", JpegBuffer[i]);
-      //}
-      //printf("\n");
-
-      // 更新LCD显示
-      camera_img_dsc.data = JpegBuffer;
-      lv_img_set_src(camera_img, &camera_img_dsc);
-      lv_obj_invalidate(guider_ui.image);
+        // LCD刷新
+        lv_task_handler();
+        osDelay(5);
     }
-
-    // LCD刷新
-    lv_task_handler();
-    osDelay(5);
-  }
 }
 
 void vTask3(void *argument)
@@ -260,42 +227,11 @@ void vTask3(void *argument)
 }
 
 void vTask4(void *argument)
-{
-  size_t remainingBytes = CAMERA_FRAME_SIZE;
-  uint8_t *currentPosition = currentBuffer;
-  const uint8_t totalChunks = (CAMERA_FRAME_SIZE + pictureBufferLength - 1) / pictureBufferLength;
-  uint8_t chunkNumber = 0;
-
-  for(;;)
-  {
-    __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
-    size_t transferSize = (remainingBytes > pictureBufferLength) ? pictureBufferLength : remainingBytes;
-    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, (uint32_t)currentPosition, transferSize / 4);
-
-    if(osSemaphoreAcquire(sem_GetPhoto, osWaitForever) == osOK)
+{  
+    for(;;)
     {
-      HAL_DCMI_Suspend(&hdcmi);
-      HAL_DCMI_Stop(&hdcmi);
 
-      remainingBytes -= transferSize;
-      currentPosition += transferSize;
-      chunkNumber++;
-
-      // 当缓冲区填满或达到最后一个chunk时
-      if(remainingBytes == 0 || chunkNumber == totalChunks)
-      {
-        // 将完整缓冲区指针发送到队列
-        xQueueSend(xImageDataQueue, &currentBuffer, 0);
-
-        // 切换到另一个缓冲区
-        currentBuffer = (currentBuffer == Buffer1) ? Buffer2 : Buffer1;
-        remainingBytes = CAMERA_FRAME_SIZE;
-        currentPosition = currentBuffer;
-        chunkNumber = 0;
-      }
     }
-    osDelay(30);
-  }
 }
 /* USER CODE END Application */
 

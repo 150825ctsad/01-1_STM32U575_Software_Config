@@ -21,16 +21,7 @@
 /**********************
  *      TYPEDEFS
  **********************/
-lv_img_dsc_t camera_img_dsc = {
-    .header.always_zero = 0,
-    .header.w = CAMERA_WIDTH,
-    .header.h = CAMERA_HEIGHT,
-    .header.cf = LV_IMG_CF_RGB565,
-    .data_size = CAMERA_FRAME_SIZE,
-    .data = NULL // Will be set dynamically
-};
 
-lv_obj_t *camera_img;
 /**********************
  *  STATIC PROTOTYPES
  **********************/
@@ -45,7 +36,5 @@ lv_obj_t *camera_img;
 
 void custom_init(lv_ui *ui)
 {
-    camera_img = lv_img_create(ui->screen);
-    lv_img_set_src(camera_img, &camera_img_dsc);
 }
 

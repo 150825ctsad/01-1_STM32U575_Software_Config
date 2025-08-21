@@ -236,7 +236,7 @@ void ILI9341_Init(void)
 { 
   //ILI9341复位 
 	HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_SET);
-	HAL_Delay(1);
+	HAL_Delay(10);
 	HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_RESET);
 	HAL_Delay(80);
 	HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_SET);
@@ -360,7 +360,7 @@ void ILI9341_Init(void)
 	ILI9341_WR_REG(0x29); //display on	
   ILI9341_Display_Dir(SCAN_Horizontal);	//横屏显示
 	//屏幕清屏-黑色			
-	ILI9341_Clear(BLACK);
+	ILI9341_Clear(WHITE);
 }  
 /*
 **********************************************************************
