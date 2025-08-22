@@ -47,6 +47,8 @@ osThreadId_t ov2640TaskHandle;
 osSemaphoreId_t sem_TakePhoto;
 osSemaphoreId_t sem_GetPhoto;
 
+osMutexId_t jpegBufferMutex; 
+
 osSemaphoreId_t mqttDataSemaphoreHandle;
 const osSemaphoreAttr_t mqttDataSemaphore_attributes = {
   .name = "mqttDataSemaphore"
@@ -141,6 +143,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
+  jpegBufferMutex = osMutexNew(NULL); 
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
@@ -243,6 +246,8 @@ void vTask3(void *argument) {
 #define pictureBufferLength 1024*10
 static uint32_t JpegBuffer[pictureBufferLength];
 
+static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 2048]; // Increased padding
+
 void vTask4(void *argument)
 {
   for(;;)
@@ -261,16 +266,37 @@ void vTask4(void *argument)
 				{
 					if(JpegBuffer[pictureLength-1] != 0x00000000)
 					{
-          //  printf("pictureLength:%d\n\n",pictureLength);
-          //  for(int i = 0;i < pictureLength;i ++)
-          //  printf("%08x",JpegBuffer[i]);
-          //  printf("\n\n\n");
+            printf("pictureLength:%d\n\n",pictureLength);
+            for(int i = 0;i < pictureLength;i ++)
+            printf("%08x",JpegBuffer[i]);
+            printf("\n\n\n");
 						break;
 					}
 					pictureLength--;
 				}
 				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
-        HAL_UART_Transmit(&huart3,(uint8_t*)JpegBuffer,pictureLength,0XFFFFF);
+// 获取互斥锁保护JPEG数据
+if (osMutexAcquire(jpegBufferMutex, osWaitForever) == osOK)
+{
+               // Base64编码摄像头数据
+        size_t output_len = sizeof(base64_encoded);
+        int encode_result = jpeg_to_base64(
+            (uint8_t*)JpegBuffer,  // 原始JPEG数据
+            pictureLength,         // 数据长度
+            base64_encoded,        // 输出缓冲区
+            &output_len            // 输出长度指针
+        );
+            osMutexRelease(jpegBufferMutex);
+
+        printf("Encoding debug - Required size: %d, Buffer size: %d\n", output_len, sizeof(base64_encoded));
+        // 打印编码结果
+        if (encode_result == 0) {
+            printf("Base64 Encoded Data:\n%s\n", base64_encoded);
+        }
+      }else{
+    printf("Failed to acquire mutex for Base64 encoding\n");
+    continue;  // 获取锁失败时跳过编码
+}
     osDelay(30);
   }
 }
