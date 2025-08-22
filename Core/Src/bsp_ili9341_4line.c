@@ -360,7 +360,7 @@ void ILI9341_Init(void)
 	ILI9341_WR_REG(0x29); //display on	
   ILI9341_Display_Dir(SCAN_Horizontal);	//横屏显示
 	//屏幕清屏-黑色			
-	ILI9341_Clear(WHITE);
+	ILI9341_Clear(BLACK);
 }  
 /*
 **********************************************************************

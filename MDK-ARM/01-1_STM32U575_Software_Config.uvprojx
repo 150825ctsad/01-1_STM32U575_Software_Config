@@ -1015,6 +1015,11 @@
                 </FileArmAds>
               </FileOption>
             </File>
+            <File>
+              <FileName>image_decoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\image_decoder.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

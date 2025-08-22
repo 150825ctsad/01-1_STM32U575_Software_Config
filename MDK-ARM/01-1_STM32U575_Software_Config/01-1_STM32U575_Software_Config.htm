@@ -3,7 +3,7 @@
 <title>Static Call Graph - [01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image 01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Aug 22 01:01:26 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Aug 22 11:34:28 2025
 <BR><P>
 <H3>Maximum Stack Usage =       1032 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -967,7 +967,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[476]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vApplicationStackOverflowHook
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask2
+<LI><a href="#[476]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vApplicationStackOverflowHook
 <LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_FREERTOS_Init
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSPI_W25Qxx_Init
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FT6336_scan_task
@@ -2313,7 +2314,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ILI9341_Init
 </UL>
 
-<P><STRONG><a name="[1ff]"></a>ILI9341_Init</STRONG> (Thumb, 2418 bytes, Stack size 40 bytes, bsp_ili9341_4line.o(.text.ILI9341_Init))
+<P><STRONG><a name="[1ff]"></a>ILI9341_Init</STRONG> (Thumb, 2416 bytes, Stack size 40 bytes, bsp_ili9341_4line.o(.text.ILI9341_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = ILI9341_Init &rArr; ILI9341_Display_Dir &rArr; HAL_SPI_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ILI9341_Clear
@@ -9617,14 +9618,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 </UL>
 
-<P><STRONG><a name="[91]"></a>vTask2</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, app_freertos.o(.text.vTask2))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = vTask2 &rArr; xQueueGenericSend &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[91]"></a>vTask2</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, app_freertos.o(.text.vTask2))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
+<LI>Call Chain = vTask2 &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[451]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[468]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[43b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_timer_handler
 <LI><a href="#[44b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;puts
+<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_freertos.o(.text.MX_FREERTOS_Init)
 </UL>

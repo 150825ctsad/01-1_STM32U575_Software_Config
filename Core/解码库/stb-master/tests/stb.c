@@ -203,7 +203,7 @@ extern void __stdcall Sleep(unsigned long);
 void * thread_1(void *x)
 {
    Sleep(80);
-   printf("thread 1\n"); fflush(stdout);
+   //printf("thread 1\n"); fflush(stdout);
    return (void *) 2;
 }
 
@@ -211,7 +211,7 @@ void * thread_2(void *y)
 {
    stb_work(thread_1, NULL, y);
    Sleep(50);
-   printf("thread 2\n"); fflush(stdout);
+   //printf("thread 2\n"); fflush(stdout);
    return (void *) 3;
 }
 

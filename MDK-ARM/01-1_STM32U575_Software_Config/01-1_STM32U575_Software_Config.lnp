@@ -22,6 +22,7 @@
 "01-1_stm32u575_software_config\stm32u5xx_it.o"
 "01-1_stm32u575_software_config\stm32u5xx_hal_msp.o"
 "01-1_stm32u575_software_config\stm32u5xx_hal_timebase_tim.o"
+"01-1_stm32u575_software_config\image_decoder.o"
 "01-1_stm32u575_software_config\stm32u5xx_hal_tim.o"
 "01-1_stm32u575_software_config\stm32u5xx_hal_tim_ex.o"
 "01-1_stm32u575_software_config\stm32u5xx_hal_cortex.o"

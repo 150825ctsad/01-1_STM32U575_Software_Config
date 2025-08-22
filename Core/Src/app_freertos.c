@@ -36,6 +36,7 @@
 #include "../events_init.h"
 #include "custom.h"
 
+#include "image_decoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -144,7 +145,6 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, char *pcTaskName)
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -234,39 +234,28 @@ void vTask1(void *argument)
 void vTask2(void *argument)
 {
     ImageQueueItem queue_item;
-    uint32_t ulNotificationValue = 0;
+
+    DecodedImage decoded_img;
     
     for( ; ; )
     {
         // Receive image buffer index from queue
         if (xQueueReceive(xImageQueue, &queue_item, portMAX_DELAY) == pdPASS)
         {
-            // Update LVGL image display
-            //camera_img_dsc.data = (uint8_t *)JpegBuffers[queue_item.buffer_index];
-            //lv_img_set_src(camera_img, &camera_img_dsc);
-            //lv_obj_refresh_ext_draw_size(camera_img);
-            //for(int i = 0;i < 1024;i ++)
-            //printf("%08x",JpegBuffers[queue_item.buffer_index][i]);
-            //printf("\n\n\n");
-           
-            // Verify and release buffer
-            if (xSemaphoreGive(xBufferSemaphore) != pdTRUE)
-            {
-                printf("[ERROR] Failed to release buffer semaphore\n");
-            }
-        }
-        else
-        {
-            printf("[ERROR] Failed to receive from queue\n");
-        }
+            decoded_img = decode_jpeg((const uint8_t*)JpegBuffers[queue_item.buffer_index], queue_item.length);
 
+            for(int i = 0;i < 1024;i ++)
+            printf("%08x",JpegBuffers[queue_item.buffer_index][i]);
+            printf("\n\n\n");
+           
+            // 释放缓冲区
+            xSemaphoreGive(xBufferSemaphore);
+        }
         // LCD refresh
         lv_task_handler();
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
-
-
 
 void vTask3(void *argument)
 {

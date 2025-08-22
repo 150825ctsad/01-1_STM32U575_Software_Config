@@ -47,6 +47,7 @@
 #include "../events_init.h"
 
 lv_ui guider_ui;
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,7 +57,6 @@ lv_ui guider_ui;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 //JSON格式
 #define JSON_State "{LED1:%d\\Temp\\:%f\\Hum\\:%f}"
 #define JSON_Test "{LED1:%d\\Temp\\:%f\\Hum\\:%f}"
@@ -109,7 +109,6 @@ int fputc(int ch, FILE *f)
 	HAL_UART_Transmit(&huart1, temp, 1, 2);
 	return ch;
 }
-
   void OSPI_W25Qxx_mmap(void)		//Flash读写测试
 {
 	int32_t OSPI_Status ; 		 //检测标志位
