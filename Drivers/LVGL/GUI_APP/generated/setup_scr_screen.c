@@ -16,7 +16,6 @@
 
 #include "bsp_ov2640.h"
 
-
 void setup_scr_screen(lv_ui *ui)
 {
     //Write codes screen
@@ -27,24 +26,8 @@ void setup_scr_screen(lv_ui *ui)
     //Write style for screen, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
     lv_obj_set_style_bg_opa(ui->screen, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
-    //Write codes screen_img_1
-    ui->image = lv_img_create(ui->screen);
-    lv_obj_set_pos(ui->image, 0, 0);
-    lv_obj_set_size(ui->image, CAMERA_WIDTH, CAMERA_HEIGHT);
-    
-    // 创建图片描述符并关联缓冲区
-    static lv_img_dsc_t img_dsc = {
-        .header.w = CAMERA_WIDTH,
-        .header.h = CAMERA_HEIGHT,
-        .header.cf = LV_IMG_CF_TRUE_COLOR,
-        .data = g_image_buffer,
-        .data_size = CAMERA_FRAME_SIZE
-    };
-    lv_img_set_src(ui->image, &img_dsc);
-    
-    lv_obj_clear_flag(ui->image, LV_OBJ_FLAG_CLICKABLE);
+    //Write codes canvas
 
-    //Update current screen layout.
     lv_obj_update_layout(ui->screen);
 
 }

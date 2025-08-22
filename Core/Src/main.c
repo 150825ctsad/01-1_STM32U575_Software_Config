@@ -71,7 +71,6 @@ lv_ui guider_ui;
 
 /* USER CODE BEGIN PV */
 volatile uint8_t gRX_BufF[1];
-volatile uint8_t g_MQTT_Data_Ready = 0;
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
 
 /* USER CODE END PV */
@@ -180,6 +179,7 @@ int main(void)
   MX_I2C2_Init();
   MX_OCTOSPI1_Init();
   MX_DCMI_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   
   OSPI_W25Qxx_Init();	//初始化W25Q128
@@ -291,6 +291,7 @@ static void SystemPower_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+extern osSemaphoreId_t mqttDataSemaphoreHandle;
 
 //UART5接收中断回调函数
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -311,8 +312,7 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
 	{
     if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV") != NULL)
       {
-        // 设置标志位，通知任务处理解析
-        g_MQTT_Data_Ready = 1;
+        osSemaphoreRelease(mqttDataSemaphoreHandle);  
       }
     ESP8266_Fram_Record_Struct.InfBit.FramFinishFlag = 1;
     HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
@@ -325,8 +325,6 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
   * @retval None
   */
   static uint8_t TouchPress = 0;
-  volatile uint8_t vs_flag = 0;
-  volatile uint8_t g_capturing = 0;
 
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {

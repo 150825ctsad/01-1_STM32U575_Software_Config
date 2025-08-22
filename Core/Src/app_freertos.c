@@ -32,6 +32,7 @@
 #include "../gui_guider.h"
 #include "../events_init.h"
 #include "custom.h"
+#include "base64.h"
 
 /* USER CODE END Includes */
 
@@ -45,16 +46,20 @@
 osThreadId_t ov2640TaskHandle;
 osSemaphoreId_t sem_TakePhoto;
 osSemaphoreId_t sem_GetPhoto;
+
+osSemaphoreId_t mqttDataSemaphoreHandle;
+const osSemaphoreAttr_t mqttDataSemaphore_attributes = {
+  .name = "mqttDataSemaphore"
+};
+osSemaphoreId_t uart5TxSemaphoreHandle;  // UART5发送信号量
+const osSemaphoreAttr_t uart5TxSemaphore_attributes = {
+  .name = "uart5TxSemaphore"
+};
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-extern volatile uint8_t g_MQTT_Data_Ready; // MQTT数据就绪标志
 extern struct STRUCT_USART_Fram ESP8266_Fram_Record_Struct;
-
-extern volatile uint8_t vs_flag;
-extern lv_obj_t *camera_img;
-extern lv_img_dsc_t camera_img_dsc;
 
 /* USER CODE END PM */
 
@@ -96,19 +101,20 @@ osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
   .name = "Task2",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 4
 };
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
   .name = "Task3",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 1
+  .stack_size = 1024 * 2
 };
+//osPriorityHigh
 osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
     .priority = (osPriority_t) osPriorityLow,  
-    .stack_size = 1024 * 24 
+    .stack_size = 1024 * 16 
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -141,7 +147,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   sem_TakePhoto = osSemaphoreNew(1, 0, NULL);
   sem_GetPhoto = osSemaphoreNew(1, 0, NULL);
-  /* add semaphores, ... */
+  mqttDataSemaphoreHandle = osSemaphoreNew(1, 0, &mqttDataSemaphore_attributes);
+  uart5TxSemaphoreHandle = osSemaphoreNew(1, 0, &uart5TxSemaphore_attributes);  // 新增发送信号量初始化
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -156,9 +163,9 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  //Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
+  Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
   //Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
-  //Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
+  Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
   Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
 
 
@@ -194,6 +201,8 @@ void vTask1(void *argument)
 {
   for( ; ; )
   {
+    printf("vTask1");
+
       vPrintString("");
       /* 延时一会 */
       vTaskDelay(pdMS_TO_TICKS(300));
@@ -211,29 +220,26 @@ void vTask2(void *argument)
     vTaskDelay(pdMS_TO_TICKS(5));
   }
 }
-void vTask3(void *argument)
-{
-  for( ; ; )
-  {
-      vPrintString("");
-      //ESP8266 处理
-      vTaskDelay(pdMS_TO_TICKS(100));
-      //printf("g_MQTT_Data_Ready:%d\n",g_MQTT_Data_Ready);
-    if (g_MQTT_Data_Ready)
-      {
-        // 复制数据到局部缓冲区（避免解析过程中被新数据覆盖）
+
+void vTask3(void *argument) {
+  for( ; ; ) {
+        printf("vTask3");     
+    // 无数据时永久阻塞，释放CPU给其他任务
+    if(osSemaphoreAcquire(mqttDataSemaphoreHandle, osWaitForever) == osOK) {
+        // 处理接收数据
         char temp_buf[RX_BUF_MAX_LEN];
         strncpy(temp_buf, ESP8266_Fram_Record_Struct.Data_RX_BUF, RX_BUF_MAX_LEN);
-        // 解析JSON
         ESP8266_Json_Parse(temp_buf);
-        // 重置缓冲区（
         ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
         memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
-        // 清除标志位
-        g_MQTT_Data_Ready = 0;
-      }
+    }
+    if(osSemaphoreAcquire(uart5TxSemaphoreHandle, osWaitForever) == osOK) {
+        // 发送数据
+        //HAL_UART_Transmit(&huart5, (uint8_t *)ESP8266_Fram_Record_Struct.Data_RX_BUF, ESP8266_Fram_Record_Struct.InfBit.FramLength, 1000);
+    }
   }
 }
+
 #define pictureBufferLength 1024*10
 static uint32_t JpegBuffer[pictureBufferLength];
 
@@ -241,9 +247,12 @@ void vTask4(void *argument)
 {
   for(;;)
   {
+    printf("vTask4");
+
     __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
     memset((void *)JpegBuffer,0,sizeof(JpegBuffer));
-    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);    if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
+    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);
+      if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
     {
       HAL_DCMI_Suspend(&hdcmi);
       HAL_DCMI_Stop(&hdcmi);
@@ -261,11 +270,10 @@ void vTask4(void *argument)
 					pictureLength--;
 				}
 				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
-      //lv_img_set_src(guider_ui.image,JpegBuffer);
-      }
+        HAL_UART_Transmit(&huart3,(uint8_t*)JpegBuffer,pictureLength,0XFFFFF);
     osDelay(30);
   }
 }
-
+}
 /* USER CODE END Application */
 

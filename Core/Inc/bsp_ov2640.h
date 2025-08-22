@@ -87,12 +87,6 @@
 #define OV2640_SENSOR_HISTO_HIGH 0x62
 /* Image Sizes enumeration */
 
-#define CAMERA_WIDTH    320
-#define CAMERA_HEIGHT   240
-#define CAMERA_FRAME_SIZE (CAMERA_WIDTH * CAMERA_HEIGHT * 2)
-
-static uint8_t g_image_buffer[CAMERA_FRAME_SIZE];
-
 const static uint8_t OV2640_AUTOEXPOSURE_LEVEL0[]=
 {
 	0xFF,	0x01,	0xff,

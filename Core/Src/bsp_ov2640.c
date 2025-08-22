@@ -196,7 +196,7 @@ void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
 
 void OV2640_Config(void)
 {
-	OV2640_JPEGConfig(JPEG_800x600);
+	OV2640_JPEGConfig(JPEG_320x240);
 
 	OV2640_BrightnessConfig(0x20);
 	OV2640_AutoExposure(0);
