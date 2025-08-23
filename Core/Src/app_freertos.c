@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdlib.h>
 #include <stdio.h>
 #include "usart.h"
 #include "queue.h"
@@ -49,14 +50,8 @@ osSemaphoreId_t sem_GetPhoto;
 
 osMutexId_t jpegBufferMutex; 
 
+
 osSemaphoreId_t mqttDataSemaphoreHandle;
-const osSemaphoreAttr_t mqttDataSemaphore_attributes = {
-  .name = "mqttDataSemaphore"
-};
-osSemaphoreId_t uart5TxSemaphoreHandle;  // UART5发送信号量
-const osSemaphoreAttr_t uart5TxSemaphore_attributes = {
-  .name = "uart5TxSemaphore"
-};
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -108,8 +103,8 @@ const osThreadAttr_t Task2_attributes = {
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
   .name = "Task3",
-  .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 2
+  .priority = (osPriority_t) osPriorityNormal,
+  .stack_size = 1024 * 4
 };
 //osPriorityHigh
 osThreadId_t Task4Handle;
@@ -150,8 +145,7 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   sem_TakePhoto = osSemaphoreNew(1, 0, NULL);
   sem_GetPhoto = osSemaphoreNew(1, 0, NULL);
-  mqttDataSemaphoreHandle = osSemaphoreNew(1, 0, &mqttDataSemaphore_attributes);
-  uart5TxSemaphoreHandle = osSemaphoreNew(1, 0, &uart5TxSemaphore_attributes);  // 新增发送信号量初始化
+  mqttDataSemaphoreHandle = osSemaphoreNew(1, 0, NULL);
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -159,7 +153,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
@@ -226,7 +219,7 @@ void vTask2(void *argument)
 
 void vTask3(void *argument) {
   for( ; ; ) {
-       // printf("vTask3");     
+      printf("vTask3");   
     // 无数据时永久阻塞，释放CPU给其他任务
     if(osSemaphoreAcquire(mqttDataSemaphoreHandle, osWaitForever) == osOK) {
         // 处理接收数据
@@ -236,10 +229,6 @@ void vTask3(void *argument) {
         ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
         memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
     }
-    if(osSemaphoreAcquire(uart5TxSemaphoreHandle, osWaitForever) == osOK) {
-        // 发送数据
-        //HAL_UART_Transmit(&huart5, (uint8_t *)ESP8266_Fram_Record_Struct.Data_RX_BUF, ESP8266_Fram_Record_Struct.InfBit.FramLength, 1000);
-    }
   }
 }
 
@@ -248,15 +237,15 @@ static uint32_t JpegBuffer[pictureBufferLength];
 
 static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 2048]; // Increased padding
 
-void vTask4(void *argument)
-{
-  for(;;)
-  {
-    //printf("vTask4");
+void vTask4(void *argument) {
+    int pictureLength = pictureBufferLength;
+    int byteLength;
+    for(;;) {
+        // 启用DCMI帧中断并初始化缓冲区
+      __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
+      memset((void *)JpegBuffer, 0, sizeof(JpegBuffer));
+      HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, (uint32_t)JpegBuffer, pictureBufferLength);
 
-    __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
-    memset((void *)JpegBuffer,0,sizeof(JpegBuffer));
-    HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT,(uint32_t)JpegBuffer, pictureBufferLength);
       if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
     {
       HAL_DCMI_Suspend(&hdcmi);
@@ -266,7 +255,7 @@ void vTask4(void *argument)
 				{
 					if(JpegBuffer[pictureLength-1] != 0x00000000)
 					{
-            //printf("pictureLength:%d\n\n",pictureLength);
+            printf("pictureLength:%d\n\n",pictureLength);
             //for(int i = 0;i < pictureLength;i ++)
             //printf("%08x",JpegBuffer[i]);
             //printf("\n\n\n");
@@ -274,34 +263,50 @@ void vTask4(void *argument)
 					}
 					pictureLength--;
 				}
-				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
+        byteLength = pictureLength * 4;  // uint32_t -> uint8_t长度转换
 
-// 获取互斥锁保护JPEG数据
-      if (osMutexAcquire(jpegBufferMutex, osWaitForever) == osOK)
-      {
-               // Base64编码摄像头数据
+        if (byteLength <= 0) {
+            printf("vTask4: Invalid JPEG data length\n");
+            continue;
+        }
+        // 获取互斥锁保护JPEG缓冲区（提前返回避免嵌套）
+        if (osMutexAcquire(jpegBufferMutex, osWaitForever) != osOK) {
+            printf("vTask4: Failed to acquire jpegBufferMutex\n");
+            continue;
+        }
+
+        // Base64编码
         size_t output_len = sizeof(base64_encoded);
-        int encode_result = jpeg_to_base64(
+        const int encode_result = jpeg_to_base64(
             (uint8_t*)JpegBuffer,  // 原始JPEG数据
-            pictureLength,         // 数据长度
+            byteLength,            // 转换后的字节长度
             base64_encoded,        // 输出缓冲区
             &output_len            // 输出长度指针
         );
-            osMutexRelease(jpegBufferMutex);
+        osMutexRelease(jpegBufferMutex);  // 及时释放互斥锁
 
-        //printf("Encoding debug - Required size: %d, Buffer size: %d\n", output_len, sizeof(base64_encoded));
-        // 打印编码结果
-        if (encode_result == 0) {
-            //printf("Base64 Encoded Data:\n%s\n", base64_encoded);
+        // 处理编码结果
+        if (encode_result != 0) {
+            printf("vTask4: Base64 encode failed, error code: %d\n", encode_result);
+            continue;
         }
-      }else{
-        printf("Failed to acquire mutex for Base64 encoding\n");
-    continue;  // 获取锁失败时跳过编码
+        if (output_len > sizeof(base64_encoded)) {
+            printf("vTask4: Base64 buffer overflow (required: %zu, available: %zu)\n", output_len, sizeof(base64_encoded));
+            continue;
         }
-        //HAL_UART_Transmit(&huart3, (uint8_t *)JpegBuffer, pictureLength,0XFFFFF);//串口调试图片
-    osDelay(30);
+
+        char len_str[16];
+        sprintf(len_str, "%zu", strlen(base64_encoded));
+        ESP8266_MQTTPUBRAW("test", len_str);
+        osDelay(1000);
+        HAL_UART_Transmit(&huart5, (uint8_t*)base64_encoded, strlen(base64_encoded), 0xFFFF);
+        printf("ok\n");
+
+        //  printf("Base64 Encoded Data:\n%s\n", base64_encoded);
+    }
   }
 }
-}
+
+
 /* USER CODE END Application */
 

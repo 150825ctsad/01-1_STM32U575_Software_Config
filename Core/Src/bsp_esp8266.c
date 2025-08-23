@@ -263,6 +263,12 @@ bool ESP8266_MQTTPUB( char * Topic,char *temp)
     sprintf(cCmd, "AT+MQTTPUB=0,\"%s\",\"%s\",1,0", Topic, temp);
     return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 1000);
 }
+bool ESP8266_MQTTPUBRAW( char * Topic,char *len)
+{
+    char cCmd [120];
+    sprintf(cCmd, "AT+MQTTPUBRAW=0,\"%s\",%s,1,0", Topic, len);
+    return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 1000);
+}
 
 bool ESP8266_MQTTCLEAN(void)
 {
