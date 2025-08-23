@@ -52,6 +52,7 @@ osMutexId_t jpegBufferMutex;
 
 
 osSemaphoreId_t mqttDataSemaphoreHandle;
+osSemaphoreId_t base64SemaphoreHandle;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -66,6 +67,7 @@ void vTask1(void *argument);
 void vTask2(void *argument);
 void vTask3(void *argument);
 void vTask4(void *argument);
+void vTask5(void *argument);
 
 void vPrintString( const char *pcString )
 {
@@ -113,6 +115,12 @@ const osThreadAttr_t Task4_attributes = {
     .priority = (osPriority_t) osPriorityLow,  
     .stack_size = 1024 * 16 
 };
+osThreadId_t Task5Handle;
+const osThreadAttr_t Task5_attributes = {
+    .name = "Task5",
+    .priority = (osPriority_t) osPriorityHigh,  
+    .stack_size = 1024 * 1 
+};
 
 /* USER CODE END FunctionPrototypes */
 
@@ -146,6 +154,7 @@ void MX_FREERTOS_Init(void) {
   sem_TakePhoto = osSemaphoreNew(1, 0, NULL);
   sem_GetPhoto = osSemaphoreNew(1, 0, NULL);
   mqttDataSemaphoreHandle = osSemaphoreNew(1, 0, NULL);
+  base64SemaphoreHandle = osSemaphoreNew(1, 0, NULL);
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -163,7 +172,7 @@ void MX_FREERTOS_Init(void) {
   //Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
   Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
   Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
-
+  Task5Handle = osThreadNew(vTask5, NULL, &Task5_attributes);
 
   /* USER CODE END RTOS_THREADS */
 
@@ -241,6 +250,7 @@ void vTask4(void *argument) {
     int pictureLength = pictureBufferLength;
     int byteLength;
     for(;;) {
+      osDelay(2000);
         // 启用DCMI帧中断并初始化缓冲区
       __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
       memset((void *)JpegBuffer, 0, sizeof(JpegBuffer));
@@ -255,7 +265,7 @@ void vTask4(void *argument) {
 				{
 					if(JpegBuffer[pictureLength-1] != 0x00000000)
 					{
-            printf("pictureLength:%d\n\n",pictureLength);
+            //printf("pictureLength:%d\n\n",pictureLength);
             //for(int i = 0;i < pictureLength;i ++)
             //printf("%08x",JpegBuffer[i]);
             //printf("\n\n\n");
@@ -283,6 +293,8 @@ void vTask4(void *argument) {
             base64_encoded,        // 输出缓冲区
             &output_len            // 输出长度指针
         );
+
+        osSemaphoreRelease(base64SemaphoreHandle);
         osMutexRelease(jpegBufferMutex);  // 及时释放互斥锁
 
         // 处理编码结果
@@ -294,19 +306,28 @@ void vTask4(void *argument) {
             printf("vTask4: Base64 buffer overflow (required: %zu, available: %zu)\n", output_len, sizeof(base64_encoded));
             continue;
         }
-
-        char len_str[16];
-        sprintf(len_str, "%zu", strlen(base64_encoded));
-        ESP8266_MQTTPUBRAW("test", len_str);
-        osDelay(1000);
-        HAL_UART_Transmit(&huart5, (uint8_t*)base64_encoded, strlen(base64_encoded), 0xFFFF);
-        printf("ok\n");
-
         //  printf("Base64 Encoded Data:\n%s\n", base64_encoded);
     }
   }
 }
+void vTask5(void *argument)
+{
+  for( ; ; )
+  {
+    // 等待Base64编码完成信号
+    if(osSemaphoreAcquire(base64SemaphoreHandle, osWaitForever) == osOK) {
+            memset(ESP8266_Fram_Record_Struct.Data_RX_BUF,
+             0,
+             RX_BUF_MAX_LEN);
+      ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
 
-
+        char len_str[16];
+        sprintf(len_str, "%zu", strlen(base64_encoded));
+        ESP8266_MQTTPUBRAW("test", len_str);
+        vTaskDelay(1000);
+        HAL_UART_Transmit(&huart5, (uint8_t*)base64_encoded, strlen(base64_encoded), 0xFFFF);
+    }
+  }
+}
 /* USER CODE END Application */
 

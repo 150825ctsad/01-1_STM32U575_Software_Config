@@ -301,6 +301,7 @@ void ESP8266_STA_MQTTClient(void)
 	ESP8266_MQTTUSERCFG(User_ESP8266_client_id,User_ESP8266_username,User_ESP8266_password);
 	HAL_Delay(1000);
     ESP8266_MQTTCONN( User_ESP8266_MQTTServer_IP, User_ESP8266_MQTTServer_PORT);
+    HAL_Delay(1000);
 	printf("***************MQTT模式配置完成***************\r\n");
 }
 
