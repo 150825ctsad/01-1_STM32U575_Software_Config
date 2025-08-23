@@ -3,7 +3,7 @@
 <title>Static Call Graph - [01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image 01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Aug 22 21:32:58 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Fri Aug 22 23:25:11 2025
 <BR><P>
 <H3>Maximum Stack Usage =       2208 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -32,6 +32,7 @@ Mutually Recursive functions
  <LI><a href="#[3cd]">lv_obj_is_editable</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3cd]">lv_obj_is_editable</a><BR>
  <LI><a href="#[33d]">lv_indev_search_obj</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[33d]">lv_indev_search_obj</a><BR>
  <LI><a href="#[3d8]">lv_textarea_add_char</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3d7]">lv_textarea_add_text</a><BR>
+ <LI><a href="#[95]">vTask1</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[95]">vTask1</a><BR>
  <LI><a href="#[1c1]">cJSON_Delete</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1c1]">cJSON_Delete</a><BR>
  <LI><a href="#[409]">obj_del_core</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[409]">obj_del_core</a><BR>
  <LI><a href="#[422]">report_style_change_core</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[422]">report_style_change_core</a><BR>
@@ -1046,10 +1047,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask4
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask3
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask1
-<LI><a href="#[4c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vApplicationStackOverflowHook
+<BR>[Called By]<UL><LI><a href="#[4c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vApplicationStackOverflowHook
 <LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSPI_W25Qxx_Init
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FT6336_scan_task
 <LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OV2640_ReadID
@@ -1228,10 +1226,10 @@ Global Symbols
 <P><STRONG><a name="[18b]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask3
 <LI><a href="#[285]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_memset_00
+<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[48f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[4a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
 <LI><a href="#[4a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreateStatic
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
 </UL>
 
@@ -2711,7 +2709,7 @@ Global Symbols
 
 <P><STRONG><a name="[245]"></a>MX_FREERTOS_Init</STRONG> (Thumb, 176 bytes, Stack size 8 bytes, app_freertos.o(.text.MX_FREERTOS_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
-<LI>Call Chain = MX_FREERTOS_Init &rArr; osThreadNew &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<LI>Call Chain = MX_FREERTOS_Init &rArr; osThreadNew &rArr; xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadNew
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
@@ -2742,10 +2740,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
 <LI>Call Chain = MX_I2C2_Init &rArr; HAL_I2C_Init &rArr; HAL_I2C_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Init
+<BR>[Calls]<UL><LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2CEx_ConfigAnalogFilter
+<LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Init
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
 <LI><a href="#[24d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2CEx_ConfigDigitalFilter
-<LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2CEx_ConfigAnalogFilter
 </UL>
 <BR>[Called By]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -3355,9 +3353,9 @@ Global Symbols
 <LI><a href="#[29d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_img_decoder_open
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anim_timer
 </UL>
-<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_remove_obj)
+<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_add_obj)
+<LI> lv_group.o(.text.lv_group_remove_obj)
 <LI> lv_group.o(.text.lv_group_focus_next)
-<LI> lv_group.o(.text.lv_group_add_obj)
 </UL>
 <P><STRONG><a name="[319]"></a>_lv_ll_get_len</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, lv_ll.o(.text._lv_ll_get_len))
 <BR><BR>[Called By]<UL><LI><a href="#[3c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_group_get_obj_count
@@ -3384,9 +3382,9 @@ Global Symbols
 <LI><a href="#[29d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_img_decoder_open
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;anim_timer
 </UL>
-<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_remove_obj)
+<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_add_obj)
+<LI> lv_group.o(.text.lv_group_remove_obj)
 <LI> lv_group.o(.text.lv_group_focus_next)
-<LI> lv_group.o(.text.lv_group_add_obj)
 </UL>
 <P><STRONG><a name="[d0]"></a>_lv_ll_get_prev</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, lv_ll.o(.text._lv_ll_get_prev))
 <BR><BR>[Called By]<UL><LI><a href="#[3fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trans_del
@@ -3397,9 +3395,9 @@ Global Symbols
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_chart_event
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_meter_event
 </UL>
-<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_remove_obj)
+<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_add_obj)
+<LI> lv_group.o(.text.lv_group_remove_obj)
 <LI> lv_group.o(.text.lv_group_focus_prev)
-<LI> lv_group.o(.text.lv_group_add_obj)
 </UL>
 <P><STRONG><a name="[cf]"></a>_lv_ll_get_tail</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, lv_ll.o(.text._lv_ll_get_tail))
 <BR><BR>[Called By]<UL><LI><a href="#[3fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trans_del
@@ -3411,9 +3409,9 @@ Global Symbols
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_chart_event
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_meter_event
 </UL>
-<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_remove_obj)
+<BR>[Address Reference Count : 3]<UL><LI> lv_group.o(.text.lv_group_add_obj)
+<LI> lv_group.o(.text.lv_group_remove_obj)
 <LI> lv_group.o(.text.lv_group_focus_prev)
-<LI> lv_group.o(.text.lv_group_add_obj)
 </UL>
 <P><STRONG><a name="[26d]"></a>_lv_ll_init</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, lv_ll.o(.text._lv_ll_init))
 <BR><BR>[Called By]<UL><LI><a href="#[3d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_init
@@ -9769,7 +9767,7 @@ Global Symbols
 
 <P><STRONG><a name="[248]"></a>osThreadNew</STRONG> (Thumb, 246 bytes, Stack size 48 bytes, cmsis_os2.o(.text.osThreadNew))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
-<LI>Call Chain = osThreadNew &rArr; xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<LI>Call Chain = osThreadNew &rArr; xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[267]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetSchedulerState
 <LI><a href="#[4a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCreate
@@ -9827,6 +9825,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[4ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[48e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[4b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[4bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSVCHandler_C
@@ -9861,7 +9860,6 @@ Global Symbols
 <LI><a href="#[49c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreate
 <LI><a href="#[49b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericCreateStatic
 <LI><a href="#[4bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
 
 <P><STRONG><a name="[4b1]"></a>uxListRemove</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, list.o(.text.uxListRemove))
@@ -10029,8 +10027,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88 + Unknown Stack Size
 <LI>Call Chain = vQueueDelete &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulSetInterruptMask
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<BR>[Calls]<UL><LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[4b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulSetInterruptMask
 </UL>
 <BR>[Called By]<UL><LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreNew
 </UL>
@@ -10054,44 +10052,44 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[4d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 </UL>
 
-<P><STRONG><a name="[95]"></a>vTask1</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, app_freertos.o(.text.vTask1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
-<LI>Call Chain = vTask1 &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[95]"></a>vTask1</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, app_freertos.o(.text.vTask1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88 + In Cycle
+<LI>Call Chain = vTask1 &rArr;  vTask1 (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask1
+<LI><a href="#[4ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[4ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[48e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
-<LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTask1
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_freertos.o(.text.MX_FREERTOS_Init)
 </UL>
-<P><STRONG><a name="[96]"></a>vTask3</STRONG> (Thumb, 100 bytes, Stack size 1024 bytes, app_freertos.o(.text.vTask3))
+<P><STRONG><a name="[96]"></a>vTask3</STRONG> (Thumb, 88 bytes, Stack size 1024 bytes, app_freertos.o(.text.vTask3))
 <BR><BR>[Stack]<UL><LI>Max Depth = 2208 + Unknown Stack Size
 <LI>Call Chain = vTask3 &rArr; ESP8266_Json_Parse &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[499]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreAcquire
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ESP8266_Json_Parse
-<LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[18a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncpy
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_freertos.o(.text.MX_FREERTOS_Init)
 </UL>
-<P><STRONG><a name="[97]"></a>vTask4</STRONG> (Thumb, 600 bytes, Stack size 8 bytes, app_freertos.o(.text.vTask4))
+<P><STRONG><a name="[97]"></a>vTask4</STRONG> (Thumb, 440 bytes, Stack size 8 bytes, app_freertos.o(.text.vTask4))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
 <LI>Call Chain = vTask4 &rArr; osMutexAcquire &rArr; xQueueTakeMutexRecursive &rArr; xQueueSemaphoreTake &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[496]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexRelease
-<LI><a href="#[490]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DCMI_Stop
 <LI><a href="#[4ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DCMI_Suspend
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DCMI_Start_DMA
+<LI><a href="#[490]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMutexAcquire
 <LI><a href="#[499]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSemaphoreAcquire
 <LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[4cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jpeg_to_base64
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;puts
-<LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> app_freertos.o(.text.MX_FREERTOS_Init)
@@ -10166,12 +10164,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[4b6]"></a>vTaskSuspendAll</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, tasks.o(.text.vTaskSuspendAll))
-<BR><BR>[Called By]<UL><LI><a href="#[4bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<BR><BR>[Called By]<UL><LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[4bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTimerTask
 <LI><a href="#[4bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[491]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
 <LI><a href="#[497]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
 
 <P><STRONG><a name="[154]"></a>vTaskSwitchContext</STRONG> (Thumb, 224 bytes, Stack size 16 bytes, tasks.o(.text.vTaskSwitchContext))
@@ -10402,12 +10400,12 @@ Global Symbols
 
 <P><STRONG><a name="[4a2]"></a>xTaskCreate</STRONG> (Thumb, 96 bytes, Stack size 48 bytes, tasks.o(.text.xTaskCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
-<LI>Call Chain = xTaskCreate &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<LI>Call Chain = xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
+<BR>[Calls]<UL><LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[4bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[4ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddNewTaskToReadyList
 <LI><a href="#[4b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseNewTask
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadNew
@@ -10501,12 +10499,12 @@ Global Symbols
 <LI><a href="#[4d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskIncrementTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[48e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[4bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTimerTask
 <LI><a href="#[4bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[491]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
 <LI><a href="#[497]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
 
 <P><STRONG><a name="[4d3]"></a>xTimerCreateTimerTask</STRONG> (Thumb, 164 bytes, Stack size 40 bytes, timers.o(.text.xTimerCreateTimerTask))
@@ -14127,10 +14125,10 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[4ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
+<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 <LI><a href="#[4af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
 <LI><a href="#[4b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulSetInterruptMask
 <LI><a href="#[4b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tasks.o(.text.vTaskStartScheduler)
 </UL>
@@ -14138,7 +14136,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
 <LI>Call Chain = prvTimerTask &rArr; xQueueReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
+<BR>[Calls]<UL><LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[4af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYield
 <LI><a href="#[4b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[4b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[4b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulSetInterruptMask
@@ -14147,7 +14146,6 @@ Local Symbols
 <LI><a href="#[4bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[4b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[4b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
-<LI><a href="#[4b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> timers.o(.text.xTimerCreateTimerTask)
 </UL>

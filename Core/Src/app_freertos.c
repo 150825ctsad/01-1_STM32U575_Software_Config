@@ -204,7 +204,7 @@ void vTask1(void *argument)
 {
   for( ; ; )
   {
-    printf("vTask1");
+   // printf("vTask1");
 
       vPrintString("");
       /* 延时一会 */
@@ -216,7 +216,7 @@ void vTask2(void *argument)
 {
   for( ; ; )
   {
-    printf("vTask2");
+   // printf("vTask2");
 
     //LCD 刷新
     lv_task_handler();
@@ -226,7 +226,7 @@ void vTask2(void *argument)
 
 void vTask3(void *argument) {
   for( ; ; ) {
-        printf("vTask3");     
+       // printf("vTask3");     
     // 无数据时永久阻塞，释放CPU给其他任务
     if(osSemaphoreAcquire(mqttDataSemaphoreHandle, osWaitForever) == osOK) {
         // 处理接收数据
@@ -252,7 +252,7 @@ void vTask4(void *argument)
 {
   for(;;)
   {
-    printf("vTask4");
+    //printf("vTask4");
 
     __HAL_DCMI_ENABLE_IT(&hdcmi,DCMI_IT_FRAME);
     memset((void *)JpegBuffer,0,sizeof(JpegBuffer));
@@ -266,18 +266,19 @@ void vTask4(void *argument)
 				{
 					if(JpegBuffer[pictureLength-1] != 0x00000000)
 					{
-            printf("pictureLength:%d\n\n",pictureLength);
-            for(int i = 0;i < pictureLength;i ++)
-            printf("%08x",JpegBuffer[i]);
-            printf("\n\n\n");
+            //printf("pictureLength:%d\n\n",pictureLength);
+            //for(int i = 0;i < pictureLength;i ++)
+            //printf("%08x",JpegBuffer[i]);
+            //printf("\n\n\n");
 						break;
 					}
 					pictureLength--;
 				}
 				pictureLength*=4;//buf是uint32_t，下面发送是uint8_t,所以长度要*4
+
 // 获取互斥锁保护JPEG数据
-if (osMutexAcquire(jpegBufferMutex, osWaitForever) == osOK)
-{
+      if (osMutexAcquire(jpegBufferMutex, osWaitForever) == osOK)
+      {
                // Base64编码摄像头数据
         size_t output_len = sizeof(base64_encoded);
         int encode_result = jpeg_to_base64(
@@ -288,15 +289,16 @@ if (osMutexAcquire(jpegBufferMutex, osWaitForever) == osOK)
         );
             osMutexRelease(jpegBufferMutex);
 
-        printf("Encoding debug - Required size: %d, Buffer size: %d\n", output_len, sizeof(base64_encoded));
+        //printf("Encoding debug - Required size: %d, Buffer size: %d\n", output_len, sizeof(base64_encoded));
         // 打印编码结果
         if (encode_result == 0) {
-            printf("Base64 Encoded Data:\n%s\n", base64_encoded);
+            //printf("Base64 Encoded Data:\n%s\n", base64_encoded);
         }
       }else{
-    printf("Failed to acquire mutex for Base64 encoding\n");
+        printf("Failed to acquire mutex for Base64 encoding\n");
     continue;  // 获取锁失败时跳过编码
-}
+        }
+        //HAL_UART_Transmit(&huart3, (uint8_t *)JpegBuffer, pictureLength,0XFFFFF);//串口调试图片
     osDelay(30);
   }
 }
