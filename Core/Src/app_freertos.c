@@ -47,6 +47,7 @@
 osThreadId_t ov2640TaskHandle;
 osSemaphoreId_t sem_TakePhoto;
 osSemaphoreId_t sem_GetPhoto;
+osSemaphoreId_t sem_PhotoTrigger;
 
 osMutexId_t jpegBufferMutex; 
 
@@ -153,6 +154,8 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   sem_TakePhoto = osSemaphoreNew(1, 0, NULL);
   sem_GetPhoto = osSemaphoreNew(1, 0, NULL);
+  sem_PhotoTrigger = osSemaphoreNew(1, 0, NULL);
+
   mqttDataSemaphoreHandle = osSemaphoreNew(1, 0, NULL);
   base64SemaphoreHandle = osSemaphoreNew(1, 0, NULL);
   /* USER CODE END RTOS_SEMAPHORES */
@@ -206,7 +209,7 @@ void vTask1(void *argument)
 {
   for( ; ; )
   {
-   // printf("vTask1");
+    printf("vTask1");
 
       vPrintString("");
       /* 延时一会 */
@@ -218,7 +221,7 @@ void vTask2(void *argument)
 {
   for( ; ; )
   {
-   // printf("vTask2");
+    printf("vTask2");
 
     //LCD 刷新
     lv_task_handler();
@@ -241,16 +244,20 @@ void vTask3(void *argument) {
   }
 }
 
-#define pictureBufferLength 1024*10
+#define pictureBufferLength 1024*2
 static uint32_t JpegBuffer[pictureBufferLength];
 
-static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 2048]; // Increased padding
+static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 1024]; // Increased padding
 
 void vTask4(void *argument) {
     int pictureLength = pictureBufferLength;
     int byteLength;
     for(;;) {
-      osDelay(2000);
+      printf("vTask4");
+      
+      if(osSemaphoreAcquire(sem_PhotoTrigger, osWaitForever) == osOK)
+      {
+      //vTaskDelay(pdMS_TO_TICKS(500));
         // 启用DCMI帧中断并初始化缓冲区
       __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
       memset((void *)JpegBuffer, 0, sizeof(JpegBuffer));
@@ -265,7 +272,7 @@ void vTask4(void *argument) {
 				{
 					if(JpegBuffer[pictureLength-1] != 0x00000000)
 					{
-            //printf("pictureLength:%d\n\n",pictureLength);
+            printf("pictureLength:%d\n\n",pictureLength);
             //for(int i = 0;i < pictureLength;i ++)
             //printf("%08x",JpegBuffer[i]);
             //printf("\n\n\n");
@@ -293,20 +300,19 @@ void vTask4(void *argument) {
             base64_encoded,        // 输出缓冲区
             &output_len            // 输出长度指针
         );
-
-        osSemaphoreRelease(base64SemaphoreHandle);
         osMutexRelease(jpegBufferMutex);  // 及时释放互斥锁
-
-        // 处理编码结果
-        if (encode_result != 0) {
-            printf("vTask4: Base64 encode failed, error code: %d\n", encode_result);
-            continue;
-        }
-        if (output_len > sizeof(base64_encoded)) {
-            printf("vTask4: Base64 buffer overflow (required: %zu, available: %zu)\n", output_len, sizeof(base64_encoded));
-            continue;
-        }
-        //  printf("Base64 Encoded Data:\n%s\n", base64_encoded);
+        osSemaphoreRelease(base64SemaphoreHandle);
+//        // 处理编码结果
+//        if (encode_result != 0) {
+//            printf("vTask4: Base64 encode failed, error code: %d\n", encode_result);
+//            continue;
+//        }
+//        if (output_len > sizeof(base64_encoded)) {
+//            printf("vTask4: Base64 buffer overflow (required: %zu, available: %zu)\n", output_len, sizeof(base64_encoded));
+//            continue;
+//        }
+//        //  printf("Base64 Encoded Data:\n%s\n", base64_encoded);
+      }
     }
   }
 }
@@ -314,19 +320,16 @@ void vTask5(void *argument)
 {
   for( ; ; )
   {
+    printf("vTask5");
     // 等待Base64编码完成信号
     if(osSemaphoreAcquire(base64SemaphoreHandle, osWaitForever) == osOK) {
-            memset(ESP8266_Fram_Record_Struct.Data_RX_BUF,
-             0,
-             RX_BUF_MAX_LEN);
-      ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
-
+        //vTaskDelay(pdMS_TO_TICKS(500));
         char len_str[16];
         sprintf(len_str, "%zu", strlen(base64_encoded));
         ESP8266_MQTTPUBRAW("test", len_str);
-        vTaskDelay(1000);
         HAL_UART_Transmit(&huart5, (uint8_t*)base64_encoded, strlen(base64_encoded), 0xFFFF);
-    }
+        memset(base64_encoded, 0, sizeof(base64_encoded));
+      }
   }
 }
 /* USER CODE END Application */

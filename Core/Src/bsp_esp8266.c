@@ -305,6 +305,8 @@ void ESP8266_STA_MQTTClient(void)
 	printf("***************MQTT模式配置完成***************\r\n");
 }
 
+extern osSemaphoreId_t sem_PhotoTrigger;
+
 //Json格式解析
 void ESP8266_Json_Parse(char *pData)
 {
@@ -359,6 +361,18 @@ void ESP8266_Json_Parse(char *pData)
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, led1_val ? GPIO_PIN_RESET : GPIO_PIN_SET);
 
         printf("解析成功: LED1=%s\r\n", led1_val?"ON":"OFF");
+    }
+    cJSON *photo = cJSON_GetObjectItem(root, "photo");
+    if (photo && cJSON_IsString(photo))
+    {
+        const char *photo_value = photo->valuestring;
+        printf("解析到photo字段: %s\r\n", photo_value);
+    
+        // 检查是否为"off"或"no"
+        if(strcmp(photo_value, "off") == 0)
+        {
+            osSemaphoreRelease(sem_PhotoTrigger);
+        }
     }
     // 释放cJSON内存
     cJSON_Delete(root);
