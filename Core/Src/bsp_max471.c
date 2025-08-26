@@ -1,20 +1,22 @@
-#include "bsp_max471.h"
 #include "adc.h"
 #include "stdio.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-
-uint16_t adc_dma_buffer[1] = {0};  // å­˜å‚¨ADCè½¬æ¢ç»“æœ
-float adc_voltage = 0.0f;          // å­˜å‚¨è½¬æ¢åçš„ç”µå‹å€¼
-
-
-float ADC_GetVoltage(void)
+uint16_t Ele;//Ä£ÄâµÄÖµ
+float EleValue;//½øĞĞËõ·Å£¬×î´ó3A;
+ 
+ 
+void Electric_start()//·ÅÔÚÑ­»·ÍâĞèÒªÅäÖÃÑ­»·¶ÁÈ¡
 {
-  HAL_ADC_Start_DMA(&hadc1,(uint32_t *)adc_dma_buffer,1);
+	//HAL_ADCEx_Calibration_Start(&hadc1);
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC_PollForConversion(&hadc1,HAL_MAX_DELAY);
+}
 
-  adc_voltage = (adc_dma_buffer[0] * 3.3f) / (1 << 14);
-  printf("adc_voltage = %f\n", adc_voltage);
+void Electric_GetValue()
+{
+	Electric_start();
+	Ele=HAL_ADC_GetValue(&hadc1);
+	EleValue=(Ele/4095.0)*3.0;
+	printf("EleValue: %.2fA\r\n",EleValue);
 
-  return adc_voltage;
 }

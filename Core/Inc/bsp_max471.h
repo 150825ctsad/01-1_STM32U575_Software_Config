@@ -1,6 +1,8 @@
-#ifndef __BSP_MAX471_H__
-#define __BSP_MAX471_H__
+#ifndef __electric_H
+#define __electric_H
 
-float ADC_GetVoltage(void);
+extern float EleValue;
 
+void Electric_start();
+void Electric_GetValue();
 #endif

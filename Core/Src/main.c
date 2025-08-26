@@ -197,7 +197,7 @@ int main(void)
   ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,921600);	//ESP8266初始化
   ESP8266_STA_MQTTClient();
   HAL_Delay(1000);
-  ESP8266_MQTTSUB("test");
+  ESP8266_MQTTSUB("topic");
 
   Update_Backlight(80); //设置背光亮度
 
@@ -312,7 +312,7 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == UART5)
 	{
-    if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV:0,\"test\"") != NULL)
+    if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV:0,\"topic\"") != NULL)
       {
         osSemaphoreRelease(mqttDataSemaphoreHandle);  
       }

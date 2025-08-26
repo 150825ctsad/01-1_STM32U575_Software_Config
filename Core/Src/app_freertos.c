@@ -114,7 +114,7 @@ const osThreadAttr_t Task3_attributes = {
 osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
-    .priority = (osPriority_t) osPriorityLow,  
+    .priority = (osPriority_t) osPriorityNormal,  
     .stack_size = 1024 * 16 
 };
 osThreadId_t Task5Handle;
@@ -207,7 +207,8 @@ void StartDefaultTask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 //JSON格式
-#define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f}"
+#define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
+
 
 void vTask1(void *argument)
 {
@@ -215,14 +216,12 @@ void vTask1(void *argument)
   {
     char str[512];
     BSP_SHT20_GetData();    //获取温湿度数据
-    // 获取缓冲区互斥锁
-    osMutexAcquire(bufferMutex, osWaitForever);
+    Electric_GetValue();
 
-    sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);
+    sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
     ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);
+    ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
     memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
-    // 释放缓冲区互斥锁
-    osMutexRelease(bufferMutex);
 
     vTaskDelay(1000);
   }
@@ -262,7 +261,7 @@ void vTask3(void *argument) {
   }
 }
 
-#define pictureBufferLength 1024*2 //2kb //10kb
+#define pictureBufferLength 1024*10 //2kb //10kb
 static uint32_t JpegBuffer[pictureBufferLength];
 
 static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 1024]; // Increased padding
@@ -342,7 +341,6 @@ void vTask5(void *argument)
         char len_str[16];
         sprintf(len_str, "%zu", strlen(base64_encoded));
         ESP8266_MQTTPUBRAW("test", len_str);
-        vTaskDelay(200);
         HAL_UART_Transmit(&huart5, (uint8_t*)base64_encoded, strlen(base64_encoded), 0xFFFF);
         memset(base64_encoded, 0, sizeof(base64_encoded));
       }
