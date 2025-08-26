@@ -28,7 +28,7 @@
 //#define User_ESP8266_MQTTServer_IP     "192.168.137.173"	//MQTT本地服务器IP，EMQX本地服务器的IP 
 #define User_ESP8266_MQTTServer_PORT   1883     					//服务器端口号
 
-#define User_ESP8266_MQTTServer_Topic "topic"//   主题：/device/3425990d-f887-4b14-92c2-1b67a79b1bc7
+#define User_ESP8266_MQTTServer_Topic "/device/3425990d-f887-4b14-92c2-1b67a79b1bc7"//   主题：/device/3425990d-f887-4b14-92c2-1b67a79b1bc7
 
 //ESP8266模式选择
 typedef enum{
@@ -50,7 +50,6 @@ extern struct STRUCT_USART_Fram   //数据帧结构体
 			struct 
 			{
 				volatile uint16_t FramLength       :15;	// 14:0 
-				volatile uint16_t FramFinishFlag   :1;	// 15 
 			}InfBit;
 		}; 	
 }ESP8266_Fram_Record_Struct;

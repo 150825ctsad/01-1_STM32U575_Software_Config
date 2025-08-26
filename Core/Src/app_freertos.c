@@ -45,17 +45,16 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-osThreadId_t ov2640TaskHandle;
+//信号
 osSemaphoreId_t sem_TakePhoto;
 osSemaphoreId_t sem_GetPhoto;
 osSemaphoreId_t sem_PhotoTrigger;
 
-osMutexId_t jpegBufferMutex; 
-
-
 osSemaphoreId_t mqttDataSemaphoreHandle;
 osSemaphoreId_t base64SemaphoreHandle;
+//锁
+osMutexId_t jpegBufferMutex; 
+osMutexId_t bufferMutex;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -108,7 +107,7 @@ const osThreadAttr_t Task2_attributes = {
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
   .name = "Task3",
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityHigh,
   .stack_size = 1024 * 4
 };
 //osPriorityHigh
@@ -150,7 +149,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_MUTEX */
   jpegBufferMutex = osMutexNew(NULL); 
-  /* add mutexes, ... */
+  bufferMutex = osMutexNew(NULL);
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -207,12 +206,25 @@ void StartDefaultTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-/* USER CODE BEGIN Application */
+//JSON格式
+#define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f}"
+
 void vTask1(void *argument)
 {
   for( ; ; )
   {
-    BSP_SHT20_GetData();
+    char str[512];
+    BSP_SHT20_GetData();    //获取温湿度数据
+    // 获取缓冲区互斥锁
+    osMutexAcquire(bufferMutex, osWaitForever);
+
+    sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum);
+    ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);
+    memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
+    // 释放缓冲区互斥锁
+    osMutexRelease(bufferMutex);
+
+    vTaskDelay(1000);
   }
 }
 
@@ -233,17 +245,24 @@ void vTask3(void *argument) {
       //printf("vTask3");   
     // 无数据时永久阻塞，释放CPU给其他任务
     if(osSemaphoreAcquire(mqttDataSemaphoreHandle, osWaitForever) == osOK) {
-        // 处理接收数据
+        
         char temp_buf[RX_BUF_MAX_LEN];
-        strncpy(temp_buf, ESP8266_Fram_Record_Struct.Data_RX_BUF, RX_BUF_MAX_LEN);
-        ESP8266_Json_Parse(temp_buf);
+        strncpy(temp_buf, ESP8266_Fram_Record_Struct.Data_RX_BUF, RX_BUF_MAX_LEN);  
+        // 获取缓冲区互斥锁
+        osMutexAcquire(bufferMutex, osWaitForever);
+        
+        // 处理接收数据
+        ESP8266_Json_Parse(temp_buf);  
         ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
         memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
+        
+        // 释放缓冲区互斥锁
+        osMutexRelease(bufferMutex);
     }
   }
 }
 
-#define pictureBufferLength 1024*10 //2kb //10kb
+#define pictureBufferLength 1024*2 //2kb //10kb
 static uint32_t JpegBuffer[pictureBufferLength];
 
 static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 1024]; // Increased padding
