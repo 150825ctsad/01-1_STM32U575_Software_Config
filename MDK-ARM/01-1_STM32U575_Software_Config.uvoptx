@@ -3041,13 +3041,21 @@
   </Group>
 
   <Group>
+    <GroupName>::CMSIS</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>1</RteFlg>
+  </Group>
+
+  <Group>
     <GroupName>Middlewares/RTOS2/CMSIS/RTOS2/Core/TZ_Non_Supported</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>223</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3059,7 +3067,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>224</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3071,7 +3079,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>225</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3083,7 +3091,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>226</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3095,7 +3103,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>227</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3107,7 +3115,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>228</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3119,7 +3127,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>229</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3131,7 +3139,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>230</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3143,7 +3151,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>231</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3155,7 +3163,7 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>16</GroupNumber>
+      <GroupNumber>17</GroupNumber>
       <FileNumber>232</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3175,7 +3183,7 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>17</GroupNumber>
+      <GroupNumber>18</GroupNumber>
       <FileNumber>233</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
@@ -3186,14 +3194,6 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
-  </Group>
-
-  <Group>
-    <GroupName>::CMSIS</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>1</RteFlg>
   </Group>
 
 </ProjectOpt>

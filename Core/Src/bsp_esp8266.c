@@ -51,15 +51,15 @@ bool ESP8266_Send_AT_Cmd(char *cmd,char *ack1,char *ack2,uint32_t time)
 		//
     printf("%s",ESP8266_Fram_Record_Struct .Data_RX_BUF);
 		//
-    if((ack1!=0) && (ack2!=0))
-    {
-        return ( ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack1 ) || 
-                         ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack2 ) );
-    }
-    else if( ack1 != 0 )  //strstr(s1,s2);检测s2是否为s1的一部分，是返回该位置，否则返回false，它强制转换为bool类型了
-        return ( ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack1 ) );
-    else
-        return ( ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack2 ) );
+//    if((ack1!=0) && (ack2!=0))
+//    {
+//        return ( ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack1 ) || 
+//                         ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack2 ) );
+//    }
+//    else if( ack1 != 0 )  //strstr(s1,s2);检测s2是否为s1的一部分，是返回该位置，否则返回false，它强制转换为bool类型了
+//        return ( ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack1 ) );
+//    else
+//        return ( ( bool ) strstr ( ESP8266_Fram_Record_Struct .Data_RX_BUF, ack2 ) );
 }
 //发送恢复出厂默认设置指令将模块恢复成出厂设置
 void ESP8266_AT_Test(void)
@@ -266,8 +266,8 @@ bool ESP8266_MQTTPUB( char * Topic,char *temp)
 bool ESP8266_MQTTPUBRAW( char * Topic,char *len)
 {
     char cCmd [120];
-    sprintf(cCmd, "AT+MQTTPUBRAW=0,\"%s\",%s,2,0", Topic, len);
-    return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 2000);
+    sprintf(cCmd, "AT+MQTTPUBRAW=0,\"%s\",%s,1,0", Topic, len);
+    return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 500);
 }
 
 bool ESP8266_MQTTCLEAN(void)
@@ -293,15 +293,10 @@ void ESP8266_STA_MQTTClient(void)
 	printf("***************恢复出厂默认模式***************\r\n");
     //ESP8266_AT_Test();	//恢复出厂默认模式
 	printf("***************正在配置MQTT模式***************\r\n");
-    HAL_Delay(100);
     ESP8266_Net_Mode_Choose(STA);
-    HAL_Delay(100);
     ESP8266_JoinAP(User_ESP8266_SSID, User_ESP8266_PWD);
-    HAL_Delay(100);
 	ESP8266_MQTTUSERCFG(User_ESP8266_client_id,User_ESP8266_username,User_ESP8266_password);
-	HAL_Delay(100);
     ESP8266_MQTTCONN( User_ESP8266_MQTTServer_IP, User_ESP8266_MQTTServer_PORT);
-    HAL_Delay(100);
 	printf("***************MQTT模式配置完成***************\r\n");
 }
 

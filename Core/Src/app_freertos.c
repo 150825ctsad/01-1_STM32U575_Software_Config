@@ -220,8 +220,6 @@ void vTask1(void *argument)
 
     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
     ESP8266_MQTTPUB(User_ESP8266_MQTTServer_Topic, str);
-    ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
-    memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
 
     vTaskDelay(1000);
   }
@@ -261,7 +259,7 @@ void vTask3(void *argument) {
   }
 }
 
-#define pictureBufferLength 1024*10 //2kb //10kb
+#define pictureBufferLength 1024*2 //2*4kb //10*4kb
 static uint32_t JpegBuffer[pictureBufferLength];
 
 static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 1024]; // Increased padding

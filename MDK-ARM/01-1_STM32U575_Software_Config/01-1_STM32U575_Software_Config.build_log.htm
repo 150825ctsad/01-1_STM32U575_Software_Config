@@ -22,35 +22,20 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 F:\STM32U5\01-1_STM32U575_Software_Config\MDK-ARM\01-1_STM32U575_Software_Config.uvprojx
-Project File Date:  08/26/2025
+Project File Date:  08/27/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.22', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target '01-1_STM32U575_Software_Config'
-../Core/Src/app_freertos.c(221): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  221 |     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
-      |                 ^~~~~~~~~~
-../Core/Src/app_freertos.c(210): note: expanded from macro 'JSON_State'
-  210 | #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
-      |                                       ^~
-../Core/Src/app_freertos.c(221): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  221 |     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
-      |                 ^~~~~~~~~~
-../Core/Src/app_freertos.c(210): note: expanded from macro 'JSON_State'
-  210 | #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
-      |                                                            ^~
-../Core/Src/app_freertos.c(221): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  221 |     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
-      |                 ^~~~~~~~~~
-../Core/Src/app_freertos.c(210): note: expanded from macro 'JSON_State'
-  210 | #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
-      |                                                                                ^~
-3 warnings generated.
-compiling app_freertos.c...
+../Core/Src/bsp_esp8266.c(63): warning: non-void function does not return a value in all control paths [-Wreturn-type]
+   63 | }
+      | ^
+1 warning generated.
+compiling bsp_esp8266.c...
 linking...
-Program Size: Code=294356 RO-data=20684 RW-data=216 ZI-data=529688  
+Program Size: Code=294140 RO-data=20700 RW-data=216 ZI-data=453224  
 FromELF: creating hex file...
-"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 3 Warning(s).
+"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -73,7 +58,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

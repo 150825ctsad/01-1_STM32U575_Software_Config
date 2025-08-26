@@ -315,6 +315,10 @@ void HAL_UART_AbortReceiveCpltCallback(UART_HandleTypeDef *huart)
     if (strstr(ESP8266_Fram_Record_Struct.Data_RX_BUF, "+MQTTSUBRECV:0,\"topic\"") != NULL)
       {
         osSemaphoreRelease(mqttDataSemaphoreHandle);  
+      }else{
+        printf("%s\r\n",ESP8266_Fram_Record_Struct.Data_RX_BUF);
+        ESP8266_Fram_Record_Struct.InfBit.FramLength = 0;
+        memset(ESP8266_Fram_Record_Struct.Data_RX_BUF, 0, RX_BUF_MAX_LEN);
       }
     HAL_UART_Receive_IT(&huart5,(uint8_t *)&gRX_BufF, 1);
 	} 	
