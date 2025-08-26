@@ -259,10 +259,10 @@ bool ESP8266_MQTTSUB(char * Topic)
 bool ESP8266_MQTTPUB( char * Topic,char *temp)
 {
     char cCmd [120];
-    // 使用处理后的数据构造AT指令
     sprintf(cCmd, "AT+MQTTPUB=0,\"%s\",\"%s\",1,0", Topic, temp);
     return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 1000);
 }
+
 bool ESP8266_MQTTPUBRAW( char * Topic,char *len)
 {
     char cCmd [120];
@@ -347,21 +347,60 @@ void ESP8266_Json_Parse(char *pData)
         return; // 增加return防止空指针访问
     }
     
-    // 解析LED状态
-    cJSON *led1 = cJSON_GetObjectItem(root, "LED1");
-    if (led1 && cJSON_IsNumber(led1))
+    // 解析LED1状态
+    cJSON *led1 = cJSON_GetObjectItem(root, "led1");
+    if (led1 && cJSON_IsString(led1))
     {
-        uint8_t led1_val = led1->valueint;
-        // 添加LED值范围检查
-        if (led1_val > 1) {
-            printf("LED值超出范围\r\n");
-            cJSON_Delete(root); // 提前释放内存
-            return;
+        uint8_t led1_val = 0; // 默认失能
+        if (strcasecmp(led1->valuestring, "off") == 0)
+        {
+            led1_val = 1; // off对应使能
         }
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, led1_val ? GPIO_PIN_RESET : GPIO_PIN_SET);
+        else if (strcmp(led1->valuestring, "no") == 0)
+        {
+            led1_val = 0; // no对应失能
+        }
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, led1_val ? GPIO_PIN_SET : GPIO_PIN_RESET);
 
-        printf("解析成功: LED1=%s\r\n", led1_val?"ON":"OFF");
+        printf("解析成功: LED1=%s\n", led1_val ? "off" : "no");
     }
+    // 解析BEEP状态
+    cJSON *beep = cJSON_GetObjectItem(root, "beep");
+    if (beep && cJSON_IsString(beep))
+    {
+        uint8_t beep_val = 0; // 默认失能
+        if (strcasecmp(beep->valuestring, "off") == 0)
+        {
+            beep_val = 1; // off对应使能
+        }
+        else if (strcmp(beep->valuestring, "no") == 0)
+        {
+            beep_val = 0; // no对应失能
+        }
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, beep_val ? GPIO_PIN_SET : GPIO_PIN_RESET);
+
+
+        printf("解析成功: BEEP=%s\n", beep_val ? "off" : "no");
+    }
+    // 解析RELAY状态
+    cJSON *relay = cJSON_GetObjectItem(root, "relay");
+    if (relay && cJSON_IsString(relay))
+    {
+        uint8_t relay_val = 0; // 默认失能
+        if (strcasecmp(relay->valuestring, "off") == 0)
+        {
+            relay_val = 1; // off对应使能
+        }
+        else if (strcmp(relay->valuestring, "no") == 0)
+        {
+            relay_val = 0; // no对应失能
+        }
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, relay_val ? GPIO_PIN_SET : GPIO_PIN_RESET);
+
+        printf("解析成功: RELAY=%s\n", relay_val ? "off" : "no");
+    }
+
+    // 解析PHOTO状态
     cJSON *photo = cJSON_GetObjectItem(root, "photo");
     if (photo && cJSON_IsString(photo))
     {
@@ -369,7 +408,7 @@ void ESP8266_Json_Parse(char *pData)
         printf("解析到photo字段: %s\r\n", photo_value);
     
         // 检查是否为"off"或"no"
-        if(strcmp(photo_value, "off") == 0)
+        if(strcasecmp(photo_value, "off") == 0)
         {
             osSemaphoreRelease(sem_PhotoTrigger);
         }

@@ -58,12 +58,14 @@ void Error_Handler(void);
 #define BLUE_LED_GPIO_Port GPIOC
 #define RST_Pin GPIO_PIN_5
 #define RST_GPIO_Port GPIOA
+#define RELAY_Pin GPIO_PIN_7
+#define RELAY_GPIO_Port GPIOA
+#define TP_INT_Pin GPIO_PIN_0
+#define TP_INT_GPIO_Port GPIOB
 #define LCD_DCX_Pin GPIO_PIN_1
 #define LCD_DCX_GPIO_Port GPIOB
 #define LCD_RST_Pin GPIO_PIN_2
 #define LCD_RST_GPIO_Port GPIOB
-#define TP_INT_Pin GPIO_PIN_12
-#define TP_INT_GPIO_Port GPIOB
 #define RUN_BEEP_Pin GPIO_PIN_15
 #define RUN_BEEP_GPIO_Port GPIOA
 #define PWDN_Pin GPIO_PIN_10

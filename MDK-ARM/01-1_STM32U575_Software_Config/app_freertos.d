@@ -26,6 +26,9 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dma.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_dma_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_cortex.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_adc.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_ll_adc.h \
+  ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_adc_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_flash.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_flash_ex.h \
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_i2c.h \
@@ -44,10 +47,10 @@
   ..\Drivers\STM32U5xx_HAL_Driver\Inc\stm32u5xx_hal_exti.h \
   ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h \
   ..\Core\Inc\bsp_sht20.h ..\Core\Inc\bsp_esp8266.h \
-  ..\Core\Inc\bsp_ov2640.h ..\Core\Inc\bsp_ili9341_4line.h \
-  ..\Core\Inc\dcmi.h ..\Core\Inc\usart.h \
+  ..\Core\Inc\bsp_ov2640.h ..\Core\Inc\bsp_max471.h \
+  ..\Core\Inc\bsp_ili9341_4line.h ..\Core\Inc\dcmi.h ..\Core\Inc\usart.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
+  ..\Core\Inc\cJSON.h ..\Drivers\LVGL\GUI\lvgl\lvgl.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\lv_log.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_internal.h \
   ..\Drivers\LVGL\GUI\lvgl\src\misc\..\lv_conf_kconfig.h \

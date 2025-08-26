@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include "usart.h"
 #include "queue.h"
+#include "cJSON.h"
 
 #include "lvgl.h"
 #include "lv_port_indev_template.h"
@@ -44,6 +45,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 osThreadId_t ov2640TaskHandle;
 osSemaphoreId_t sem_TakePhoto;
 osSemaphoreId_t sem_GetPhoto;
@@ -95,7 +97,7 @@ osThreadId_t Task1Handle;
 const osThreadAttr_t Task1_attributes = {
   .name = "Task1",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 1
+  .stack_size = 1024 * 8
 };
 osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
@@ -205,18 +207,15 @@ void StartDefaultTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+/* USER CODE BEGIN Application */
 void vTask1(void *argument)
 {
   for( ; ; )
   {
-    printf("vTask1");
-
-      vPrintString("");
-      /* 延时一会 */
-      vTaskDelay(pdMS_TO_TICKS(300));
-      //BSP_SHT20_GetData();
+    BSP_SHT20_GetData();
   }
 }
+
 void vTask2(void *argument)
 {
   for( ; ; )
@@ -231,7 +230,7 @@ void vTask2(void *argument)
 
 void vTask3(void *argument) {
   for( ; ; ) {
-      printf("vTask3");   
+      //printf("vTask3");   
     // 无数据时永久阻塞，释放CPU给其他任务
     if(osSemaphoreAcquire(mqttDataSemaphoreHandle, osWaitForever) == osOK) {
         // 处理接收数据
@@ -244,7 +243,7 @@ void vTask3(void *argument) {
   }
 }
 
-#define pictureBufferLength 1024*2
+#define pictureBufferLength 1024*10 //2kb //10kb
 static uint32_t JpegBuffer[pictureBufferLength];
 
 static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 1024]; // Increased padding
@@ -253,7 +252,7 @@ void vTask4(void *argument) {
     int pictureLength = pictureBufferLength;
     int byteLength;
     for(;;) {
-      printf("vTask4");
+      //printf("vTask4");
       
       if(osSemaphoreAcquire(sem_PhotoTrigger, osWaitForever) == osOK)
       {
@@ -272,9 +271,9 @@ void vTask4(void *argument) {
 				{
 					if(JpegBuffer[pictureLength-1] != 0x00000000)
 					{
-            printf("pictureLength:%d\n\n",pictureLength);
+            //printf("pictureLength:%d\n\n",pictureLength);
             //for(int i = 0;i < pictureLength;i ++)
-            //printf("%08x",JpegBuffer[i]);
+            //printf("%08X",JpegBuffer[i]);
             //printf("\n\n\n");
 						break;
 					}
@@ -282,16 +281,13 @@ void vTask4(void *argument) {
 				}
         byteLength = pictureLength * 4;  // uint32_t -> uint8_t长度转换
 
-        if (byteLength <= 0) {
-            printf("vTask4: Invalid JPEG data length\n");
-            continue;
-        }
-        // 获取互斥锁保护JPEG缓冲区（提前返回避免嵌套）
-        if (osMutexAcquire(jpegBufferMutex, osWaitForever) != osOK) {
-            printf("vTask4: Failed to acquire jpegBufferMutex\n");
-            continue;
-        }
+        //if (byteLength <= 0) {
+        //    printf("vTask4: Invalid JPEG data length\n");
+        //    continue;
+        //}
 
+        // 获取互斥锁保护JPEG缓冲区
+        osMutexAcquire(jpegBufferMutex, osWaitForever);
         // Base64编码
         size_t output_len = sizeof(base64_encoded);
         const int encode_result = jpeg_to_base64(
@@ -320,13 +316,14 @@ void vTask5(void *argument)
 {
   for( ; ; )
   {
-    printf("vTask5");
+    //printf("vTask5");
     // 等待Base64编码完成信号
     if(osSemaphoreAcquire(base64SemaphoreHandle, osWaitForever) == osOK) {
         //vTaskDelay(pdMS_TO_TICKS(500));
         char len_str[16];
         sprintf(len_str, "%zu", strlen(base64_encoded));
         ESP8266_MQTTPUBRAW("test", len_str);
+        vTaskDelay(200);
         HAL_UART_Transmit(&huart5, (uint8_t*)base64_encoded, strlen(base64_encoded), 0xFFFF);
         memset(base64_encoded, 0, sizeof(base64_encoded));
       }

@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os2.h"
+#include "adc.h"
 #include "dcmi.h"
 #include "gpdma.h"
 #include "i2c.h"
@@ -57,9 +58,7 @@ lv_ui guider_ui;
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-//JSON格式
-#define JSON_State "{LED1:%d\\Temp\\:%f\\Hum\\:%f}"
-#define JSON_Test "{LED1:%d\\Temp\\:%f\\Hum\\:%f}"
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -180,6 +179,7 @@ int main(void)
   MX_OCTOSPI1_Init();
   MX_DCMI_Init();
   MX_USART3_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   
   OSPI_W25Qxx_Init();	//初始化W25Q128
@@ -239,7 +239,9 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_0;
