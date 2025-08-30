@@ -22,20 +22,69 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 F:\STM32U5\01-1_STM32U575_Software_Config\MDK-ARM\01-1_STM32U575_Software_Config.uvprojx
-Project File Date:  08/27/2025
+Project File Date:  08/30/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.22', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target '01-1_STM32U575_Software_Config'
-../Core/Src/bsp_esp8266.c(63): warning: non-void function does not return a value in all control paths [-Wreturn-type]
-   63 | }
-      | ^
-1 warning generated.
-compiling bsp_esp8266.c...
-linking...
-Program Size: Code=294140 RO-data=20700 RW-data=216 ZI-data=453224  
-FromELF: creating hex file...
-"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 1 Warning(s).
+../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
+  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
+      |                                               ^~
+../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
+  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
+      |                                                                   ^~
+../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
+  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
+      |                                                                                       ^~
+../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
+  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
+      |                                                                                                             ^~
+../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
+  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
+      |                                                                                                                                 ^~
+../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
+  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
+      |                                                                                                                                                    ^~
+../Core/Src/app_freertos.c(256): warning: ordered comparison between pointer and integer ('uint32_t' (aka 'unsigned int') and 'uint8_t *' (aka 'unsigned char *'))
+  256 |     if (cam_data->length <= jd->dptr) return 0; // 已读取完毕
+      |         ~~~~~~~~~~~~~~~~ ^  ~~~~~~~~
+../Core/Src/app_freertos.c(257): error: invalid operands to binary expression ('uint32_t' (aka 'unsigned int') and 'uint8_t *' (aka 'unsigned char *'))
+  257 |     len = (len > cam_data->length - jd->dptr) ? (cam_data->length - jd->dptr) : len;
+      |                  ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~
+../Core/Src/app_freertos.c(257): error: invalid operands to binary expression ('uint32_t' (aka 'unsigned int') and 'uint8_t *' (aka 'unsigned char *'))
+  257 |     len = (len > cam_data->length - jd->dptr) ? (cam_data->length - jd->dptr) : len;
+      |                                                  ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~
+../Core/Src/app_freertos.c(258): error: invalid operands to binary expression ('uint8_t *' (aka 'unsigned char *') and 'uint8_t *')
+  258 |     memcpy(buf, cam_data->data + jd->dptr, len);
+      |                 ~~~~~~~~~~~~~~ ^ ~~~~~~~~
+../Core/Src/app_freertos.c(290): error: use of undeclared identifier 'decodeQueueHandle'; did you mean 'cameraQueueHandle'?
+  290 |         osStatus_t status = osMessageQueueGet(decodeQueueHandle, &receivedData, NULL, 5);
+      |                                               ^~~~~~~~~~~~~~~~~
+      |                                               cameraQueueHandle
+../Core/Src/app_freertos.c(61): note: 'cameraQueueHandle' declared here
+   61 | osMessageQueueId_t cameraQueueHandle;
+      |                    ^
+7 warnings and 4 errors generated.
+compiling app_freertos.c...
+"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 4 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -58,6 +107,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
+Target not created.
 Build Time Elapsed:  00:00:04
 </pre>
 </body>

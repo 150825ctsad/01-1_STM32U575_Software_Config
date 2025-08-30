@@ -258,7 +258,7 @@ bool ESP8266_MQTTSUB(char * Topic)
 
 bool ESP8266_MQTTPUB( char * Topic,char *temp)
 {
-    char cCmd [512];
+    char cCmd [1024-64];
     sprintf(cCmd, "AT+MQTTPUB=0,\"%s\",\"%s\",0,0", Topic, temp);
     return ESP8266_Send_AT_Cmd(cCmd, "OK", NULL, 1000);
 }
