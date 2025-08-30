@@ -149,13 +149,7 @@ typedef struct
 }OV2640_IDTypeDef;
 
 void OV2640_Init();
-void ov2640_realseTakePhotoSem();
 
-void OV2640_QQVGAConfig(void);
-void OV2640_UXGAConfig(void);
-
-uint8_t OV2640_ImageSize_Set(uint16_t width,uint16_t height);
-uint8_t OV2640_ImageWin_Set(uint16_t offx,uint16_t offy,uint16_t width,uint16_t height);
-uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height);
-void OV2640_Window_Set(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height);
+void OV2640_RGB565_Mode(void);
+void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat);
 #endif

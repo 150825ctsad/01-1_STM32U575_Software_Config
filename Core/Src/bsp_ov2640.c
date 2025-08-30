@@ -104,11 +104,10 @@ void OV2640_AutoExposure(uint8_t level)
 	}
 
 }
-
-void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
+//OV2640切换为JPEG模式
+void OV2640_JPEG_Mode(void) 
 {
   uint32_t i;
-
   //OV2640_Reset();
   //delay_ms(200);
 
@@ -118,22 +117,43 @@ void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
 		//delay_ms(1);
   }
 
-
   for(i=0; i<(sizeof(OV2640_YUV422)/2); i++)
   {
     i2c_sent(OV2640_YUV422[i][0], OV2640_YUV422[i][1]);
 		//delay_ms(1);
-  }
+  } 
 
   i2c_sent(0xff, 0x01);
   i2c_sent(0x15, 0x00);
-
 
   for(i=0; i<(sizeof(OV2640_JPEG)/2); i++)
   {
     i2c_sent(OV2640_JPEG[i][0], OV2640_JPEG[i][1]);
 		//delay_ms(1);
   }
+}
+
+//OV2640切换为RGB565模式
+void OV2640_RGB565_Mode(void) 
+{
+  uint32_t i;
+	//设置:RGB565输出
+	for(i=0;i<(sizeof(OV2640_RGB565)/2);i++)
+	{
+		i2c_sent(OV2640_RGB565[i][0],OV2640_RGB565[i][1]); 
+	} 
+
+  for(i=0;i<(sizeof(OV2640_QQVGA)/2);i++)
+	{
+		i2c_sent(OV2640_QQVGA[i][0],OV2640_QQVGA[i][1]); 
+	} 
+} 
+
+void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
+{
+  uint32_t i;
+
+  OV2640_JPEG_Mode();
 
   //delay_ms(100);
 
@@ -196,8 +216,6 @@ void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
 
 void OV2640_Config(void)
 {
-	OV2640_JPEGConfig(JPEG_320x240);
-
 	OV2640_BrightnessConfig(0x20);
 	OV2640_AutoExposure(0);
 }

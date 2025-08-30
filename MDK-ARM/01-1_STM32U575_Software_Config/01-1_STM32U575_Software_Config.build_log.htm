@@ -3,88 +3,60 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.41.0.0
-Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: -- 2576165572@qq.com, -, LIC=LSNXV-PAD18-LQR0Q-NZ5BS-08QHX-TBFUX
+IDE-Version: ¦ÌVision V5.42.0.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 2576165572@qq.com, 1, LIC=21E4T-R5U0K-9UH4U-SL4FD-PF18J-8PI6E
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.41.0.0
+Toolchain:       MDK-ARM Plus  Version: 5.42.0.0
 Toolchain Path:  D:\Keil_v5\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.22
-Assembler:       Armasm.exe V6.22
-Linker/Locator:  ArmLink.exe V6.22
-Library Manager: ArmAr.exe V6.22
-Hex Converter:   FromElf.exe V6.22
+C Compiler:      ArmClang.exe V6.23
+Assembler:       Armasm.exe V6.23
+Linker/Locator:  ArmLink.exe V6.23
+Library Manager: ArmAr.exe V6.23
+Hex Converter:   FromElf.exe V6.23
 CPU DLL:         
 Dialog DLL:      
 Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
-Dialog DLL:      TCM.DLL V1.56.4.0
+Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
-F:\STM32U5\01-1_STM32U575_Software_Config\MDK-ARM\01-1_STM32U575_Software_Config.uvprojx
+D:\ÎïÁªÍø´óÈü\01-1_STM32U575_Software_Config\MDK-ARM\01-1_STM32U575_Software_Config.uvprojx
 Project File Date:  08/30/2025
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.22', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
+*** Using Compiler 'V6.23', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target '01-1_STM32U575_Software_Config'
-../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
-      |                  ^~~~~~~~~~~~~~~~
-../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
-  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
-      |                                               ^~
-../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
-      |                  ^~~~~~~~~~~~~~~~
-../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
-  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
-      |                                                                   ^~
-../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
-      |                  ^~~~~~~~~~~~~~~~
-../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
-  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
-      |                                                                                       ^~
-../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
-      |                  ^~~~~~~~~~~~~~~~
-../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
-  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
-      |                                                                                                             ^~
-../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
-      |                  ^~~~~~~~~~~~~~~~
-../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
-  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
-      |                                                                                                                                 ^~
-../Core/Src/app_freertos.c(242): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
-  242 |     sprintf(str1,JSON_Sensor_Data,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue,LightValue,relay_str,beep_str,led_str);
-      |                  ^~~~~~~~~~~~~~~~
-../Core/Src/app_freertos.c(222): note: expanded from macro 'JSON_Sensor_Data'
-  222 | #define JSON_Sensor_Data "{\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f\\\,\\\"Light\\\":%.2f\\\,\\\"Relay\\\":%s\\\,\\\"BEEP\\\":%s\\\,\\\"LED\\\":%s}"
-      |                                                                                                                                                    ^~
-../Core/Src/app_freertos.c(256): warning: ordered comparison between pointer and integer ('uint32_t' (aka 'unsigned int') and 'uint8_t *' (aka 'unsigned char *'))
-  256 |     if (cam_data->length <= jd->dptr) return 0; // å·²è¯»å–å®Œæ¯•
-      |         ~~~~~~~~~~~~~~~~ ^  ~~~~~~~~
-../Core/Src/app_freertos.c(257): error: invalid operands to binary expression ('uint32_t' (aka 'unsigned int') and 'uint8_t *' (aka 'unsigned char *'))
-  257 |     len = (len > cam_data->length - jd->dptr) ? (cam_data->length - jd->dptr) : len;
-      |                  ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~
-../Core/Src/app_freertos.c(257): error: invalid operands to binary expression ('uint32_t' (aka 'unsigned int') and 'uint8_t *' (aka 'unsigned char *'))
-  257 |     len = (len > cam_data->length - jd->dptr) ? (cam_data->length - jd->dptr) : len;
-      |                                                  ~~~~~~~~~~~~~~~~ ^ ~~~~~~~~
-../Core/Src/app_freertos.c(258): error: invalid operands to binary expression ('uint8_t *' (aka 'unsigned char *') and 'uint8_t *')
-  258 |     memcpy(buf, cam_data->data + jd->dptr, len);
-      |                 ~~~~~~~~~~~~~~ ^ ~~~~~~~~
-../Core/Src/app_freertos.c(290): error: use of undeclared identifier 'decodeQueueHandle'; did you mean 'cameraQueueHandle'?
-  290 |         osStatus_t status = osMessageQueueGet(decodeQueueHandle, &receivedData, NULL, 5);
-      |                                               ^~~~~~~~~~~~~~~~~
-      |                                               cameraQueueHandle
-../Core/Src/app_freertos.c(61): note: 'cameraQueueHandle' declared here
-   61 | osMessageQueueId_t cameraQueueHandle;
-      |                    ^
-7 warnings and 4 errors generated.
+../Core/Src/bsp_ov2640.c(37): warning: multiple unsequenced modifications to 'pbuf' [-Wunsequenced]
+   37 |     i2c_sent((uint8_t)*pbuf++, (uint8_t)*pbuf++);
+      |                            ^                 ~~
+1 warning generated.
+compiling bsp_ov2640.c...
+compiling main.c...
+../Core/Src/app_freertos.c(219): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  219 |     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
+      |                 ^~~~~~~~~~
+../Core/Src/app_freertos.c(208): note: expanded from macro 'JSON_State'
+  208 | #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
+      |                                       ^~
+../Core/Src/app_freertos.c(219): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  219 |     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
+      |                 ^~~~~~~~~~
+../Core/Src/app_freertos.c(208): note: expanded from macro 'JSON_State'
+  208 | #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
+      |                                                            ^~
+../Core/Src/app_freertos.c(219): warning: unknown escape sequence '\,' [-Wunknown-escape-sequence]
+  219 |     sprintf(str,JSON_State, 1,gTemRH_Val.Tem,gTemRH_Val.Hum,EleValue);
+      |                 ^~~~~~~~~~
+../Core/Src/app_freertos.c(208): note: expanded from macro 'JSON_State'
+  208 | #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
+      |                                                                                ^~
+3 warnings generated.
 compiling app_freertos.c...
-"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 4 Error(s), 7 Warning(s).
+linking...
+Program Size: Code=294220 RO-data=21344 RW-data=216 ZI-data=453224  
+FromELF: creating hex file...
+"01-1_STM32U575_Software_Config\01-1_STM32U575_Software_Config.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -101,14 +73,13 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_01-1_STM32U575_Software_Config
-  D:/Arm/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+  D:/Keil_v5/Arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Target not created.
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:10
 </pre>
 </body>
 </html>
