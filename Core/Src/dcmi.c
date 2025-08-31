@@ -137,15 +137,15 @@ void HAL_DCMI_MspInit(DCMI_HandleTypeDef* dcmiHandle)
     NodeConfig.Init.SrcInc = DMA_SINC_FIXED;
     NodeConfig.Init.DestInc = DMA_DINC_INCREMENTED;
     NodeConfig.Init.SrcDataWidth = DMA_SRC_DATAWIDTH_WORD;
-    NodeConfig.Init.DestDataWidth = DMA_DEST_DATAWIDTH_WORD;
+    NodeConfig.Init.DestDataWidth = DMA_DEST_DATAWIDTH_BYTE;
     NodeConfig.Init.SrcBurstLength = 1;
-    NodeConfig.Init.DestBurstLength = 1;
+    NodeConfig.Init.DestBurstLength = 2;
     NodeConfig.Init.TransferAllocatedPort = DMA_SRC_ALLOCATED_PORT0|DMA_DEST_ALLOCATED_PORT0;
     NodeConfig.Init.TransferEventMode = DMA_TCEM_BLOCK_TRANSFER;
     NodeConfig.Init.Mode = DMA_NORMAL;
     NodeConfig.TriggerConfig.TriggerPolarity = DMA_TRIG_POLARITY_MASKED;
     NodeConfig.DataHandlingConfig.DataExchange = DMA_EXCHANGE_NONE;
-    NodeConfig.DataHandlingConfig.DataAlignment = DMA_DATA_RIGHTALIGN_ZEROPADDED;
+    NodeConfig.DataHandlingConfig.DataAlignment = DMA_DATA_UNPACK;
     if (HAL_DMAEx_List_BuildNode(&NodeConfig, &Node_GPDMA1_Channel1) != HAL_OK)
     {
       Error_Handler();
@@ -243,7 +243,7 @@ void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
   {
     osSemaphoreRelease(sem_GetPhoto); // 释放图像完成信号量 
     __HAL_DCMI_DISABLE_IT(hdcmi, DCMI_IT_FRAME); // 关闭帧中断
-    //printf("DCMI FrameEventCallback\n");
+    printf("DCMI FrameEventCallback\n");
   }
 }
 

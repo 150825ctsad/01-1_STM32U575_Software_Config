@@ -137,10 +137,9 @@ void OV2640_JPEG_Mode(void)
 void OV2640_RGB565_Mode(void) 
 {
   uint32_t i;
-	//设置:RGB565输出
-	for(i=0;i<(sizeof(OV2640_RGB565)/2);i++)
+  for(i=0;i<(sizeof(change_reg)/2);i++)
 	{
-		i2c_sent(OV2640_RGB565[i][0],OV2640_RGB565[i][1]); 
+		i2c_sent(change_reg[i][0],change_reg[i][1]); 
 	} 
 
   for(i=0;i<(sizeof(OV2640_QQVGA)/2);i++)
@@ -216,7 +215,7 @@ void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat)
 
 void OV2640_Config(void)
 {
-  OV2640_JPEGConfig(JPEG_320x240);
+  //OV2640_JPEGConfig(JPEG_320x240);
   
 	OV2640_BrightnessConfig(0x20);
 	OV2640_AutoExposure(0);

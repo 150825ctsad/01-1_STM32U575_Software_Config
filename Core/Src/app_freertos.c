@@ -95,7 +95,7 @@ osThreadId_t Task1Handle;
 const osThreadAttr_t Task1_attributes = {
   .name = "Task1",
   .priority = (osPriority_t) osPriorityLow,
-  .stack_size = 1024 * 8
+  .stack_size = 1024 * 4
 };
 osThreadId_t Task2Handle;
 const osThreadAttr_t Task2_attributes = {
@@ -106,21 +106,21 @@ const osThreadAttr_t Task2_attributes = {
 osThreadId_t Task3Handle;
 const osThreadAttr_t Task3_attributes = {
   .name = "Task3",
-  .priority = (osPriority_t) osPriorityHigh,
+  .priority = (osPriority_t) osPriorityHigh5,
   .stack_size = 1024 * 4
 };
 //osPriorityHigh
 osThreadId_t Task4Handle;
 const osThreadAttr_t Task4_attributes = {
     .name = "Task4",
-    .priority = (osPriority_t) osPriorityNormal,  
+    .priority = (osPriority_t) osPriorityHigh,  
     .stack_size = 1024 * 16 
 };
 osThreadId_t Task5Handle;
 const osThreadAttr_t Task5_attributes = {
     .name = "Task5",
-    .priority = (osPriority_t) osPriorityHigh,  
-    .stack_size = 1024 * 1 
+    .priority = (osPriority_t) osPriorityNormal,  
+    .stack_size = 1024 * 16 
 };
 
 /* USER CODE END FunctionPrototypes */
@@ -170,7 +170,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
-  Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
+  //Task1Handle = osThreadNew(vTask1, NULL, &Task1_attributes);
   //Task2Handle = osThreadNew(vTask2, NULL, &Task2_attributes);
   Task3Handle = osThreadNew(vTask3, NULL, &Task3_attributes);
   Task4Handle = osThreadNew(vTask4, NULL, &Task4_attributes);
@@ -206,7 +206,6 @@ void StartDefaultTask(void *argument)
 /* USER CODE BEGIN Application */
 //JSON格式
 #define JSON_State "{\\\"LED1\\\":%d\\\,\\\"Temp\\\":%.2f\\\,\\\"Hum\\\":%.2f\\\,\\\"Ele\\\":%.2f}"
-
 
 void vTask1(void *argument)
 {
@@ -259,47 +258,42 @@ void vTask3(void *argument) {
   }
 }
 
-#define pictureBufferLength 1024*2 //2kb //10kb
-static uint32_t JpegBuffer[pictureBufferLength];
+#define pictureBufferLength 1024*8 //2kb //10kb
+static uint8_t JpegBuffer[pictureBufferLength];
 
-static char base64_encoded[(pictureBufferLength * 4) * 4 / 3 + 1024]; // Increased padding
+static char base64_encoded[(pictureBufferLength) * 4 / 3 + 1024]; // Increased padding
 
 void vTask4(void *argument) {
     int pictureLength = pictureBufferLength;
     int byteLength;
     for(;;) {
       //printf("vTask4");
-      
-      if(osSemaphoreAcquire(sem_PhotoTrigger, osWaitForever) == osOK)
+    if(osSemaphoreAcquire(sem_PhotoTrigger, osWaitForever) == osOK)
       {
       OV2640_JPEGConfig(JPEG_320x240);
-      osDelay(10);
         // 启用DCMI帧中断并初始化缓冲区
       __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
       memset((void *)JpegBuffer, 0, sizeof(JpegBuffer));
       HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, (uint32_t)JpegBuffer, pictureBufferLength);
-
       if(osSemaphoreAcquire(sem_GetPhoto , osWaitForever) == osOK)
     {
       HAL_DCMI_Suspend(&hdcmi);
       HAL_DCMI_Stop(&hdcmi);
 
-      OV2640_RGB565_Mode();
-      osDelay(10);
-      
 				while(pictureLength > 0)//循环计算出接收的JPEG的大小
 				{
-					if(JpegBuffer[pictureLength-1] != 0x00000000)
+					if(JpegBuffer[pictureLength-1] != 0x00)
 					{
             //printf("pictureLength:%d\n\n",pictureLength);
             //for(int i = 0;i < pictureLength;i ++)
-            //printf("%08X",JpegBuffer[i]);
+            //printf("%02X",JpegBuffer[i]);
             //printf("\n\n\n");
 						break;
 					}
 					pictureLength--;
 				}
-        byteLength = pictureLength * 4;  // uint32_t -> uint8_t长度转换
+        byteLength = pictureLength;
+      
         //if (byteLength <= 0) {
         //    printf("vTask4: Invalid JPEG data length\n");
         //    continue;
@@ -337,14 +331,106 @@ void vTask4(void *argument) {
   }
 }
 
+#define WIDTH 180
+#define HEIGHT 120
+#define FRAME_SIZE (WIDTH * HEIGHT * 2) // RGB565每个像素占2字节
+
+__attribute__((aligned(32))) uint8_t frameBuffer[FRAME_SIZE];
+
 void vTask5(void *argument)
 {
+  // 设置RGB565模式
   OV2640_RGB565_Mode();
+  osDelay(100); // 给摄像头时间进行模式切换
+  
+  printf("Task5 started - RGB565 mode\r\n");
+  
+  // 检查DCMI状态
+  printf("DCMI state: %d\r\n", hdcmi.State);
+  
   for( ; ; )
   {
-    //printf("vTask5");
-
-
+    printf("Starting frame capture...\r\n");
+    
+    // 确保DCMI处于就绪状态
+    if(hdcmi.State != HAL_DCMI_STATE_READY) {
+      printf("DCMI not ready, state: %d. Resetting...\r\n", hdcmi.State);
+      HAL_DCMI_DeInit(&hdcmi);
+      osDelay(10);
+      if(HAL_DCMI_Init(&hdcmi) != HAL_OK) {
+        printf("DCMI reinit failed!\r\n");
+        osDelay(1000);
+        continue;
+      }
+      printf("DCMI reinit successful\r\n");
+    }
+    
+    // 启用帧中断
+    __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
+    
+    // 用非零值填充缓冲区，便于观察是否被覆盖
+    for(int i = 0; i < FRAME_SIZE; i++) {
+      frameBuffer[i] = (i % 2 == 0) ? 0xAA : 0x55;
+    }
+    
+    // 启动DMA传输（注意：参数是32位字数量）
+    HAL_StatusTypeDef dmaStatus = HAL_DCMI_Start_DMA(&hdcmi, DCMI_MODE_SNAPSHOT, 
+                                                     (uint32_t)frameBuffer, FRAME_SIZE / 4);
+    printf("DMA start status: %d, DCMI state: %d\r\n", dmaStatus, hdcmi.State);
+    
+    if(dmaStatus != HAL_OK) {
+      printf("DMA start failed, retrying...\r\n");
+      osDelay(100);
+      continue;
+    }
+          
+    // 等待捕获完成（带超时）
+    if(osSemaphoreAcquire(sem_GetPhoto, 5000) == osOK)
+    {
+      printf("Frame captured successfully\r\n");
+      
+      // 停止DCMI
+      HAL_DCMI_Suspend(&hdcmi);
+      HAL_DCMI_Stop(&hdcmi);
+      
+      // 检查缓冲区内容
+      int zeroCount = 0;
+      int patternCount = 0;
+      int otherCount = 0;
+      
+      for(int i = 0; i < 100; i++) { // 只检查前100个字节
+        if(frameBuffer[i] == 0) zeroCount++;
+        else if(frameBuffer[i] == 0xAA || frameBuffer[i] == 0x55) patternCount++;
+        else otherCount++;
+      }
+      
+      printf("Buffer analysis (first 100 bytes):\r\n");
+      printf("  Zeros: %d\r\n", zeroCount);
+      printf("  Pattern (0xAA/0x55): %d\r\n", patternCount);
+      printf("  Other values: %d\r\n", otherCount);
+      
+      // 如果有数据，打印前几个像素
+      if(otherCount > 0) {
+        printf("First few pixels:\r\n");
+        for(int i = 0; i < 10; i += 2) {
+          uint16_t pixel = (frameBuffer[i] << 8) | frameBuffer[i+1];
+          printf("0x%04X ", pixel);
+        }
+        printf("\r\n");
+      }
+    }
+    else
+    {
+      printf("Failed to acquire semaphore (timeout)\r\n");
+      // 停止DCMI
+      HAL_DCMI_Suspend(&hdcmi);
+      HAL_DCMI_Stop(&hdcmi);
+      
+      // 检查DCMI错误状态
+      printf("DCMI error code: 0x%08lX\r\n", hdcmi.ErrorCode);
+    }
+    
+    osDelay(1000); // 降低帧率
   }
 }
 /* USER CODE END Application */
