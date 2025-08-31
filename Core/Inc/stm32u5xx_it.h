@@ -54,10 +54,10 @@ void UsageFault_Handler(void);
 void DebugMon_Handler(void);
 void GPDMA1_Channel0_IRQHandler(void);
 void GPDMA1_Channel1_IRQHandler(void);
-void GPDMA1_Channel2_IRQHandler(void);
 void TIM6_IRQHandler(void);
 void SPI1_IRQHandler(void);
 void UART5_IRQHandler(void);
+void GPDMA1_Channel11_IRQHandler(void);
 void DCMI_PSSI_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
