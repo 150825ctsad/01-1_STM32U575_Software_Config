@@ -354,7 +354,7 @@ void vTask2(void *argument)
     };
 
       // 刷新图片 - 使用全局的guider_ui对象
-        lv_img_set_src(guider_ui.image, &camera_img_dsc);
+      lv_img_set_src(guider_ui.image, &camera_img_dsc);
 
         OV2640_RGB565_Mode();
     for( ; ; )
@@ -374,6 +374,7 @@ void vTask2(void *argument)
 //     lv_img_set_src(guider_ui.image, &camera_img_dsc);
 //   }
 // }
+      lv_img_set_src(guider_ui.image, &camera_img_dsc);
 
         //LCD 刷新
         lv_task_handler();
@@ -403,7 +404,7 @@ void vTask3(void *argument) {
   }
 }
 
-#define pictureBufferLength 1024*8 //2kb //10kb
+#define pictureBufferLength 1024*10 //2kb //10kb
 static uint8_t JpegBuffer[pictureBufferLength];
 
 static char base64_encoded[(pictureBufferLength) * 4 / 3 + 1024]; // Increased padding
@@ -416,8 +417,9 @@ void vTask4(void *argument) {
     if(osSemaphoreAcquire(sem_TakePhoto, osWaitForever) == osOK)
       {
       OV2640_JPEG_Mode();
-      OV2640_ImageWin_Set(0,0,320,240);			 
+      OV2640_ImageWin_Set(0,0,1600,1200);			 
 	    OV2640_OutSize_Set(320,240);
+      osDelay(10);
         // 启用DCMI帧中断并初始化缓冲区
       __HAL_DCMI_ENABLE_IT(&hdcmi, DCMI_IT_FRAME);
       memset((void *)JpegBuffer, 0, sizeof(JpegBuffer));
