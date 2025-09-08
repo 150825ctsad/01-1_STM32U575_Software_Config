@@ -1,12 +1,3 @@
-/*
-* Copyright 2025 NXP
-* NXP Proprietary. This software is owned or controlled by NXP and may only be used strictly in
-* accordance with the applicable license terms. By expressly accepting such terms or by downloading, installing,
-* activating and/or otherwise using the software, you are agreeing that you have read, and that you agree to
-* comply with and are bound by, such license terms.  If you do not agree to be bound by the applicable license
-* terms, then you may not retain, install, activate or otherwise use the software.
-*/
-
 #include "lvgl.h"
 #include <stdio.h>
 #include "gui_guider.h"
@@ -26,8 +17,15 @@ void setup_scr_screen(lv_ui *ui)
     //Write style for screen, Part: LV_PART_MAIN, State: LV_STATE_DEFAULT.
     lv_obj_set_style_bg_opa(ui->screen, 0, LV_PART_MAIN|LV_STATE_DEFAULT);
 
-    //Write codes canvas
+    //Write codes image - 添加图片组件
+    ui->image = lv_img_create(ui->screen);
+    lv_obj_set_pos(ui->image, 0, 0);
+    lv_obj_set_size(ui->image, 160, 120);
+    lv_img_set_zoom(ui->image, 256);  // 100% 缩放
+    lv_img_set_pivot(ui->image, 0, 0); // 设置旋转中心
+
+    // 初始化图片为空图片或默认图片
+    lv_img_set_src(ui->image, NULL);
 
     lv_obj_update_layout(ui->screen);
-
 }

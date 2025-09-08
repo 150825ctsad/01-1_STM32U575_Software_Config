@@ -1,8 +1,15 @@
-#ifndef _OV2640_H
-#define _OV2640_H
-#include "stm32u5xx_hal.h"
-#include "cmsis_os2.h"
-/* OV2640 Registers definition when DSP bank selected (0xFF = 0x00) */
+#ifndef _BSP_OV2640_H
+#define _BSP_OV2640_H
+
+#include <stdint.h>
+
+#define OV2640_PWDN  	PGout(9)			//POWER DOWN控制信号 
+#define OV2640_RST  	PGout(15)			//复位控制信号 
+////////////////////////////////////////////////////////////////////////////////// 
+#define OV2640_MID				0X7FA2
+#define OV2640_PID				0X2642
+
+//当选择DSP地址(0XFF=0X00)时,OV2640的DSP寄存器地址映射表
 #define OV2640_DSP_R_BYPASS     0x05
 #define OV2640_DSP_Qs           0x44
 #define OV2640_DSP_CTRL         0x50
@@ -36,9 +43,9 @@
 #define OV2640_DSP_MC_AH        0xFB
 #define OV2640_DSP_MC_D         0xFC
 #define OV2640_DSP_P_STATUS     0xFE
-#define OV2640_DSP_RA_DLMT      0xFF
+#define OV2640_DSP_RA_DLMT      0xFF 
 
-/* OV2640 Registers definition when sensor bank selected (0xFF = 0x01) */
+//当选择传感器地址(0XFF=0X01)时,OV2640的DSP寄存器地址映射表
 #define OV2640_SENSOR_GAIN       0x00
 #define OV2640_SENSOR_COM1       0x03
 #define OV2640_SENSOR_REG04      0x04
@@ -85,71 +92,44 @@
 #define OV2640_SENSOR_REG60      0x60
 #define OV2640_SENSOR_HISTO_LOW  0x61
 #define OV2640_SENSOR_HISTO_HIGH 0x62
-/* Image Sizes enumeration */
 
-const static uint8_t OV2640_AUTOEXPOSURE_LEVEL0[]=
-{
-	0xFF,	0x01,	0xff,
-	0x24,	0x20,	0xff,
-	0x25,	0x18,	0xff,
-	0x26,	0x60,	0xff,
-	0x00,	0x00,	0x00
-};
 
-const static uint8_t OV2640_AUTOEXPOSURE_LEVEL1[]=
-{
-	0xFF,	0x01,	0xff,
-	0x24,	0x34,	0xff,
-	0x25,	0x1c,	0xff,
-	0x26,	0x70,	0xff,
-	0x00,	0x00,	0x00
-};
-const static uint8_t OV2640_AUTOEXPOSURE_LEVEL2[]=
-{
-	0xFF,	0x01,	0xff,
-	0x24,	0x3e,	0xff,
-	0x25,	0x38,	0xff,
-	0x26,	0x81,	0xff,
-	0x00,	0x00,	0x00
-};
-const static uint8_t OV2640_AUTOEXPOSURE_LEVEL3[]=
-{
-	0xFF,	0x01,	0xff,
-	0x24,	0x48,	0xff,
-	0x25,	0x40,	0xff,
-	0x26,	0x81,	0xff,
-	0x00,	0x00,	0x00
-};
-const static uint8_t OV2640_AUTOEXPOSURE_LEVEL4[]=
-{
-	0xFF,	0x01,	0xff,
-	0x24,	0x58,	0xff,
-	0x25,	0x50,	0xff,
-	0x26,	0x92,	0xff,
-	0x00,	0x00,	0x00
-};
-
-typedef enum
-{
-  BMP_QQVGA             =   0x00,	    /* BMP Image QQVGA 160x120 Size */
-  BMP_QVGA              =   0x01,           /* BMP Image QVGA 320x240 Size */
-  JPEG_160x120          =   0x02,	    /* JPEG Image 160x120 Size */
-  JPEG_176x144          =   0x03,	    /* JPEG Image 176x144 Size */
-  JPEG_320x240          =   0x04,	    /* JPEG Image 320x240 Size */
-  JPEG_352x288          =   0x05,	    /* JPEG Image 352x288 Size */
-  JPEG_800x600          =   0x06,	    /* JPEG Image 800x600 Size */
-}ImageFormat_TypeDef;
-
-typedef struct
-{
-  uint8_t Manufacturer_ID1;
-  uint8_t Manufacturer_ID2;
-  uint8_t Version;
-  uint8_t PID;
-}OV2640_IDTypeDef;
-
-void OV2640_Init();
-
+								
+	    				 
+uint8_t OV2640_Init(void);  
+void OV2640_JPEG_Mode(void);
 void OV2640_RGB565_Mode(void);
-void OV2640_JPEGConfig(ImageFormat_TypeDef ImageFormat);
+void OV2640_Auto_Exposure(uint8_t level);
+void OV2640_Light_Mode(uint8_t mode);
+void OV2640_Color_Saturation(uint8_t sat);
+void OV2640_Brightness(uint8_t bright);
+void OV2640_Contrast(uint8_t contrast);
+void OV2640_Special_Effects(uint8_t eft);
+void OV2640_Color_Bar(uint8_t sw);
+void OV2640_Window_Set(uint16_t sx,uint16_t sy,uint16_t width,uint16_t height);
+uint8_t OV2640_OutSize_Set(uint16_t width,uint16_t height);
+uint8_t OV2640_ImageWin_Set(uint16_t offx,uint16_t offy,uint16_t width,uint16_t height);
+uint8_t OV2640_ImageSize_Set(uint16_t width,uint16_t height);
+
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

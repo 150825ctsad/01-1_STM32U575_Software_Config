@@ -252,5 +252,4 @@
   ..\Drivers\LVGL\GUI_APP\generated\widgets_init.h \
   ..\Drivers\LVGL\GUI_APP\custom\custom.h \
   ..\Drivers\LVGL\GUI_APP\generated\guider_customer_fonts\..\gui_guider.h \
-  ..\Core\Inc\bsp_ov2640.h \
-  ..\Middlewares\Third_Party\CMSIS\RTOS2\Include\cmsis_os2.h
+  ..\Core\Inc\bsp_ov2640.h

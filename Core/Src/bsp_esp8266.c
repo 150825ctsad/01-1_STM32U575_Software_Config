@@ -300,7 +300,7 @@ void ESP8266_STA_MQTTClient(void)
 	printf("***************MQTT模式配置完成***************\r\n");
 }
 
-extern osSemaphoreId_t sem_PhotoTrigger;
+extern osSemaphoreId_t sem_TakePhoto;
 
 //Json格式解析
 void ESP8266_Json_Parse(char *pData)
@@ -405,7 +405,7 @@ void ESP8266_Json_Parse(char *pData)
         // 检查是否为"off"或"no"
         if(strcasecmp(photo_value, "off") == 0)
         {
-            osSemaphoreRelease(sem_PhotoTrigger);
+            osSemaphoreRelease(sem_TakePhoto);
         }
     }
     // 释放cJSON内存
