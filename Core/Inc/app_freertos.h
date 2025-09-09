@@ -32,13 +32,8 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "bsp_sht20.h"
 #include "bsp_esp8266.h"
-#include "bsp_ov2640.h"
-#include "bsp_max471.h"
 #include "bsp_ili9341_4line.h"
-
-#include "dcmi.h"
 
 /* USER CODE END Includes */
 

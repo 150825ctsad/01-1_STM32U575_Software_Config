@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "main.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -45,6 +45,7 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
+
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -56,25 +57,18 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define BLUE_LED_Pin GPIO_PIN_13
 #define BLUE_LED_GPIO_Port GPIOC
-#define RST_Pin GPIO_PIN_5
-#define RST_GPIO_Port GPIOA
-#define RELAY_Pin GPIO_PIN_7
-#define RELAY_GPIO_Port GPIOA
-#define TP_INT_Pin GPIO_PIN_0
-#define TP_INT_GPIO_Port GPIOB
-#define LCD_DCX_Pin GPIO_PIN_1
-#define LCD_DCX_GPIO_Port GPIOB
-#define LCD_RST_Pin GPIO_PIN_2
-#define LCD_RST_GPIO_Port GPIOB
-#define RUN_BEEP_Pin GPIO_PIN_15
-#define RUN_BEEP_GPIO_Port GPIOA
-#define PWDN_Pin GPIO_PIN_10
-#define PWDN_GPIO_Port GPIOC
-
-/* USER CODE BEGIN Private defines */
+#define LCD_DCX_Pin GPIO_PIN_4
+#define LCD_DCX_GPIO_Port GPIOA
+#define LCD_RST_Pin GPIO_PIN_8
+#define LCD_RST_GPIO_Port GPIOA
 #define TP_RST_Pin GPIO_PIN_11
 #define TP_RST_GPIO_Port GPIOA
+#define RUN_BEEP_Pin GPIO_PIN_15
+#define RUN_BEEP_GPIO_Port GPIOA
+#define TP_INT_Pin GPIO_PIN_5
+#define TP_INT_GPIO_Port GPIOB
 
+/* USER CODE BEGIN Private defines */
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

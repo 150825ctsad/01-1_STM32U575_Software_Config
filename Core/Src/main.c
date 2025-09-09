@@ -19,12 +19,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os2.h"
-#include "adc.h"
-#include "dcmi.h"
 #include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
-#include "octospi.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -33,11 +30,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "bsp_esp8266.h"
-#include "bsp_sht20.h"
 #include "bsp_ili9341_4line.h"
 #include "bsp_ft6336.h"
-#include "bsp_ospi_w25q128.h"
-#include "bsp_ov2640.h"
 
 #include <string.h>
 
@@ -107,22 +101,6 @@ int fputc(int ch, FILE *f)
 	HAL_UART_Transmit(&huart1, temp, 1, 2);
 	return ch;
 }
-
-  void OSPI_W25Qxx_mmap(void)		//Flash读写测试
-{
-	int32_t OSPI_Status ; 		 //检测标志位
-	//
-	OSPI_Status = OSPI_W25Qxx_MemoryMappedMode(); //配置OSPI为内存映射模式
-	if( OSPI_Status == OSPI_W25Qxx_OK )
-	{
-		printf ("\r\n内存映射模式设置成功>>>>\r\n");		
-	}
-	else
-	{
-		printf ("\r\n内存映射模式设置失败>>>>\r\n");
-		Error_Handler();
-	}	
-}
 void Update_Backlight(uint8_t pDutyRatio)
 {		
 	//参数检查
@@ -175,15 +153,11 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_TIM2_Init();
-  MX_I2C2_Init();
-  MX_OCTOSPI1_Init();
-  MX_DCMI_Init();
   MX_USART3_UART_Init();
-  MX_ADC1_Init();
+  MX_I2C1_Init();
+  MX_USART2_UART_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-  
-  OSPI_W25Qxx_Init();	//初始化W25Q128
-  OSPI_W25Qxx_mmap();
 
   lv_init(); /* lvgl 系统初始化 */
 	lv_port_disp_init();
@@ -191,8 +165,6 @@ int main(void)
 	
 	setup_ui(&guider_ui);
 	events_init(&guider_ui);
-
-	OV2640_Init();
 
   ESP8266_Init(&huart5,(uint8_t *)gRX_BufF,921600);	//ESP8266初始化
   ESP8266_STA_MQTTClient();
@@ -239,9 +211,7 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_MSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_0;

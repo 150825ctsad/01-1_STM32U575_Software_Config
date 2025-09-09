@@ -55,10 +55,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern DMA_NodeTypeDef Node_GPDMA1_Channel1;
-extern DMA_QListTypeDef List_GPDMA1_Channel1;
-extern DMA_HandleTypeDef handle_GPDMA1_Channel1;
-extern DCMI_HandleTypeDef hdcmi;
+extern DMA_NodeTypeDef Node_GPDMA1_Channel0;
+extern DMA_QListTypeDef List_GPDMA1_Channel0;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel0;
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart5;
@@ -181,20 +179,6 @@ void GPDMA1_Channel0_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles GPDMA1 Channel 1 global interrupt.
-  */
-void GPDMA1_Channel1_IRQHandler(void)
-{
-  /* USER CODE BEGIN GPDMA1_Channel1_IRQn 0 */
-
-  /* USER CODE END GPDMA1_Channel1_IRQn 0 */
-  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel1);
-  /* USER CODE BEGIN GPDMA1_Channel1_IRQn 1 */
-
-  /* USER CODE END GPDMA1_Channel1_IRQn 1 */
-}
-
-/**
   * @brief This function handles TIM6 global interrupt.
   */
 void TIM6_IRQHandler(void)
@@ -238,20 +222,6 @@ void UART5_IRQHandler(void)
 		HAL_UART_AbortReceive_IT(&huart5);	
 	}
   /* USER CODE END UART5_IRQn 1 */
-}
-
-/**
-  * @brief This function handles DCMI/PSSI global interrupt.
-  */
-void DCMI_PSSI_IRQHandler(void)
-{
-  /* USER CODE BEGIN DCMI_PSSI_IRQn 0 */
-
-  /* USER CODE END DCMI_PSSI_IRQn 0 */
-  HAL_DCMI_IRQHandler(&hdcmi);
-  /* USER CODE BEGIN DCMI_PSSI_IRQn 1 */
-
-  /* USER CODE END DCMI_PSSI_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
